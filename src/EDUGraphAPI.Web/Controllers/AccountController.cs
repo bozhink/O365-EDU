@@ -133,8 +133,10 @@ namespace EDUGraphAPI.Web.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            EducationRegisterViewModel model = new EducationRegisterViewModel();
-            model.FavoriteColors = Constants.FavoriteColors;
+            EducationRegisterViewModel model = new EducationRegisterViewModel()
+            {
+                FavoriteColors = Constants.FavoriteColors
+            };
             return View(model);
         }
 

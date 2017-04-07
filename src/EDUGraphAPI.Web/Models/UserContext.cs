@@ -42,7 +42,7 @@ namespace EDUGraphAPI.Web.Models
         public bool IsLocalAccount => User != null && User.Id == HttpContext.User.Identity.GetUserId();
 
         /// <summary>
-        /// Is the logged-in acount an Office 365 account
+        /// Is the logged-in account an Office 365 account
         /// </summary>
         public bool IsO365Account => !IsLocalAccount;
 

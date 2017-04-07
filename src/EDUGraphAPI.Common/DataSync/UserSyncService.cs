@@ -42,7 +42,7 @@ namespace EDUGraphAPI.DataSync
             }
             catch (Exception ex)
             {
-                await WriteLogAsync("Faild to sync users. Error: " + ex.Message);
+                await WriteLogAsync("Failed to sync users. Error: " + ex.Message);
             }
         }
 
@@ -53,7 +53,7 @@ namespace EDUGraphAPI.DataSync
                 .ToArrayAsync();
             if (!consentedOrganizations.Any())
             {
-                await WriteLogAsync($"No consented organization found. This synch was canceled.");
+                await WriteLogAsync($"No consented organization found. This sync was canceled.");
                 return;
             }
 
