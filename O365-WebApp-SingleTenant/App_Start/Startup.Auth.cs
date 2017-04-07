@@ -45,16 +45,14 @@ namespace O365_WebApp_SingleTenant
                     Notifications = new OpenIdConnectAuthenticationNotifications()
                     {                       
                         // If there is a code in the OpenID Connect response, redeem it for an access token and refresh token, and store those away.
-                        AuthorizationCodeReceived = (context) =>
+                        AuthorizationCodeReceived = async (context) =>
                         {
                             var code = context.Code;
                             ClientCredential credential = new ClientCredential(SettingsHelper.ClientId, SettingsHelper.AppKey);
                             String signInUserId = context.AuthenticationTicket.Identity.FindFirst(ClaimTypes.NameIdentifier).Value;
 
                             AuthenticationContext authContext = new AuthenticationContext(SettingsHelper.Authority, new ADALTokenCache(signInUserId));
-                            AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, SettingsHelper.AADGraphResourceId);
-
-                            return Task.FromResult(0);
+                            AuthenticationResult result = await authContext.AcquireTokenByAuthorizationCodeAsync(code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, SettingsHelper.AADGraphResourceId);
                         },
                         RedirectToIdentityProvider = (context) =>
                         {
