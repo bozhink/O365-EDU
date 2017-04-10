@@ -2,6 +2,8 @@
 {
     using Ninject.Extensions.Conventions;
     using Ninject.Modules;
+    using Ninject.Web.Common;
+    using Services;
 
     public class NinjectBindings : NinjectModule
     {
@@ -13,6 +15,10 @@
                     .SelectAllClasses()
                     .BindDefaultInterface();
             });
+
+            this.Bind<IAuthProvider>()
+                .To<SampleAuthProvider>()
+                .InRequestScope();
         }
     }
 }

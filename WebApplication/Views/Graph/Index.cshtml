@@ -14,11 +14,11 @@
     
     <p>@Html.Raw(Resource.Graph_GetEmailAddress_Instruction)</p>
     
-    @using (Html.BeginForm("GetMyEmailAddress"))
+    @using (Html.BeginForm("GetMyEmailAddress", "Graph"))
     {
         <div class="col-sm-12">
             <div class="form-group">
-                <button class="btn btn-default" id="get-my-email-address">@Resource.Graph_GetEmailAddress_Button</button>
+                <input type="submit" class="btn btn-default" id="get-my-email-address" value="@Resource.Graph_GetEmailAddress_Button" />
             </div>
         </div>
     }
@@ -37,7 +37,7 @@
     
     <p>@Html.Raw(Resource.Graph_SendMail_Instruction)</p>
     
-    @using (Html.BeginForm("SendEmail"))
+    @using (Html.BeginForm("SendEmail", "Graph"))
     {
         <div class="col-sm-12">
             <div class="form-group">
@@ -49,8 +49,8 @@
                 <input name="subject" type="text" class="form-control" value="@Resource.Graph_SendMail_Subject_Text @Resource.App_Name_Short" @(ViewBag.Email == null ? "disabled" : null) />
             </div>
             <div class="form-group">
-                <button class="btn btn-default @(ViewBag.Email == null ? "disabled" : null)">@Resource.Graph_SendMail_Button</button>
-                <input name="email-address" value=@ViewBag.Email type="hidden" />
+                <input type="submit" class="btn btn-default @(ViewBag.Email == null ? "disabled" : null)" value="@Resource.Graph_SendMail_Button" />
+                <input name="email-address" value="@ViewBag.Email" type="hidden" />
             </div>
         </div>
     }

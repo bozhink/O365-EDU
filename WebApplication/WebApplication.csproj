@@ -248,6 +248,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Constants\ResourceConstants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -268,7 +269,9 @@
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GraphService.cs" />
+    <Compile Include="Services\IAuthProvider.cs" />
     <Compile Include="Services\IGraphService.cs" />
+    <Compile Include="Services\SampleAuthProvider.cs" />
     <Compile Include="Settings\NinjectBindings.cs" />
     <Compile Include="Settings\SettingsHelper.cs" />
     <Compile Include="Startup.cs" />

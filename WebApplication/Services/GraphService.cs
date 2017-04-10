@@ -8,31 +8,25 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Resources;
+using WebApplication.Constants;
 using WebApplication.Models;
 
 namespace WebApplication.Services
 {
     public class GraphService : IGraphService
     {
-        // Get the current user's email address from their profile.
         public async Task<string> GetMyEmailAddress(string accessToken)
         {
-            // Get the current user.
-            // The app only needs the user's email address, so select the mail and userPrincipalName properties.
-            // If the mail property isn't defined, userPrincipalName should map to the email for all account types.
-            string endpoint = "https://graph.microsoft.com/v1.0/me";
-            string queryParameter = "?$select=mail,userPrincipalName";
             var me = new UserInfo();
 
             using (var client = new HttpClient())
             {
-                using (var request = new HttpRequestMessage(HttpMethod.Get, endpoint + queryParameter))
+                string url = ResourceConstants.GraphApiEndpoint + "me?$select=mail,userPrincipalName";
+                using (var request = new HttpRequestMessage(HttpMethod.Get, url))
                 {
                     request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-                    // This header has been added to identify our sample in the Microsoft Graph service. If extracting this code for your project please remove.
-                    request.Headers.Add("SampleID", "aspnet-connect-rest-sample");
                     using (HttpResponseMessage response = await client.SendAsync(request))
                     {
                         if (response.StatusCode == HttpStatusCode.OK)
@@ -50,16 +44,15 @@ namespace WebApplication.Services
         // Send an email message from the current user.
         public async Task<string> SendEmail(string accessToken, MessageRequest email)
         {
-            string endpoint = "https://graph.microsoft.com/v1.0/me/sendMail";
             using (var client = new HttpClient())
             {
-                using (var request = new HttpRequestMessage(HttpMethod.Post, endpoint))
+                string url = ResourceConstants.GraphApiEndpoint + "me/sendMail";
+                using (var request = new HttpRequestMessage(HttpMethod.Post, url))
                 {
                     request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-                    // This header has been added to identify our sample in the Microsoft Graph service. If extracting this code for your project please remove.
-                    request.Headers.Add("SampleID", "aspnet-connect-rest-sample");
                     request.Content = new StringContent(JsonConvert.SerializeObject(email), Encoding.UTF8, "application/json");
+
                     using (HttpResponseMessage response = await client.SendAsync(request))
                     {
                         if (response.IsSuccessStatusCode)
