@@ -238,6 +238,11 @@
     <Compile Include="Models\AdalTokenCache.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ContactViewModel.cs" />
+    <Compile Include="Models\ItemBody.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\MessageRequest.cs" />
+    <Compile Include="Models\Recipient.cs" />
+    <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\SettingsHelper.cs" />
     <Compile Include="Startup.cs" />
