@@ -249,6 +249,8 @@
     <Compile Include="Models\Recipient.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\GraphService.cs" />
+    <Compile Include="Services\IGraphService.cs" />
     <Compile Include="Settings\SettingsHelper.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
