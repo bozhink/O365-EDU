@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,7 @@ namespace Microsoft.Education.Data
 
         [JsonProperty("mailNickname")]
         public string MailNickname { get; set; }
+
         [JsonProperty("extension_fe2174665583431c953114ff7268b7b3_Education_Period")]
         public string Period { get; set; }
 

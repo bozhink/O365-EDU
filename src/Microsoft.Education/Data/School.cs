@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using Newtonsoft.Json;
 
 namespace Microsoft.Education.Data
@@ -28,7 +29,6 @@ namespace Microsoft.Education.Data
 
         [JsonProperty("extension_fe2174665583431c953114ff7268b7b3_Education_SchoolPrincipalEmail")]
         public string Email { get; set; }
-
 
         [JsonProperty("extension_fe2174665583431c953114ff7268b7b3_Education_HighestGrade")]
         public string HighestGrade { get; set; }

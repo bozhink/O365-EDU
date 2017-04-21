@@ -53,11 +53,11 @@
     <Compile Include="EduConstants.cs" />
     <Compile Include="EducationServiceClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="School.cs" />
-    <Compile Include="Section.cs" />
-    <Compile Include="SectionUser.cs" />
-    <Compile Include="Student.cs" />
-    <Compile Include="Teacher.cs" />
+    <Compile Include="Data\School.cs" />
+    <Compile Include="Data\Section.cs" />
+    <Compile Include="Data\SectionUser.cs" />
+    <Compile Include="Data\Student.cs" />
+    <Compile Include="Data\Teacher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
