@@ -108,6 +108,7 @@
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Data\ApplicationUser.cs" />
     <Compile Include="Data\ClassroomSeatingArrangements.cs" />
+    <Compile Include="Data\DatabseInitializer.cs" />
     <Compile Include="Data\DataSyncRecord.cs" />
     <Compile Include="Data\Organization.cs" />
     <Compile Include="Data\UserTokenCache.cs" />

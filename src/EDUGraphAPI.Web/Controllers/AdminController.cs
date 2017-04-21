@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using EDUGraphAPI.Utils;
 using EDUGraphAPI.Web.Infrastructure;
 using EDUGraphAPI.Web.Services;
@@ -18,8 +19,8 @@ namespace EDUGraphAPI.Web.Controllers
     [EduAuthorize(Roles = "Admin"), HandleAdalException]
     public class AdminController : Controller
     {
-        static readonly string StateKey = typeof(AdminController).Name + "State";
-        static readonly string AdminConsentRedirectUrlKey = typeof(AdminController).Name + "AdminConsentRedirectUrl";
+        private static readonly string StateKey = typeof(AdminController).Name + "State";
+        private static readonly string AdminConsentRedirectUrlKey = typeof(AdminController).Name + "AdminConsentRedirectUrl";
 
         private ApplicationService applicationService;
 
@@ -100,7 +101,9 @@ namespace EDUGraphAPI.Web.Controllers
                .Where(i => i.AppId == Constants.AADClientId)
                .ExecuteSingleAsync();
             if (servicePrincipal != null)
+            {
                 await servicePrincipal.DeleteAsync();
+            }
 
             var adminContext = await applicationService.GetAdminContextAsync();
             if (adminContext.Organization != null)
@@ -152,7 +155,7 @@ namespace EDUGraphAPI.Web.Controllers
                .ExecuteSingleAsync();
             if (servicePrincipal == null)
             {
-                TempData["Error"] = "Could not found the service principal. Please provdie the admin consent.";
+                TempData["Error"] = "Could not found the service principal. Please provide the admin consent.";
                 return RedirectToAction("Index");
             }
 
@@ -185,11 +188,15 @@ namespace EDUGraphAPI.Web.Controllers
                     {
                         await userFetcher.AppRoleAssignments.AddAppRoleAssignmentAsync(appRoleAssignment);
                     }
-                    catch { }
+                    catch
+                    {
+                    }
+
                     Interlocked.Increment(ref count);
                 });
                 tasks.Add(task);
             }
+
             Task.WaitAll(tasks.ToArray());
 
             TempData["Message"] = count > 0

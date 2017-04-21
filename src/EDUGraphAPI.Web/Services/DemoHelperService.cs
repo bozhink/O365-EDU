@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using EDUGraphAPI.Web.Models;
 using Newtonsoft.Json;
 using System.IO;
@@ -24,12 +25,16 @@ namespace EDUGraphAPI.Web.Services
                 .Where(i => i.Controller.IgnoreCaseEquals(controller))
                 .Where(i => i.Action.IgnoreCaseEquals(action))
                 .FirstOrDefault();
+
             if (page != null)
             {
                 var sourceCodeRepositoryUrl = Constants.SourceCodeRepositoryUrl.TrimEnd('/');
                 foreach (var link in page.Links)
+                {
                     link.Url = sourceCodeRepositoryUrl + link.Url;
+                }
             }
+
             return page;
         }
     }

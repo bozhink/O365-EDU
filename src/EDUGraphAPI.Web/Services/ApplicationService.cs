@@ -35,9 +35,10 @@ namespace EDUGraphAPI.Web.Services
             this.httpContext = httpContext;
         }
 
-        public ApplicationService(ApplicationDbContext dbContext, ApplicationUserManager userManager) :
-            this(dbContext, userManager, new HttpContextWrapper(HttpContext.Current))
-        { }
+        public ApplicationService(ApplicationDbContext dbContext, ApplicationUserManager userManager)
+            : this(dbContext, userManager, new HttpContextWrapper(HttpContext.Current))
+        {
+        }
 
         /// <summary>
         /// Get current user

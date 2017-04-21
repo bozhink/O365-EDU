@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using EDUGraphAPI.Data;
 using EDUGraphAPI.Web.Models;
 using EDUGraphAPI.Web.ViewModels;
@@ -22,7 +23,7 @@ namespace EDUGraphAPI.Web.Services
         private EducationServiceClient educationServiceClient;
         private ApplicationDbContext dbContext;
 
-        public SchoolsService(EducationServiceClient educationServiceClient,ApplicationDbContext dbContext)
+        public SchoolsService(EducationServiceClient educationServiceClient, ApplicationDbContext dbContext)
         {
             this.educationServiceClient = educationServiceClient;
             this.dbContext = dbContext;
@@ -55,8 +56,10 @@ namespace EDUGraphAPI.Web.Services
                 }
                 else
                 {
-                    if(string.IsNullOrEmpty(schools[i].Zip))
+                    if (string.IsNullOrEmpty(schools[i].Zip))
+                    {
                         schools[i].Address = "-";
+                    }
                 }
             }
 
@@ -67,8 +70,8 @@ namespace EDUGraphAPI.Web.Services
             var myFirstSchool = mySchools.FirstOrDefault();
             var grade = userContext.IsStudent ? currentUser.EducationGrade : myFirstSchool?.EducationGrade;
 
-            var sortedSchools = mySchools
-                .Union(schools.Except(mySchools));
+            var sortedSchools = mySchools.Union(schools.Except(mySchools));
+
             return new SchoolsViewModel(sortedSchools)
             {
                 IsStudent = userContext.IsStudent,
@@ -89,6 +92,7 @@ namespace EDUGraphAPI.Web.Services
             var mySections = await educationServiceClient.GetMySectionsAsync(school.SchoolId);
             mySections = mySections.OrderBy(c => c.CombinedCourseNumber).ToArray();
             var allSections = await educationServiceClient.GetAllSectionsAsync(school.SchoolId, top, null);
+
             return new SectionsViewModel(userContext, school, allSections, mySections);
         }
 
@@ -113,6 +117,7 @@ namespace EDUGraphAPI.Web.Services
             var users = await educationServiceClient.GetMembersAsync(objectId, top, null);
             var students = await educationServiceClient.GetStudentsAsync(school.SchoolId, top, null);
             var teachers = await educationServiceClient.GetTeachersAsync(school.SchoolId, top, null);
+
             return new SchoolUsersViewModel(school, users, students, teachers);
         }
 
@@ -123,6 +128,7 @@ namespace EDUGraphAPI.Web.Services
         {
             var school = await educationServiceClient.GetSchoolAsync(objectId);
             var users = await educationServiceClient.GetMembersAsync(objectId, top, nextLink);
+
             return new SchoolUsersViewModel(school, users, null, null);
         }
 
@@ -133,6 +139,7 @@ namespace EDUGraphAPI.Web.Services
         {
             var school = await educationServiceClient.GetSchoolAsync(objectId);
             var students = await educationServiceClient.GetStudentsAsync(school.SchoolId, top, nextLink);
+
             return new SchoolUsersViewModel(school, null, students, null);
         }
 
@@ -143,6 +150,7 @@ namespace EDUGraphAPI.Web.Services
         {
             var school = await educationServiceClient.GetSchoolAsync(objectId);
             var teachers = await educationServiceClient.GetTeachersAsync(school.SchoolId, top, nextLink);
+
             return new SchoolUsersViewModel(school, null, null, teachers);
         }
 
@@ -154,11 +162,13 @@ namespace EDUGraphAPI.Web.Services
             var school = await educationServiceClient.GetSchoolAsync(schoolId);
             var section = await educationServiceClient.GetSectionAsync(classId);
             var driveRootFolder = await group.Drive.Root.Request().GetAsync();
+
             foreach (var user in section.Students)
             {
-                var seat= dbContext.ClassroomSeatingArrangements.Where(c => c.O365UserId == user.O365UserId && c.ClassId==classId).FirstOrDefault();
+                var seat = dbContext.ClassroomSeatingArrangements.Where(c => c.O365UserId == user.O365UserId && c.ClassId == classId).FirstOrDefault();
                 user.Position = (seat == null ? 0 : seat.Position);
             }
+
             return new SectionDetailsViewModel
             {
                 School = school,
@@ -169,7 +179,7 @@ namespace EDUGraphAPI.Web.Services
                 SeeMoreFilesUrl = driveRootFolder.WebUrl
             };
         }
-        
+
         /// <summary>
         /// Get my classes
         /// </summary>

@@ -7,7 +7,7 @@ namespace EDUGraphAPI.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    public sealed class Configuration : DbMigrationsConfiguration<EDUGraphAPI.Data.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<EDUGraphAPI.Data.ApplicationDbContext>
     {
         public Configuration()
         {

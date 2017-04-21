@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using Microsoft.Education.Data;
 using Microsoft.Graph;
 
@@ -12,7 +13,7 @@ namespace EDUGraphAPI.Web.ViewModels
         public School School { get; set; }
 
         public Section Section { get; set; }
-        
+
         public Conversation[] Conversations { get; set; }
 
         public string SeeMoreConversationsUrl { get; set; }

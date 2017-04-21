@@ -1,19 +1,18 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using EDUGraphAPI.Data;
 using EDUGraphAPI.Web.Infrastructure;
 using EDUGraphAPI.Web.Models;
 using EDUGraphAPI.Web.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.IdentityModel.Protocols;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OpenIdConnect;
 using System;
-using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -28,7 +27,6 @@ namespace EDUGraphAPI.Web.Controllers
         private ApplicationUserManager userManager;
         private CookieService cookieServie;
         private ApplicationService applicationService;
- 
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, CookieService cookieService,
             ApplicationService applicationService)
@@ -37,7 +35,6 @@ namespace EDUGraphAPI.Web.Controllers
             this.signInManager = signInManager;
             this.cookieServie = cookieService;
             this.applicationService = applicationService;
-
         }
 
         //
@@ -67,17 +64,20 @@ namespace EDUGraphAPI.Web.Controllers
             var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
-                case SignInStatus.Success:                   
-                    ApplicationUser user=await applicationService.GetUserByEmailAsync(model.Email);
+                case SignInStatus.Success:
+                    ApplicationUser user = await applicationService.GetUserByEmailAsync(model.Email);
                     if (user != null && !string.IsNullOrEmpty(user.O365Email))
                     {
                         SetCookiesForO365User(user.FullName, user.O365Email);
                     }
                     return RedirectToLocal(returnUrl);
+
                 case SignInStatus.LockedOut:
                     return View("Lockout");
+
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -110,17 +110,19 @@ namespace EDUGraphAPI.Web.Controllers
                 return View(model);
             }
 
-            // The following code protects for brute force attacks against the two factor codes. 
-            // If a user enters incorrect codes for a specified amount of time then the user account 
-            // will be locked out for a specified amount of time. 
+            // The following code protects for brute force attacks against the two factor codes.
+            // If a user enters incorrect codes for a specified amount of time then the user account
+            // will be locked out for a specified amount of time.
             // You can configure the account lockout settings in IdentityConfig
             var result = await signInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(model.ReturnUrl);
+
                 case SignInStatus.LockedOut:
                     return View("Lockout");
+
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid code.");
@@ -211,7 +213,7 @@ namespace EDUGraphAPI.Web.Controllers
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                 // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 // return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
@@ -281,7 +283,7 @@ namespace EDUGraphAPI.Web.Controllers
             Session["AnyName"] = "AnyValue";
 
             // Request a redirect to the external login provider
-            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", 
+            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account",
                 new { ReturnUrl = returnUrl }));
         }
 
@@ -328,7 +330,7 @@ namespace EDUGraphAPI.Web.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
-                // AAD 
+                // AAD
                 var authResult = await AuthenticationManager.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationType);
                 loginInfo = GetExternalLoginInfo(authResult);
             }
@@ -450,22 +452,24 @@ namespace EDUGraphAPI.Web.Controllers
                 TempData["email"] = email;
             }
             else
-                RedirectToAction("Login","Account");
+                RedirectToAction("Login", "Account");
             return View();
         }
+
         private void SetCookiesForO365User(string username, string email)
         {
-
             Response.Cookies.Add(new HttpCookie(Constants.UsernameCookie, username)
             {
-                Expires = DateTime.UtcNow.AddDays(30) 
+                Expires = DateTime.UtcNow.AddDays(30)
             });
             Response.Cookies.Add(new HttpCookie(Constants.EmailCookie, email)
             {
                 Expires = DateTime.UtcNow.AddDays(30)
             });
         }
+
         #region Helpers
+
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -522,6 +526,7 @@ namespace EDUGraphAPI.Web.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
-        #endregion
+
+        #endregion Helpers
     }
 }

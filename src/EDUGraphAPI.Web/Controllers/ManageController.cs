@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using EDUGraphAPI.Data;
 using EDUGraphAPI.Utils;
 using EDUGraphAPI.Web.Infrastructure;
@@ -23,8 +24,12 @@ namespace EDUGraphAPI.Web.Controllers
         private ApplicationUserManager userManager;
         private ApplicationService applicationService;
         private ApplicationDbContext dbContext;
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager,
-            ApplicationService applicationService, ApplicationDbContext dbContext)
+
+        public ManageController(
+            ApplicationUserManager userManager,
+            ApplicationSignInManager signInManager,
+            ApplicationService applicationService,
+            ApplicationDbContext dbContext)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -304,13 +309,14 @@ namespace EDUGraphAPI.Web.Controllers
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
-
         //
         // GET: /Manage/AboutMe
         public async Task<ActionResult> AboutMe(bool? showSaveMessage)
         {
-            var model = new AboutMeViewModel();
-            model.FavoriteColors = Constants.FavoriteColors;
+            var model = new AboutMeViewModel()
+            {
+                FavoriteColors = Constants.FavoriteColors
+            };
 
             var userContext = await applicationService.GetUserContextAsync();
             if (userContext.User == null)
@@ -325,18 +331,23 @@ namespace EDUGraphAPI.Web.Controllers
                 model.MyFavoriteColor = userContext.User.FavoriteColor;
                 model.ShowFavoriteColor = true;
                 if (userContext.IsO365Account && string.IsNullOrEmpty(userContext.User.O365UserId))
+                {
                     model.ShowFavoriteColor = false;
+                }
             }
 
             if (userContext.IsO365Account || userContext.AreAccountsLinked)
             {
                 var educationServiceClient = await AuthenticationHelper.GetEducationServiceClientAsync();
-                var schoolsService = new SchoolsService(educationServiceClient, dbContext); 
+                var schoolsService = new SchoolsService(educationServiceClient, dbContext);
                 model.Groups.AddRange(await schoolsService.GetMyClassesAsync());
             }
 
             if (showSaveMessage == true)
+            {
                 TempData["saveresult"] = "<span class='saveresult'>Favorite color has been updated!</span>";
+            }
+
             return View(model);
         }
 
@@ -350,9 +361,12 @@ namespace EDUGraphAPI.Web.Controllers
                 var userContext = await applicationService.GetUserContextAsync();
                 applicationService.UpdateUserFavoriteColor(favoritecolor);
             }
+
             return RedirectToAction("AboutMe", "Manage", new { showSaveMessage = true });
         }
+
         #region Helpers
+
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -379,6 +393,7 @@ namespace EDUGraphAPI.Web.Controllers
             {
                 return user.PasswordHash != null;
             }
+
             return false;
         }
 
@@ -389,6 +404,7 @@ namespace EDUGraphAPI.Web.Controllers
             {
                 return user.PhoneNumber != null;
             }
+
             return false;
         }
 
@@ -402,6 +418,7 @@ namespace EDUGraphAPI.Web.Controllers
             RemovePhoneSuccess,
             Error
         }
-        #endregion
+
+        #endregion Helpers
     }
 }

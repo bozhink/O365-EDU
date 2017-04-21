@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using EDUGraphAPI.Data;
 using EDUGraphAPI.Utils;
 using EDUGraphAPI.Web.Infrastructure;
@@ -13,27 +14,30 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OpenIdConnect;
 using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity;
 
 namespace EDUGraphAPI.Web.Controllers
 {
     [EduAuthorize, HandleAdalException]
     public class LinkController : Controller
     {
-        static readonly string StateKey = typeof(LinkController).Name + "State";
-        static readonly string UsernameCookie = Constants.UsernameCookie;
-        static readonly string EmailCookie = Constants.EmailCookie;
+        private static readonly string StateKey = typeof(LinkController).Name + "State";
+        private static readonly string UsernameCookie = Constants.UsernameCookie;
+        private static readonly string EmailCookie = Constants.EmailCookie;
 
         private ApplicationService applicationService;
         private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
         private CookieService cookieServie;
 
-        public LinkController(ApplicationService applicationService, ApplicationUserManager userManager, 
-            ApplicationSignInManager signInManager,CookieService cookieServie)
+        public LinkController(
+            ApplicationService applicationService,
+            ApplicationUserManager userManager,
+            ApplicationSignInManager signInManager,
+            CookieService cookieServie)
         {
             this.applicationService = applicationService;
             this.userManager = userManager;
@@ -54,8 +58,11 @@ namespace EDUGraphAPI.Web.Controllers
                 var email = user.Mail ?? user.UserPrincipalName;
 
                 if (await userManager.Users.AnyAsync(i => i.Email == email))
+                {
                     ViewBag.LocalAccountExistedMessage = $"There is a local account: {email} matching your O365 account.";
+                }
             }
+
             return View(userContext);
         }
 
@@ -101,7 +108,7 @@ namespace EDUGraphAPI.Web.Controllers
             var localUser = await applicationService.GetCurrentUserAsync();
             await applicationService.UpdateLocalUserAsync(localUser, user, tenant);
 
-            // Re-sign in user. Required claims (roles, tenent id and user object id) will be added to current user's identity.
+            // Re-sign in user. Required claims (roles, tenant id and user object id) will be added to current user's identity.
             await signInManager.SignInAsync(localUser, isPersistent: false, rememberBrowser: false);
 
             TempData["Message"] = Resources.LinkO365AccountSuccess;
@@ -127,7 +134,7 @@ namespace EDUGraphAPI.Web.Controllers
                 }
                 return View(model);
             }
-            var tenantId = User.GetTenantId();            
+            var tenantId = User.GetTenantId();
             if (localUser.O365UserId.IsNotNullAndEmpty())
             {
                 ModelState.AddModelError("Email", "The local account has already been linked to another Office 365 account.");
@@ -143,6 +150,7 @@ namespace EDUGraphAPI.Web.Controllers
 
             return RedirectToAction("Index", "Schools");
         }
+
         //
         // POST: /Link/LoginLocalPost
         [HttpPost, ActionName("LoginLocal"), ValidateAntiForgeryToken]
@@ -156,11 +164,13 @@ namespace EDUGraphAPI.Web.Controllers
                 ModelState.AddModelError("", "Invalid login attempt.");
                 return View(model);
             }
+
             if (localUser.O365UserId.IsNotNullAndEmpty())
             {
                 ModelState.AddModelError("Email", "The local account has already been linked to another Office 365 account.");
                 return View(model);
             }
+
             if (!await userManager.CheckPasswordAsync(localUser, model.Password))
             {
                 ModelState.AddModelError("", "Invalid login attempt.");
@@ -179,8 +189,6 @@ namespace EDUGraphAPI.Web.Controllers
 
             return RedirectToAction("Index", "Schools");
         }
-
-
 
         //
         // GET: /Link/CreateLocalAccount
@@ -264,7 +272,6 @@ namespace EDUGraphAPI.Web.Controllers
 
         private void SetCookiesForO365User(string username, string email)
         {
-
             Response.Cookies.Add(new HttpCookie(Constants.UsernameCookie, username)
             {
                 Expires = DateTime.UtcNow.AddDays(30)

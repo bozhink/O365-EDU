@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OpenIdConnect;
@@ -20,7 +21,10 @@ namespace EDUGraphAPI.Web.Infrastructure
 
         public void OnException(ExceptionContext filterContext)
         {
-            if (!(filterContext.Exception is AdalException)) return;
+            if (!(filterContext.Exception is AdalException))
+            {
+                return;
+            }
 
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
@@ -42,8 +46,8 @@ namespace EDUGraphAPI.Web.Infrastructure
                 var redirectTo = "/Link/LoginO365Required?returnUrl=" + Uri.EscapeDataString(requestUrl);
                 filterContext.Result = new RedirectResult(redirectTo);
             }
-            filterContext.ExceptionHandled = true;
 
+            filterContext.ExceptionHandled = true;
         }
     }
 }

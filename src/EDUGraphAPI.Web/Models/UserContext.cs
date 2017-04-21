@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using EDUGraphAPI.Data;
 using Microsoft.AspNet.Identity;
 using System.Web;
@@ -57,7 +58,7 @@ namespace EDUGraphAPI.Web.Models
         public bool IsFaculty => HttpContext.User.IsInRole(Constants.Roles.Faculty);
 
         /// <summary>
-        /// Is the logged-in user a student 
+        /// Is the logged-in user a student
         /// </summary>
         public bool IsStudent => HttpContext.User.IsInRole(Constants.Roles.Student);
 

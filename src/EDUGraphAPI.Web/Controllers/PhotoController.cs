@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using EDUGraphAPI.Utils;
 using EDUGraphAPI.Web.Infrastructure;
 using Microsoft.Graph;
@@ -21,7 +22,10 @@ namespace EDUGraphAPI.Web.Controllers
         {
             var client = await AuthenticationHelper.GetGraphServiceClientAsync(Permissions.Application);
             var stream = await GetUserPhotoStreamAsync(client, id);
-            if (stream != null) return File(stream, "image/jpeg");
+            if (stream != null)
+            {
+                return File(stream, "image/jpeg");
+            }
 
             return File(Server.MapPath("/Content/Images/DefaultUserPhoto.jpg"), "image/jpeg");
         }

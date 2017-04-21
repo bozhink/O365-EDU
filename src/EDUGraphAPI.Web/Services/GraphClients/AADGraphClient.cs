@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using EDUGraphAPI.Web.Models;
 using Microsoft.Azure.ActiveDirectory.GraphClient;
 using System.Collections.Generic;
@@ -49,12 +50,22 @@ namespace EDUGraphAPI.Web.Services.GraphClients
         {
             var roles = new List<string>();
             var directoryAdminRole = await GetDirectoryAdminRoleAsync();
+
             if (await directoryAdminRole.Members.AnyAsync(i => i.ObjectId == user.ObjectId))
+            {
                 roles.Add(Constants.Roles.Admin);
+            }
+
             if (user.AssignedLicenses.Any(i => i.SkuId == Constants.O365ProductLicenses.Faculty || i.SkuId == Constants.O365ProductLicenses.FacultyPro))
+            {
                 roles.Add(Constants.Roles.Faculty);
+            }
+
             if (user.AssignedLicenses.Any(i => i.SkuId == Constants.O365ProductLicenses.Student || i.SkuId == Constants.O365ProductLicenses.StudentPro))
+            {
                 roles.Add(Constants.Roles.Student);
+            }
+
             return roles.ToArray();
         }
 

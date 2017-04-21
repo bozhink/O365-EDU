@@ -28,10 +28,12 @@
             if (User.IsInRole(Constants.Roles.Admin))
             {
                 displayRole = "Admin";
-            }else if (User.IsInRole(Constants.Roles.Faculty))
+            }
+            else if (User.IsInRole(Constants.Roles.Faculty))
             {
                 displayRole = "Teacher";
-            }else if (User.IsInRole(Constants.Roles.Student))
+            }
+            else if (User.IsInRole(Constants.Roles.Student))
             {
                 displayRole = "Student";
             }

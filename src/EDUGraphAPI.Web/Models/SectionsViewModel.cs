@@ -1,12 +1,13 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
-using System.Collections.Generic;
-using System.Linq;
+
+using EDUGraphAPI.Web.Models;
 using Microsoft.Education;
 using Microsoft.Education.Data;
-using EDUGraphAPI.Web.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EDUGraphAPI.Web.ViewModels
 {
@@ -35,6 +36,7 @@ namespace EDUGraphAPI.Web.ViewModels
         public List<Section> MySections { get; set; }
 
         public UserContext UserContext { get; set; }
+
         public bool IsMy(Section section)
         {
             return MySections != null && MySections.Any(c => c.Email == section.Email);

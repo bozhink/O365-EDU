@@ -10,7 +10,12 @@ namespace EDUGraphAPI.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(string nameOrConnectionString = "DefaultConnection")
+        public ApplicationDbContext()
+            : this("DefaultConnection")
+        {
+        }
+
+        public ApplicationDbContext(string nameOrConnectionString)
             : base(nameOrConnectionString, throwIfV1Schema: false)
         {
         }

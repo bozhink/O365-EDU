@@ -15,7 +15,9 @@ namespace EDUGraphAPI.Web.Infrastructure
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             if (filterContext.HttpContext.Request.IsAjaxRequest())
+            {
                 filterContext.Result = new JsonResult { Data = new { error = "Unauthorized" } };
+            }
             else
             {
 
@@ -23,9 +25,13 @@ namespace EDUGraphAPI.Web.Infrastructure
                 string username = cookieServie.GetCookiesOfUsername();
                 string email = cookieServie.GetCookiesOfEmail();
                 if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(email))
+                {
                     filterContext.Result = new RedirectResult("/Account/O365login");
+                }
                 else
+                {
                     filterContext.Result = new RedirectResult("/Account/Login");
+                }
 
             }
         }

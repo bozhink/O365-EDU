@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using EDUGraphAPI.Data;
 using EDUGraphAPI.Utils;
 using EDUGraphAPI.Web.Infrastructure;
@@ -35,12 +36,13 @@ namespace EDUGraphAPI.Web.Controllers
             var userContext = await applicationService.GetUserContextAsync();
             if (!userContext.AreAccountsLinked)
             {
-                return View(new SchoolsViewModel() { AreAccountsLinked = false,IsLocalAccount = userContext.IsLocalAccount });
+                return View(new SchoolsViewModel() { AreAccountsLinked = false, IsLocalAccount = userContext.IsLocalAccount });
             }
+
             var schoolsService = await GetSchoolsServiceAsync();
             var model = await schoolsService.GetSchoolsViewModelAsync(userContext);
             model.AreAccountsLinked = userContext.AreAccountsLinked;
-            
+
             return View(model);
         }
 
@@ -74,6 +76,7 @@ namespace EDUGraphAPI.Web.Controllers
                     section.TermEndDate = Convert.ToDateTime(section.TermEndDate).ToString("yyyy-MM-ddTHH:mm:ss");
                 }
             }
+
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
@@ -127,7 +130,7 @@ namespace EDUGraphAPI.Web.Controllers
             model.IsStudent = userContext.IsStudent;
             model.O365UserId = userContext.User.O365UserId;
             model.MyFavoriteColor = userContext.User.FavoriteColor;
-            
+
             return View(model);
         }
 
@@ -139,7 +142,7 @@ namespace EDUGraphAPI.Web.Controllers
             await applicationService.SaveSeatingArrangements(seatingArrangements);
             return Json("");
         }
-        
+
         private async Task<SchoolsService> GetSchoolsServiceAsync()
         {
             var educationServiceClient = await AuthenticationHelper.GetEducationServiceClientAsync();
