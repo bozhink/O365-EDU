@@ -14,6 +14,8 @@ namespace EDUGraphAPI
 {
     public static class AADGraphExtensions
     {
+        private const int MaximalNumberOfProcessedPages = 100;
+
         public static async Task<IUser[]> ExecuteAllAsync(this IUserCollection collection)
         {
             var pagedCollection = await collection.ExecuteAsync();
@@ -30,8 +32,10 @@ namespace EDUGraphAPI
         {
             var list = new List<T>();
 
+            int counter = 0;
+
             var c = collection;
-            while (true)
+            while (counter++ < MaximalNumberOfProcessedPages)
             {
                 list.AddRange(c.CurrentPage);
                 if (c.MorePagesAvailable)

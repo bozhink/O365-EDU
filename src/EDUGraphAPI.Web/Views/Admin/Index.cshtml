@@ -60,9 +60,14 @@ else
         <p>Click the button below to enable access to all your tenant users.</p>
         @using (Html.BeginForm("AddAppRoleAssignments", null, FormMethod.Post, null))
         {
-            <p class="form-group">
+            <div class="form-group">
+                <label for="userName">User Name (student, teacher, etc.) (e-mail):</label>
+                <input id="userName" name="userName" type="text" class="form-control" />
+            </div>
+
+            <div class="form-group">
                 <input type="submit" value="Enable User Access" class="btn btn-default" />
-            </p>
+            </div>
         }
         <p>Note: The App will take a while to effect.</p>
     </div>

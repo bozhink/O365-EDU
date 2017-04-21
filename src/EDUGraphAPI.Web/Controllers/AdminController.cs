@@ -9,6 +9,7 @@ using EDUGraphAPI.Web.Services;
 using EDUGraphAPI.Web.Services.GraphClients;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -145,7 +146,7 @@ namespace EDUGraphAPI.Web.Controllers
 
         //
         // POST: /Admin/AddAppRoleAssignments
-        [HttpPost]
+        [HttpPost, ActionName("__FakeActionNameUsedToConvertActionToNonAccessible__")]
         public async Task<ActionResult> AddAppRoleAssignments()
         {
             var client = await AuthenticationHelper.GetActiveDirectoryClientAsync(Permissions.Delegated);
@@ -202,6 +203,78 @@ namespace EDUGraphAPI.Web.Controllers
             TempData["Message"] = count > 0
                 ? $"User access was successfully enabled for {count} user(s)."
                 : "User access was enabled for all users.";
+            return RedirectToAction("Index");
+        }
+
+        //
+        // POST: /Admin/AddAppRoleAssignments
+        [HttpPost]
+        public async Task<ActionResult> AddAppRoleAssignments(string userName)
+        {
+            if (string.IsNullOrWhiteSpace(userName))
+            {
+                TempData["Error"] = $"Invalid User Name {userName}";
+                return RedirectToAction("Index");
+            }
+
+            var client = await AuthenticationHelper.GetActiveDirectoryClientAsync(Permissions.Delegated);
+
+            var servicePrincipal = await client.ServicePrincipals
+               .Where(i => i.AppId == Constants.AADClientId)
+               .ExecuteSingleAsync();
+
+            if (servicePrincipal == null)
+            {
+                TempData["Error"] = "Could not found the service principal. Please provide the admin consent.";
+                return RedirectToAction("Index");
+            }
+
+            int count = 0;
+            var tasks = new List<Task>();
+            var resourceId = new Guid(servicePrincipal.ObjectId);
+
+            var pageCollection = await client.Users
+                .Where(u => u.UserPrincipalName == userName)
+                .ExecuteAsync();
+
+            var users = pageCollection.CurrentPage.ToList();
+
+            foreach (var user in users)
+            {
+                var task = Task.Run(async () =>
+                {
+                    if (await user.AppRoleAssignments.AnyAsync(i => i.ResourceId == resourceId)) return;
+
+                    // https://github.com/microsoftgraph/microsoft-graph-docs/blob/master/api-reference/beta/resources/approleassignment.md
+                    var appRoleAssignment = new AAD.AppRoleAssignment
+                    {
+                        CreationTimestamp = DateTime.UtcNow,
+                        //Id = Guid.Empty,
+                        PrincipalDisplayName = user.DisplayName,
+                        PrincipalId = new Guid(user.ObjectId),
+                        PrincipalType = "User",
+                        ResourceId = resourceId,
+                        ResourceDisplayName = servicePrincipal.DisplayName
+                    };
+                    var userFetcher = client.Users.GetByObjectId(user.ObjectId);
+                    try
+                    {
+                        await userFetcher.AppRoleAssignments.AddAppRoleAssignmentAsync(appRoleAssignment);
+                    }
+                    catch
+                    {
+                    }
+
+                    Interlocked.Increment(ref count);
+                });
+                tasks.Add(task);
+            }
+
+            Task.WaitAll(tasks.ToArray());
+
+            TempData["Message"] = count > 0
+                ? $"User access was successfully enabled for {count} user(s)."
+                : $"User access was enabled for all users with user name like {userName}.";
             return RedirectToAction("Index");
         }
     }
