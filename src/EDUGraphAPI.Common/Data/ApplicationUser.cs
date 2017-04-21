@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,9 +22,9 @@ namespace EDUGraphAPI.Data
 
         public int? OrganizationId { get; set; }
 
-        [ForeignKey("OrganizationId")]
+        [ForeignKey(nameof(ApplicationUser.OrganizationId))]
         public virtual Organization Organization { get; set; }
-        
+
         public string O365UserId { get; set; }
 
         public string O365Email { get; set; }
@@ -42,19 +43,32 @@ namespace EDUGraphAPI.Data
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            if (Organization != null)
+
+            if (this.Organization != null)
+            {
                 userIdentity.AddTenantIdClaim(Organization.TenantId);
+            }
 
-            if (O365UserId != null)
+            if (this.O365UserId != null)
+            {
                 userIdentity.AddObjectIdentifierClaim(O365UserId);
+            }
 
-            if (FirstName.IsNotNullAndEmpty())
-                userIdentity.AddClaim(ClaimTypes.GivenName, FirstName);
-            if (LastName.IsNotNullAndEmpty())
+            if (this.FirstName.IsNotNullAndEmpty())
+            {
+                userIdentity.AddClaim(ClaimTypes.GivenName, this.FirstName);
+            }
+
+            if (this.LastName.IsNotNullAndEmpty())
+            {
                 userIdentity.AddClaim(ClaimTypes.Surname, LastName);
+            }
 
             var roles = await manager.GetRolesAsync(Id);
-            foreach (var role in roles) userIdentity.AddClaim(ClaimTypes.Role, role);
+            foreach (var role in roles)
+            {
+                userIdentity.AddClaim(ClaimTypes.Role, role);
+            }
 
             return userIdentity;
         }

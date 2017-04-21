@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,7 +91,11 @@ namespace EDUGraphAPI
 
         public static IEnumerable<T> ForEach<T>(this IEnumerable<T> source, Action<T> action)
         {
-            foreach (var item in source) action(item);
+            foreach (var item in source)
+            {
+                action(item);
+            }
+
             return source;
         }
     }

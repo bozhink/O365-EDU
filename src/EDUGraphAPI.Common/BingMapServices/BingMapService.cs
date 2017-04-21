@@ -1,26 +1,21 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
-using Microsoft.Education.Data;
+
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Configuration;
 
 namespace EDUGraphAPI
 {
     public class BingMapService
     {
-        private string BingMapApiURL = 
-            "http://dev.virtualearth.net/REST/v1/Locations/US/{0}?output=json&key="+ WebConfigurationManager.AppSettings["BingMapKey"];
-
+        private string BingMapApiURL =
+            "http://dev.virtualearth.net/REST/v1/Locations/US/{0}?output=json&key=" + WebConfigurationManager.AppSettings["BingMapKey"];
 
         /// <summary>
         /// Get longitude and latitude based on address.
@@ -30,7 +25,7 @@ namespace EDUGraphAPI
         /// <returns></returns>
         public async Task<List<string>> GetLongitudeAndLatitudeByAddress(string address)
         {
-            List<string> result =new List<string>(2) ;
+            List<string> result = new List<string>(2);
             var client = new HttpClient();
             var uri = string.Format(BingMapApiURL, address);
             try
@@ -45,6 +40,7 @@ namespace EDUGraphAPI
             catch
             {
             }
+
             return result;
         }
     }

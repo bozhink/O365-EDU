@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
@@ -49,14 +50,22 @@ namespace EDUGraphAPI
 
             return list.ToArray();
         }
-        
+
         private static async Task<bool> AnyAsync<TItem>(ICollectionPage<TItem> collectionPage, Func<TItem, bool> predicate)
         {
             dynamic page = collectionPage;
             while (true)
             {
-                if (Enumerable.Any(page.CurrentPage, predicate)) return true;
-                if (page.NextPageRequest == null) return false;
+                if (Enumerable.Any(page.CurrentPage, predicate))
+                {
+                    return true;
+                }
+
+                if (page.NextPageRequest == null)
+                {
+                    return false;
+                }
+
                 page = await page.NextPageRequest.GetAsync();
             }
         }

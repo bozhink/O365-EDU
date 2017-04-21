@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using Microsoft.Azure.ActiveDirectory.GraphClient;
 using Microsoft.Azure.ActiveDirectory.GraphClient.Extensions;
 using System;
@@ -24,7 +25,6 @@ namespace EDUGraphAPI
             var pagedCollection = await collection.ExecuteAsync();
             return await ExecuteAllAsync(pagedCollection);
         }
-        
 
         public static async Task<T[]> ExecuteAllAsync<T>(this IPagedCollection<T> collection)
         {
@@ -34,9 +34,16 @@ namespace EDUGraphAPI
             while (true)
             {
                 list.AddRange(c.CurrentPage);
-                if (c.MorePagesAvailable) c = await c.GetNextPageAsync();
-                else break;
+                if (c.MorePagesAvailable)
+                {
+                    c = await c.GetNextPageAsync();
+                }
+                else
+                {
+                    break;
+                }
             }
+
             return list.ToArray();
         }
 
@@ -51,9 +58,19 @@ namespace EDUGraphAPI
             var c = collection;
             while (true)
             {
-                if (c.CurrentPage.Any(predicate)) return true;
-                if (c.MorePagesAvailable) c = await c.GetNextPageAsync();
-                else break;
+                if (c.CurrentPage.Any(predicate))
+                {
+                    return true;
+                }
+
+                if (c.MorePagesAvailable)
+                {
+                    c = await c.GetNextPageAsync();
+                }
+                else
+                {
+                    break;
+                }
             }
             return false;
         }

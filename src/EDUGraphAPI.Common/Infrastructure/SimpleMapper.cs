@@ -24,10 +24,16 @@ namespace EDUGraphAPI.Web.Infrastructure
             foreach (var property in properties)
             {
                 var sourceProperty = sourceProperties.FirstOrDefault(i => i.Name == property);
-                if (sourceProperty == null || !sourceProperty.GetMethod.IsPublic) continue;
+                if (sourceProperty == null || !sourceProperty.GetMethod.IsPublic)
+                {
+                    continue;
+                }
 
                 var targetProperty = targetProperties.FirstOrDefault(i => i.Name == property);
-                if (targetProperty == null || !targetProperty.SetMethod.IsPublic) continue;
+                if (targetProperty == null || !targetProperty.SetMethod.IsPublic)
+                {
+                    continue;
+                }
 
                 var value = sourceProperty.GetValue(source);
                 targetProperty.SetValue(target, value);

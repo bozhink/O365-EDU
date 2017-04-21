@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using EDUGraphAPI.Infrastructure;
 using EDUGraphAPI.Models;
 using Microsoft.Azure.ActiveDirectory.GraphClient;
@@ -22,6 +23,7 @@ namespace EDUGraphAPI.Utils
         /// The client accesses the web API as the signed-in user.
         /// </summary>
         Delegated,
+
         /// <summary>
         /// The client accesses the web API directly as itself (no user context).
         /// </summary>
@@ -101,17 +103,19 @@ namespace EDUGraphAPI.Utils
             var context = GetAuthenticationContext(ClaimsPrincipal.Current.Identity as ClaimsIdentity, permissions);
             var clientCredential = new ClientCredential(Constants.AADClientId, Constants.AADClientSecret);
 
-            if (permissions == Permissions.Delegated)
+            switch (permissions)
             {
-                var userObjectId = ClaimsPrincipal.Current.GetObjectIdentifier();
-                var userIdentifier = new UserIdentifier(userObjectId, UserIdentifierType.UniqueId);
-                return await context.AcquireTokenSilentAsync(resource, clientCredential, userIdentifier);
-            }
-            else if (permissions == Permissions.Application)
-                return await context.AcquireTokenAsync(resource, clientCredential);
+                case Permissions.Delegated:
+                    var userObjectId = ClaimsPrincipal.Current.GetObjectIdentifier();
+                    var userIdentifier = new UserIdentifier(userObjectId, UserIdentifierType.UniqueId);
+                    return await context.AcquireTokenSilentAsync(resource, clientCredential, userIdentifier);
 
-            else
-                throw new NotImplementedException();
+                case Permissions.Application:
+                    return await context.AcquireTokenAsync(resource, clientCredential);
+
+                default:
+                    throw new NotImplementedException();
+            }
         }
 
         /// <summary>

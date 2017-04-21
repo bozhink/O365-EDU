@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using System;
 
 namespace EDUGraphAPI.Utils
@@ -20,14 +21,20 @@ namespace EDUGraphAPI.Utils
 
         public static string GetUrl(string redirectUrl, string state, string resource, string prompt = null)
         {
-            var url = string.Format("{0}oauth2/authorize?response_type=code&client_id={1}&resource={2}&redirect_uri={3}&state={4}",
+            var url = string.Format(
+                "{0}oauth2/authorize?response_type=code&client_id={1}&resource={2}&redirect_uri={3}&state={4}",
                 Constants.Authority,
                 Uri.EscapeDataString(Constants.AADClientId),
                 Uri.EscapeDataString(resource),
                 Uri.EscapeDataString(redirectUrl),
                 Uri.EscapeDataString(state)
             );
-            if (prompt.IsNotNullAndEmpty()) url += "&prompt=" + Uri.EscapeDataString(prompt);
+
+            if (prompt.IsNotNullAndEmpty())
+            {
+                url += "&prompt=" + Uri.EscapeDataString(prompt);
+            }
+
             return url;
         }
     }

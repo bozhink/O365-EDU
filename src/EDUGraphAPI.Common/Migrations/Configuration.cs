@@ -1,7 +1,8 @@
-/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 namespace EDUGraphAPI.Migrations
 {
     using System.Data.Entity.Migrations;
@@ -10,14 +11,20 @@ namespace EDUGraphAPI.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            this.AutomaticMigrationsEnabled = true;
+
+#if DEBUG
+            this.AutomaticMigrationDataLossAllowed = true;
+#endif
+
+            this.ContextType = typeof(EDUGraphAPI.Data.ApplicationDbContext);
         }
 
         protected override void Seed(EDUGraphAPI.Data.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data. E.g.
             //
             //    context.People.AddOrUpdate(

@@ -204,7 +204,7 @@ namespace EDUGraphAPI.Web.Services
 
             // Remove token caches
             var caches = await dbContext.UserTokenCacheList
-                .Where(i => i.webUserUniqueId == user.O365UserId)
+                .Where(i => i.WebUserUniqueId == user.O365UserId)
                 .ToArrayAsync();
             dbContext.UserTokenCacheList.RemoveRange(caches);
 

@@ -1,7 +1,8 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using EDUGraphAPI.Data;
 using EDUGraphAPI.DifferentialQuery;
 using EDUGraphAPI.Web.Infrastructure;
@@ -51,6 +52,7 @@ namespace EDUGraphAPI.DataSync
             var consentedOrganizations = await dbContext.Organizations
                 .Where(i => i.IsAdminConsented)
                 .ToArrayAsync();
+
             if (!consentedOrganizations.Any())
             {
                 await WriteLogAsync($"No consented organization found. This sync was canceled.");
@@ -133,7 +135,9 @@ namespace EDUGraphAPI.DataSync
                     await WriteLogAsync("Updated user {0}. Changed properties: {1}", user.O365Email, string.Join(", ", differentialUser.ModifiedPropertyNames));
                 }
                 else
+                {
                     await WriteLogAsync("Skipped updating user {0}, because the properties that changed are not included in the local database.", differentialUser.Entity.ObjectId);
+                }
             }
             else
             {
