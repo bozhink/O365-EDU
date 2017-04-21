@@ -52,7 +52,6 @@
     <Compile Include="ArrayResult.cs" />
     <Compile Include="EduConstants.cs" />
     <Compile Include="EducationServiceClient.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="School.cs" />
     <Compile Include="Section.cs" />
