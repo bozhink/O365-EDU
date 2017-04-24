@@ -23,20 +23,20 @@ Import-PSSession $Session
 Connect-MsolService -credential $cred
 
 #Get All Sections potentially in the GAL
-$Sections = Get-UnifiedGroup –ResultSize Unlimited | ? {$_.Name –like “Section_*”} 
+$Sections = Get-UnifiedGroup –ResultSize Unlimited | ? {$_.Name –like "Section_*"} 
 
 #Run Foreach loop against each section
 Foreach ($Section in $Sections) {
 
-	#Tag the variable for use in the set cmd
-	$Addr = $Section.PrimarySmtpAddress
-	$DN = $Section.Displayname
+    #Tag the variable for use in the set cmd
+    $Addr = $Section.PrimarySmtpAddress
+    $DN = $Section.Displayname
 	
-	#Write Progress
-	Write-Host -foregroundcolor green "Setting hidden attribute on group $DN"
+    #Write Progress
+    Write-Host -foregroundcolor green "Setting hidden attribute on group $DN"
 
-	#Set the group as hidden
-	Set-UnifiedGroup -Identity $Addr -HiddenFromAddressListsEnabled $true -warningaction:silentlycontinue
+    #Set the group as hidden
+    Set-UnifiedGroup -Identity $Addr -HiddenFromAddressListsEnabled $true -warningaction:silentlycontinue
 }
 
 Write-Host -foregroundcolor green "Script Complete"

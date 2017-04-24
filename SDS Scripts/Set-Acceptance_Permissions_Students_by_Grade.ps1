@@ -65,114 +65,114 @@ $DDNk = $DDLk.DisplayName
 #Start Foearch loop against the initial export
 Foreach ($User in $Users) {
 
-	#set user variables
-	$Dept = $User.department
-	$DN = $User.DisplayName
-	$ObjID = $User.ObjectID
+    #set user variables
+    $Dept = $User.department
+    $DN = $User.DisplayName
+    $ObjID = $User.ObjectID
 
-	If ($Dept -eq "1") {
-		#Write Progress
-		Write-Host -ForegroundColor Green "Adding $DDN1 to $DN acceptance list"
+    If ($Dept -eq "1") {
+        #Write Progress
+        Write-Host -ForegroundColor Green "Adding $DDN1 to $DN acceptance list"
 
-		#Set the permissions
-		Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add=$DDA1}
-	}
+        #Set the permissions
+        Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add = $DDA1}
+    }
 
-	If ($Dept -eq "2") {
-		#Write Progress
-		Write-Host -ForegroundColor Green "Adding $DDN2 to $DN acceptance list"
+    If ($Dept -eq "2") {
+        #Write Progress
+        Write-Host -ForegroundColor Green "Adding $DDN2 to $DN acceptance list"
 
-		#Set the permissions
-		Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add=$DDA2}
-	}
+        #Set the permissions
+        Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add = $DDA2}
+    }
 
-	If ($Dept -eq "3") {
-		#Write Progress
-		Write-Host -ForegroundColor Green "Adding $DDN3 to $DN acceptance list"
+    If ($Dept -eq "3") {
+        #Write Progress
+        Write-Host -ForegroundColor Green "Adding $DDN3 to $DN acceptance list"
 
-		#Set the permissions
-		Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add=$DDA3}
-	}
+        #Set the permissions
+        Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add = $DDA3}
+    }
 
-	If ($Dept -eq "4") {
-		#Write Progress
-		Write-Host -ForegroundColor Green "Adding $DDN4 to $DN acceptance list"
+    If ($Dept -eq "4") {
+        #Write Progress
+        Write-Host -ForegroundColor Green "Adding $DDN4 to $DN acceptance list"
 
-		#Set the permissions
-		Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add=$DDA4}
-	}
+        #Set the permissions
+        Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add = $DDA4}
+    }
 
-	If ($Dept -eq "5") {
-		#Write Progress
-		Write-Host -ForegroundColor Green "Adding $DDN5 to $DN acceptance list"
+    If ($Dept -eq "5") {
+        #Write Progress
+        Write-Host -ForegroundColor Green "Adding $DDN5 to $DN acceptance list"
 
-		#Set the permissions
-		Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add=$DDA5}
-	}
+        #Set the permissions
+        Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add = $DDA5}
+    }
 
-	If ($Dept -eq "6") {
-		#Write Progress
-		Write-Host -ForegroundColor Green "Adding $DDN6 to $DN acceptance list"
+    If ($Dept -eq "6") {
+        #Write Progress
+        Write-Host -ForegroundColor Green "Adding $DDN6 to $DN acceptance list"
 
-		#Set the permissions
-		Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add=$DDA6}
-	}
+        #Set the permissions
+        Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add = $DDA6}
+    }
 
-	If ($Dept -eq "7") {
-		#Write Progress
-		Write-Host -ForegroundColor Green "Adding $DDN7 to $DN acceptance list"
+    If ($Dept -eq "7") {
+        #Write Progress
+        Write-Host -ForegroundColor Green "Adding $DDN7 to $DN acceptance list"
 
-		#Set the permissions
-		Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add=$DDA7}
-	}
+        #Set the permissions
+        Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add = $DDA7}
+    }
 
-	If ($Dept -eq "8") {
-		#Write Progress
-		Write-Host -ForegroundColor Green "Adding $DDN8 to $DN acceptance list"
+    If ($Dept -eq "8") {
+        #Write Progress
+        Write-Host -ForegroundColor Green "Adding $DDN8 to $DN acceptance list"
 
-		#Set the permissions
-		Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add=$DDA8}
-	}
+        #Set the permissions
+        Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add = $DDA8}
+    }
 
-	If ($Dept -eq "9") {
-		#Write Progress
-		Write-Host -ForegroundColor Green "Adding $DDN1 to $DN acceptance list"
+    If ($Dept -eq "9") {
+        #Write Progress
+        Write-Host -ForegroundColor Green "Adding $DDN1 to $DN acceptance list"
 
-		#Set the permissions
-		Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add=$DDA9}
-	}
+        #Set the permissions
+        Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add = $DDA9}
+    }
 
-	If ($Dept -eq "10") {
-		#Write Progress
-		Write-Host -ForegroundColor Green "Adding $DDN10 to $DN acceptance list"
+    If ($Dept -eq "10") {
+        #Write Progress
+        Write-Host -ForegroundColor Green "Adding $DDN10 to $DN acceptance list"
 
-		#Set the permissions
-		Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add=$DDA10}
-	}
+        #Set the permissions
+        Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add = $DDA10}
+    }
 
-	If ($Dept -eq "11") {
-		#Write Progress
-		Write-Host -ForegroundColor Green "Adding $DDN11 to $DN acceptance list"
+    If ($Dept -eq "11") {
+        #Write Progress
+        Write-Host -ForegroundColor Green "Adding $DDN11 to $DN acceptance list"
 
-		#Set the permissions
-		Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add=$DDA11}
-	}
+        #Set the permissions
+        Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add = $DDA11}
+    }
 
-	If ($Dept -eq "12") {
-		#Write Progress
-		Write-Host -ForegroundColor Green "Adding $DDN12 to $DN acceptance list"
+    If ($Dept -eq "12") {
+        #Write Progress
+        Write-Host -ForegroundColor Green "Adding $DDN12 to $DN acceptance list"
 
-		#Set the permissions
-		Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add=$DDA12}
-	}
+        #Set the permissions
+        Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add = $DDA12}
+    }
 
-	If ($Dept -eq "k") {
-		#Write Progress
-		Write-Host -ForegroundColor Green "Adding $DDNk to $DN acceptance list"
+    If ($Dept -eq "k") {
+        #Write Progress
+        Write-Host -ForegroundColor Green "Adding $DDNk to $DN acceptance list"
 
-		#Set the permissions
-		Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add=$DDAk}
-	}
+        #Set the permissions
+        Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add = $DDAk}
+    }
 
 }
 

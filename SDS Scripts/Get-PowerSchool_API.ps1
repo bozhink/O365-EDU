@@ -20,19 +20,19 @@ Version 1.0, 12/09/2016 - First Draft
 
 Param (
 
-	[Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+    [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
 
-    	[string]$ServerUrl,
-
-    
-	[Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-    
-	[string]$ClientId,
+    [string]$ServerUrl,
 
     
-	[Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+    [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
     
-	[string]$ClientSecret
+    [string]$ClientId,
+
+    
+    [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+    
+    [string]$ClientSecret
 
 )
 
@@ -40,158 +40,152 @@ Param (
 
 $global:AccessToken = ""
 
-$global:AccessTokenUrl = $ServerUrl+"/oauth/access_token"
+$global:AccessTokenUrl = $ServerUrl + "/oauth/access_token"
 
 $global:SchoolTerm = "2015"
 
 $global:DefaultPageSize = "10"
 
-$SchoolUrl = $ServerUrl+"/ws/v1/district/school?page=1&pagesize=100"
+$SchoolUrl = $ServerUrl + "/ws/v1/district/school?page=1&pagesize=100"
 
 # Resource Counts
 
-$DistSchoolCountUrl = $ServerUrl+"/ws/v1/district/school/count"
+$DistSchoolCountUrl = $ServerUrl + "/ws/v1/district/school/count"
 
-$DistActiveStudentCountUrl = $ServerUrl+"/ws/v1/district/student/count?q=school_enrollment.enroll_status==(A)"
+$DistActiveStudentCountUrl = $ServerUrl + "/ws/v1/district/student/count?q=school_enrollment.enroll_status==(A)"
 
-$SchoolCourseCountUrl = $ServerUrl+"/ws/v1/school/{0}/course/count"
+$SchoolCourseCountUrl = $ServerUrl + "/ws/v1/school/{0}/course/count"
 
-$SchoolSectionCountUrl = $ServerUrl+"/ws/v1/school/{0}/section/count"
+$SchoolSectionCountUrl = $ServerUrl + "/ws/v1/school/{0}/section/count"
 
-$SchoolSectionsOfTermCountUrl = $ServerUrl+"/ws/v1/school/{0}/section/count?q=term.start_year=="+$global:SchoolTerm
+$SchoolSectionsOfTermCountUrl = $ServerUrl + "/ws/v1/school/{0}/section/count?q=term.start_year==" + $global:SchoolTerm
 
-$SchoolStaffCountUrl = $ServerUrl+"/ws/v1/school/{0}/staff/count"
+$SchoolStaffCountUrl = $ServerUrl + "/ws/v1/school/{0}/staff/count"
 
-$SchoolActiveStudentCountUrl = $ServerUrl+"/ws/v1/school/{0}/student/count?q=school_enrollment.enroll_status==(A)"
+$SchoolActiveStudentCountUrl = $ServerUrl + "/ws/v1/school/{0}/student/count?q=school_enrollment.enroll_status==(A)"
 
-$SchoolAllStudentCountUrl = $ServerUrl+"/ws/v1/school/{0}/student/count?q=school_enrollment.enroll_status_code=ge=-1"
+$SchoolAllStudentCountUrl = $ServerUrl + "/ws/v1/school/{0}/student/count?q=school_enrollment.enroll_status_code=ge=-1"
 
 
 # Resource by ID
 
-$CourseByIdUrl = $ServerUrl+"/ws/v1/course/{0}"
+$CourseByIdUrl = $ServerUrl + "/ws/v1/course/{0}"
 
-$SchoolByIdUrl = $ServerUrl+"/ws/v1/school/{0}"
+$SchoolByIdUrl = $ServerUrl + "/ws/v1/school/{0}"
 
-$SectionByIdUrl = $ServerUrl+"/ws/v1/section/{0}?expansions=term"
+$SectionByIdUrl = $ServerUrl + "/ws/v1/section/{0}?expansions=term"
 
-$StudentByIdUrl = $ServerUrl+"/ws/v1/student/{0}?expansions=addresses,contact,contact_info,demographics,ethnicity_race,phones,school_enrollment,student_username"
+$StudentByIdUrl = $ServerUrl + "/ws/v1/student/{0}?expansions=addresses,contact,contact_info,demographics,ethnicity_race,phones,school_enrollment,student_username"
 
-$StudentByNumUrl = $ServerUrl+"/ws/v1/district/student?page=1&pagesize=10&expansions=addresses,contact,contact_info,demographics,ethnicity_race,phones,school_enrollment&q=local_id=={0}"
+$StudentByNumUrl = $ServerUrl + "/ws/v1/district/student?page=1&pagesize=10&expansions=addresses,contact,contact_info,demographics,ethnicity_race,phones,school_enrollment&q=local_id=={0}"
 
-$StaffByIdUrl = $ServerUrl+"/ws/v1/staff/{0}?expansions=addresses,emails,phones,school_affiliations"
+$StaffByIdUrl = $ServerUrl + "/ws/v1/staff/{0}?expansions=addresses,emails,phones,school_affiliations"
 
-$EnrollmentByIdUrl = $ServerUrl+"/ws/v1/section_enrollment/{0}"
+$EnrollmentByIdUrl = $ServerUrl + "/ws/v1/section_enrollment/{0}"
 
 # Resource list
 
-$CoursesUrl = $ServerUrl+"/ws/v1/school/{0}/course?page={1}&pagesize={2}"
+$CoursesUrl = $ServerUrl + "/ws/v1/school/{0}/course?page={1}&pagesize={2}"
 
-$SectionsUrl = $ServerUrl+"/ws/v1/school/{0}/section?page={1}&pagesize={2}&expansions=term"
+$SectionsUrl = $ServerUrl + "/ws/v1/school/{0}/section?page={1}&pagesize={2}&expansions=term"
 
-$StaffsUrl = $ServerUrl+"/ws/v1/school/{0}/staff?page={1}&pagesize={2}&expansions=addresses,emails,phones,school_affiliations"
+$StaffsUrl = $ServerUrl + "/ws/v1/school/{0}/staff?page={1}&pagesize={2}&expansions=addresses,emails,phones,school_affiliations"
 
-$ActiveStudentsUrl = $ServerUrl+"/ws/v1/school/{0}/student?page={1}&pagesize={2}&expansions=addresses,contact,contact_info,demographics,ethnicity_race,phones,school_enrollment&q=school_enrollment.enroll_status==(A)"
+$ActiveStudentsUrl = $ServerUrl + "/ws/v1/school/{0}/student?page={1}&pagesize={2}&expansions=addresses,contact,contact_info,demographics,ethnicity_race,phones,school_enrollment&q=school_enrollment.enroll_status==(A)"
 
-$AllStudentsUrl = $ServerUrl+"/ws/v1/school/{0}/student?page={1}&pagesize={2}&expansions=addresses,contact,contact_info,demographics,ethnicity_race,phones,school_enrollment&q=school_enrollment.enroll_status_code=gt=-2147483648"
+$AllStudentsUrl = $ServerUrl + "/ws/v1/school/{0}/student?page={1}&pagesize={2}&expansions=addresses,contact,contact_info,demographics,ethnicity_race,phones,school_enrollment&q=school_enrollment.enroll_status_code=gt=-2147483648"
 
 
 
 
 function Get-AccessToken
-
 {
     
-	$Credentials = $ClientId+":"+$ClientSecret
+    $Credentials = $ClientId + ":" + $ClientSecret
     
-	$RawCred = [System.Text.Encoding]::UTF8.GetBytes($Credentials)
+    $RawCred = [System.Text.Encoding]::UTF8.GetBytes($Credentials)
     
-	$EncodedCreds = [System.Convert]::ToBase64String($RawCred)
+    $EncodedCreds = [System.Convert]::ToBase64String($RawCred)
     
-	$Headers = @{Authorization = "Basic "+$EncodedCreds}
+    $Headers = @{Authorization = "Basic " + $EncodedCreds}
 
     
-	$Body = "grant_type=client_credentials"
+    $Body = "grant_type=client_credentials"
 
     
 
-	try
-{
+    try {
         
-	$Result = Invoke-RestMethod -Uri $global:AccessTokenUrl -Method Post -Headers $Headers -Body $Body
+        $Result = Invoke-RestMethod -Uri $global:AccessTokenUrl -Method Post -Headers $Headers -Body $Body
         
-	if ($Result.access_token -ne $null)
-{
+        if ($Result.access_token -ne $null) {
             
-		Write-Host ""
+            Write-Host ""
             
-		Write-Host "Acquired AccessToken: $($Result.access_token)"
+            Write-Host "Acquired AccessToken: $($Result.access_token)"
             
-		Write-Host "RESULT: Credentials are valid." -ForegroundColor Green
+            Write-Host "RESULT: Credentials are valid." -ForegroundColor Green
             
-		Write-Host ""
+            Write-Host ""
             Return $($Result.access_token)
         
-	}
+        }
         
 	
-	else{
+        else {
             
-	Write-Host ""
+            Write-Host ""
             
-	Write-Host "RESULT: ServerURL is not valid" -ForegroundColor Red
+            Write-Host "RESULT: ServerURL is not valid" -ForegroundColor Red
             
-	Exit;
+            Exit;
         
-	}
+        }
 
-	}
+    }
     
 	
-	catch
-{
+    catch {
         
-	Write-Host ""
+        Write-Host ""
         
-	Write-Host $_.Exception.Message
+        Write-Host $_.Exception.Message
         
-	Write-Host "RESULT: Credentials are invalid." -ForegroundColor Red
+        Write-Host "RESULT: Credentials are invalid." -ForegroundColor Red
         
-	Write-Host ""
+        Write-Host ""
         
-	Exit;
+        Exit;
     
-	}
+    }
 
 }
 
 
 function Execute-Get-Request($QueryUrl)
-
 {
     
-	$Headers = @{Authorization = "Bearer "+$global:AccessToken; Accept = "application/json"}
+    $Headers = @{Authorization = "Bearer " + $global:AccessToken; Accept = "application/json"}
     
-	$Result = Invoke-RestMethod -Uri $QueryUrl -Method Get -Headers $Headers
+    $Result = Invoke-RestMethod -Uri $QueryUrl -Method Get -Headers $Headers
     
-	Return $Result
+    Return $Result
 
 }
 
 
 function Get-Entity-ById($EntityUrl, $EntityName)
-
 {
     
-	Write-Host "Enter $EntityName ID: "
+    Write-Host "Enter $EntityName ID: "
     
-	$Id = Read-Host
+    $Id = Read-Host
     
-	$QueryUrl = [System.String]::Format($EntityUrl,$Id)
+    $QueryUrl = [System.String]::Format($EntityUrl, $Id)
     
-	$Result = Execute-Get-Request $QueryUrl
+    $Result = Execute-Get-Request $QueryUrl
     
-	Return $Result
+    Return $Result
 
 }
 
@@ -201,17 +195,15 @@ function Get-Entity-ById($EntityUrl, $EntityName)
 
 
 function Get-Course-ById
-
 {
     
-	$Result = Get-Entity-ById $CourseByIdUrl "Course"
+    $Result = Get-Entity-ById $CourseByIdUrl "Course"
     
-	if ($Result.course -ne $null)
-{
+    if ($Result.course -ne $null) {
         
-		$Result.course | fl *
+        $Result.course | fl *
     
-	}
+    }
 
 }
 
@@ -221,16 +213,14 @@ function Get-Course-ById
 
 
 function Get-School-ById
-
 {
-	$Result = Get-Entity-ById $SchoolByIdUrl "School"
+    $Result = Get-Entity-ById $SchoolByIdUrl "School"
     
-	if ($Result.school -ne $null)
-{
+    if ($Result.school -ne $null) {
         
-		$Result.school | fl *
+        $Result.school | fl *
     
-	}
+    }
 
 }
 
@@ -240,34 +230,30 @@ function Get-School-ById
 
 
 function Get-Section-ById
-
 {
 	
-$Result = Get-Entity-ById $SectionByIdUrl "Section"
+    $Result = Get-Entity-ById $SectionByIdUrl "Section"
     
-	if ($Result.section -ne $null)
-{
+    if ($Result.section -ne $null) {
         
-		$Result.section | fl *
+        $Result.section | fl *
     
-	}
+    }
 
 }
 
 
 
 function Get-Student-ById
-
 {
 
-	$Result = Get-Entity-ById $StudentByIdUrl "Student"
+    $Result = Get-Entity-ById $StudentByIdUrl "Student"
     
-	if ($Result.student -ne $null)
-{
+    if ($Result.student -ne $null) {
         
-		$Result.student | fl *
+        $Result.student | fl *
     
-	}
+    }
 
 }
 
@@ -277,17 +263,15 @@ function Get-Student-ById
 
 
 function Get-Student-ByNumber
-
 {
     
-	$Result = Get-Entity-ById $StudentByNumUrl "Student"
+    $Result = Get-Entity-ById $StudentByNumUrl "Student"
     
-	if ($Result.students -ne $null)
-{
+    if ($Result.students -ne $null) {
         
-		$Result.students.student | fl *
+        $Result.students.student | fl *
     
-	}
+    }
 
 }
 
@@ -298,19 +282,17 @@ function Get-Student-ByNumber
 
 
 function Get-Staff-ById
-
 {
     
-	$Result = Get-Entity-ById $StaffByIdUrl "Staff"
+    $Result = Get-Entity-ById $StaffByIdUrl "Staff"
     
-	if ($Result.staff -ne $null)
-{
+    if ($Result.staff -ne $null) {
         
-		$Result.staff | fl *
+        $Result.staff | fl *
        
-		$Result.staff.school_affiliations.school_affiliation | fl *
+        $Result.staff.school_affiliations.school_affiliation | fl *
     
-	}
+    }
 
 }
 
@@ -320,17 +302,15 @@ function Get-Staff-ById
 
 
 function Get-SectionEnrollment-ById
-
 {
     
-	$Result = Get-Entity-ById $EnrollmentByIdUrl "Section Enrollment"
+    $Result = Get-Entity-ById $EnrollmentByIdUrl "Section Enrollment"
     
-	if ($Result.section_enrollment -ne $null)
-{
+    if ($Result.section_enrollment -ne $null) {
         
-		$Result.section_enrollment | fl *
+        $Result.section_enrollment | fl *
     
-	}
+    }
 
 }
 
@@ -338,31 +318,28 @@ function Get-SectionEnrollment-ById
 
 
 function Get-Schools($Silent)
-
 {
     
-	if ($Silent -eq $false){ 
-	Write-Host "Getting Schools..." 
-	}
+    if ($Silent -eq $false) { 
+        Write-Host "Getting Schools..." 
+    }
 
     
-	$Result = Execute-Get-Request $SchoolUrl
+    $Result = Execute-Get-Request $SchoolUrl
     
 	
-	if ($Result.schools -ne $null -and $Result.schools.school -ne $null)
-{
+    if ($Result.schools -ne $null -and $Result.schools.school -ne $null) {
         
-		if ($Silent -eq $false)
-{
+        if ($Silent -eq $false) {
             
-		$Result.schools.school | fl *
+            $Result.schools.school | fl *
         
-		}
+        }
 
         
-	Return $Result.schools.school
+        Return $Result.schools.school
     
-	}
+    }
 
 }
 
@@ -372,30 +349,28 @@ function Get-Schools($Silent)
 
 
 function Get-Sections
-
 {
     
-	$PageNumber = "1"
+    $PageNumber = "1"
 
     
-	Write-Host "School ID: "
+    Write-Host "School ID: "
     
-	$SchoolId = Read-Host
+    $SchoolId = Read-Host
 
     
-	Write-Host "Getting Sections in School $SchoolId"
+    Write-Host "Getting Sections in School $SchoolId"
     
-	$RequestUrl = [System.String]::Format($SectionsUrl, $SchoolId, $PageNumber, $global:DefaultPageSize)
+    $RequestUrl = [System.String]::Format($SectionsUrl, $SchoolId, $PageNumber, $global:DefaultPageSize)
     
-	$Result = Execute-Get-Request $RequestUrl
+    $Result = Execute-Get-Request $RequestUrl
 
     
-	if ($Result.sections -ne $null -and $Result.sections.section -ne $null)
-{
+    if ($Result.sections -ne $null -and $Result.sections.section -ne $null) {
         
-	$Result.sections.section | fl *
+        $Result.sections.section | fl *
     
-	}
+    }
 
 }
 
@@ -405,59 +380,55 @@ function Get-Sections
 
 
 function Get-Courses
-
 {
     
-	$PageNumber = "1"
+    $PageNumber = "1"
 
     
-	Write-Host "School ID: "
+    Write-Host "School ID: "
     
-	$SchoolId = Read-Host
+    $SchoolId = Read-Host
 
     
-	Write-Host "Getting Courses in School $SchoolId"
+    Write-Host "Getting Courses in School $SchoolId"
     
-	$RequestUrl = [System.String]::Format($CoursesUrl, $SchoolId, $PageNumber, $global:DefaultPageSize)
+    $RequestUrl = [System.String]::Format($CoursesUrl, $SchoolId, $PageNumber, $global:DefaultPageSize)
     
-	$Result = Execute-Get-Request $RequestUrl
+    $Result = Execute-Get-Request $RequestUrl
 
     
-	if ($Result.courses -ne $null -and $Result.courses.course -ne $null)
-{
+    if ($Result.courses -ne $null -and $Result.courses.course -ne $null) {
         
-	$Result.courses.course | fl *
+        $Result.courses.course | fl *
     
-	}
+    }
 
 }
 
 
 function Get-Students
-
 {
     
-	$PageNumber = "1"
+    $PageNumber = "1"
 
     
-	Write-Host "School ID: "
+    Write-Host "School ID: "
     
-	$SchoolId = Read-Host
+    $SchoolId = Read-Host
 
     
-	Write-Host "Getting Studets in School $SchoolId"
+    Write-Host "Getting Studets in School $SchoolId"
     
-	$RequestUrl = [System.String]::Format($AllStudentsUrl, $SchoolId, $PageNumber, $global:DefaultPageSize)
+    $RequestUrl = [System.String]::Format($AllStudentsUrl, $SchoolId, $PageNumber, $global:DefaultPageSize)
     
-	$Result = Execute-Get-Request $RequestUrl
+    $Result = Execute-Get-Request $RequestUrl
 
     
-	if ($Result.students -ne $null -and $Result.students.student -ne $null)
-{
+    if ($Result.students -ne $null -and $Result.students.student -ne $null) {
         
-	$Result.students.student | fl *
+        $Result.students.student | fl *
     
-	}
+    }
 
 }
 
@@ -467,30 +438,28 @@ function Get-Students
 
 
 function Get-Staffs
-
 {
     
-	$PageNumber = "1"
+    $PageNumber = "1"
 
     
-	Write-Host "School ID: "
+    Write-Host "School ID: "
     
-	$SchoolId = Read-Host
+    $SchoolId = Read-Host
 
     
-	Write-Host "Getting Staffs in School $SchoolId"
+    Write-Host "Getting Staffs in School $SchoolId"
     
-	$RequestUrl = [System.String]::Format($StaffsUrl, $SchoolId, $PageNumber, $global:DefaultPageSize)
+    $RequestUrl = [System.String]::Format($StaffsUrl, $SchoolId, $PageNumber, $global:DefaultPageSize)
     
-	$Result = Execute-Get-Request $RequestUrl
+    $Result = Execute-Get-Request $RequestUrl
 
     
-	if ($Result.staffs -ne $null -and $Result.staffs.staff -ne $null)
-{
+    if ($Result.staffs -ne $null -and $Result.staffs.staff -ne $null) {
         
-	$Result.staffs.staff | fl *
+        $Result.staffs.staff | fl *
     
-	}
+    }
 
 }
 
@@ -500,17 +469,15 @@ function Get-Staffs
 
 
 function Get-Entity-Count($EntityCountUrl)
-
 {
     
-	$Result = Execute-Get-Request $EntityCountUrl
+    $Result = Execute-Get-Request $EntityCountUrl
     
-	if ($Result.resource -ne $null -and $Result.resource.count -ne $null)
-{
+    if ($Result.resource -ne $null -and $Result.resource.count -ne $null) {
         
-	Return $Result.resource.count
+        Return $Result.resource.count
     
-	}
+    }
 
 }
 
@@ -520,12 +487,11 @@ function Get-Entity-Count($EntityCountUrl)
 
 
 function Get-Staff-Count-Of-School($SchoolId)
-
 {
     
-	$EntityCountUrl = [System.String]::Format($SchoolStaffCountUrl, $SchoolId)
+    $EntityCountUrl = [System.String]::Format($SchoolStaffCountUrl, $SchoolId)
     
-	Return Get-Entity-Count $EntityCountUrl
+    Return Get-Entity-Count $EntityCountUrl
 
 }
 
@@ -535,12 +501,11 @@ function Get-Staff-Count-Of-School($SchoolId)
 
 
 function Get-Section-Count-Of-School($SchoolId)
-
 {
     
-	$EntityCountUrl = [System.String]::Format($SchoolSectionCountUrl, $SchoolId)
+    $EntityCountUrl = [System.String]::Format($SchoolSectionCountUrl, $SchoolId)
     
-	Return Get-Entity-Count $EntityCountUrl
+    Return Get-Entity-Count $EntityCountUrl
 
 }
 
@@ -550,12 +515,11 @@ function Get-Section-Count-Of-School($SchoolId)
 
 
 function Get-Course-Count-Of-School($SchoolId)
-
 {
     
-	$EntityCountUrl = [System.String]::Format($SchoolCourseCountUrl, $SchoolId)
+    $EntityCountUrl = [System.String]::Format($SchoolCourseCountUrl, $SchoolId)
     
-	Return Get-Entity-Count $EntityCountUrl
+    Return Get-Entity-Count $EntityCountUrl
 
 }
 
@@ -563,75 +527,71 @@ function Get-Course-Count-Of-School($SchoolId)
 
 
 function Get-Active-Student-Count-Of-School($SchoolId)
-
 {
     
-	$EntityCountUrl = [System.String]::Format($SchoolActiveStudentCountUrl, $SchoolId)
+    $EntityCountUrl = [System.String]::Format($SchoolActiveStudentCountUrl, $SchoolId)
     
-	Return Get-Entity-Count $EntityCountUrl
+    Return Get-Entity-Count $EntityCountUrl
 }
 
 
 
 function Get-All-Student-Count-Of-School($SchoolId)
-
-	{
+{
     
-		$EntityCountUrl = [System.String]::Format($SchoolAllStudentCountUrl, $SchoolId)
+    $EntityCountUrl = [System.String]::Format($SchoolAllStudentCountUrl, $SchoolId)
     
-		Return Get-Entity-Count $EntityCountUrl
+    Return Get-Entity-Count $EntityCountUrl
 }
 
 
 
 function Get-Overview
-
-		{
+{
     
-			$SchoolCount = Get-Entity-Count $DistSchoolCountUrl
+    $SchoolCount = Get-Entity-Count $DistSchoolCountUrl
     
-			$ActiveStudentCount = Get-Entity-Count $DistActiveStudentCountUrl
+    $ActiveStudentCount = Get-Entity-Count $DistActiveStudentCountUrl
 
   
   
-			Write-Host ""
+    Write-Host ""
     
-			Write-Host "Number of Schools in this district: $SchoolCount"
+    Write-Host "Number of Schools in this district: $SchoolCount"
     
-			Write-Host "Number of Active Students in this district: $ActiveStudentCount"
+    Write-Host "Number of Active Students in this district: $ActiveStudentCount"
     
-			Write-Host ""
+    Write-Host ""
     
-			Write-Host "--- School Stats ---"
+    Write-Host "--- School Stats ---"
 
     
 			
-			$Schools = Get-Schools $true
+    $Schools = Get-Schools $true
 
     
 			
-			Write-Host "ID `tStudent (All)`tStaff`tSection`tCourse`t`"School Name`""
+    Write-Host "ID `tStudent (All)`tStaff`tSection`tCourse`t`"School Name`""
     
 		
-		foreach ($School in $Schools)
-    
-		{
+    foreach ($School in $Schools)
+    {
         
-			$StaffCount = Get-Staff-Count-Of-School $($School.id)
+        $StaffCount = Get-Staff-Count-Of-School $($School.id)
         
-			$SectionCount = Get-Section-Count-Of-School $($School.id)
+        $SectionCount = Get-Section-Count-Of-School $($School.id)
         
-			$CourseCount = Get-Course-Count-Of-School $($School.id)
+        $CourseCount = Get-Course-Count-Of-School $($School.id)
         
-			$ActiveStudentCount = Get-Active-Student-Count-Of-School $($School.id)
+        $ActiveStudentCount = Get-Active-Student-Count-Of-School $($School.id)
         
-			$AllStudentCount = Get-All-Student-Count-Of-School $($School.id)
+        $AllStudentCount = Get-All-Student-Count-Of-School $($School.id)
 
         
-			Write-Host "$($School.id) `t$ActiveStudentCount `t$AllStudentCount `t$StaffCount `t$SectionCount `t$CourseCount `t`"$($School.name)`""
-    		}
+        Write-Host "$($School.id) `t$ActiveStudentCount `t$AllStudentCount `t$StaffCount `t$SectionCount `t$CourseCount `t`"$($School.name)`""
+    }
     
-	Write-Host ""
+    Write-Host ""
 
 }
 
@@ -641,95 +601,93 @@ function Get-Overview
 
 # Main
 
-&{
+& {
     
-	$global:AccessToken = Get-AccessToken;
+    $global:AccessToken = Get-AccessToken;
 
     
 
-	do
-{
+    do {
         
-		Write-Host ""
+        Write-Host ""
         
-		Write-Host "    1.  Get/Refresh Access Token"
+        Write-Host "    1.  Get/Refresh Access Token"
         
-		Write-Host "    2.  Get District Overview"
+        Write-Host "    2.  Get District Overview"
         
-		Write-Host "    3.  Get Schools"
+        Write-Host "    3.  Get Schools"
         
-		Write-Host "    4.  Get School By ID"
+        Write-Host "    4.  Get School By ID"
         
-		Write-Host "    5.  Get Section By ID"
+        Write-Host "    5.  Get Section By ID"
         
-		Write-Host "    6.  Get Student By ID"
+        Write-Host "    6.  Get Student By ID"
         
-		Write-Host "    61. Get Student By Student Number"
+        Write-Host "    61. Get Student By Student Number"
         
-		Write-Host "    7.  Get Staff By ID"
+        Write-Host "    7.  Get Staff By ID"
         
-		Write-Host "    8.  Get Course By ID"
+        Write-Host "    8.  Get Course By ID"
         
-		Write-Host "    9.  Get Section Enrollment By ID"
+        Write-Host "    9.  Get Section Enrollment By ID"
         
-		Write-Host "    10. Get Staff    [Page# 1, Count: $global:DefaultPageSize]"
+        Write-Host "    10. Get Staff    [Page# 1, Count: $global:DefaultPageSize]"
         
-		Write-Host "    11. Get Section  [Page# 1, Count: $global:DefaultPageSize]"
+        Write-Host "    11. Get Section  [Page# 1, Count: $global:DefaultPageSize]"
         
-		Write-Host "    12. Get Students [Page# 1, Count: $global:DefaultPageSize]"
+        Write-Host "    12. Get Students [Page# 1, Count: $global:DefaultPageSize]"
         
-		Write-Host "    13. Get Courses  [Page# 1, Count: $global:DefaultPageSize]"
+        Write-Host "    13. Get Courses  [Page# 1, Count: $global:DefaultPageSize]"
         
-		Write-Host "    *.  Exit"
+        Write-Host "    *.  Exit"
         
-		Write-Host ""
+        Write-Host ""
         
-		Write-Host "Selection: ";
+        Write-Host "Selection: ";
         
-		$Choice = Read-Host
+        $Choice = Read-Host
 
         
 
-		switch ($Choice)
+        switch ($Choice)
+        {
+            
+            1 { $global:AccessToken = Get-AccessToken }
+            
+            2 { Get-Overview }
+            
+            3 { Get-Schools }
+            
+            4 { Get-School-ById }
+            
+            5 { Get-Section-ById }
+            
+            6 { Get-Student-ById }
+            
+            7 { Get-Staff-ById }
+            
+            8 { Get-Course-ById }
+            
+            9 { Get-SectionEnrollment-ById }
+            
+            10 { Get-Staffs }
+            
+            11 { Get-Sections }
+            
+            12 { Get-Students }
+            
+            13 { Get-Courses }
+            
+            61 { Get-Student-ByNumber }
+            
+            default { Break }
         
-		{
-            
-			1 { $global:AccessToken = Get-AccessToken }
-            
-			2 { Get-Overview }
-            
-			3 { Get-Schools }
-            
-			4 { Get-School-ById }
-            
-			5 { Get-Section-ById }
-            
-			6 { Get-Student-ById }
-            
-			7 { Get-Staff-ById }
-            
-			8 { Get-Course-ById }
-            
-			9 { Get-SectionEnrollment-ById }
-            
-			10 { Get-Staffs }
-            
-			11 { Get-Sections }
-            
-			12 { Get-Students }
-            
-			13 { Get-Courses }
-            
-			61 { Get-Student-ByNumber }
-            
-			default { Break }
-        
-		}
+        }
 
         
-		Write-Host "----------------------------------------------------"
+        Write-Host "----------------------------------------------------"
     
-	} while ($Choice -ge 1 -and $Choice -le 9)
+    } while ($Choice -ge 1 -and $Choice -le 9)
 
 }
 

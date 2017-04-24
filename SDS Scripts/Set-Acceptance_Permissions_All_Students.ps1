@@ -28,13 +28,13 @@ $DDN = $DDL.DisplayName
 #Start Foearch loop against the initial export
 Foreach ($User in $Users) {
 
-	#Set some variables
-	$DN = $User.DisplayName
-	$ObjID = $User.ObjectID
+    #Set some variables
+    $DN = $User.DisplayName
+    $ObjID = $User.ObjectID
 
-	#Write Progress
-	Write-Host -ForegroundColor Green "Adding $DDN to $DN acceptance list"
+    #Write Progress
+    Write-Host -ForegroundColor Green "Adding $DDN to $DN acceptance list"
 
-	#Set the permissions
-	Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add=$DDA}
+    #Set the permissions
+    Set-Mailbox $ObjID -AcceptMessagesOnlyFromDLMembers @{add = $DDA}
 }

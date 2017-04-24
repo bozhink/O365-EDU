@@ -49,7 +49,7 @@ Foreach ($AU in $AUs) {
 }
 
 #Export the Results
-$Results | Export-Csv "C:\temp\Get-All_Schools_and_Memberships.csv” -NoTypeInformation
+$Results | Export-Csv "C:\temp\Get-All_Schools_and_Memberships.csv" -NoTypeInformation
 
 #Script Complete
 Write-Host -ForegroundColor Green "Script is complete"

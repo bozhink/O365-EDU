@@ -36,18 +36,18 @@ $Sections = Import-CSV C:\temp\Section.csv
 #Run Foreach loop against each section
 Foreach ($Section in $Sections) {
 
-	#Tag the variable for use in the set cmd
-	$Addr = $Section.PrimarySmtpAddress
+    #Tag the variable for use in the set cmd
+    $Addr = $Section.PrimarySmtpAddress
 	
-	#Get the DisplayName of the group for the progress display
-	$Group2 = Get-UnifiedGroup -Identity $Addr
-	$DN = $Section.Displayname
+    #Get the DisplayName of the group for the progress display
+    $Group2 = Get-UnifiedGroup -Identity $Addr
+    $DN = $Section.Displayname
 	
-	#Write Progress
-	Write-Host -foregroundcolor green "Setting hidden attribute on group $DN"
+    #Write Progress
+    Write-Host -foregroundcolor green "Setting hidden attribute on group $DN"
 
-	#Set the group as hidden
-	Set-UnifiedGroup -Identity $Addr -HiddenFromAddressListsEnabled $true -warningaction:silentlycontinue
+    #Set the group as hidden
+    Set-UnifiedGroup -Identity $Addr -HiddenFromAddressListsEnabled $true -warningaction:silentlycontinue
 }
 
 Write-Host -foregroundcolor green "Script Complete"

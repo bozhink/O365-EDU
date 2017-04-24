@@ -28,20 +28,20 @@ $Users = Get-msoluser -all
 #Start a foreach loop
 Foreach ($User in $Users) {
 
-#Set UPN as a variable
-$upn = $user.userprincipalname
+    #Set UPN as a variable
+    $upn = $user.userprincipalname
 
-#Set AccountSku as a variable
-$sku = (get-msolaccountsku | ? {$_.accountskuid -like "*CLASSDASH*"}).accountskuid
+    #Set AccountSku as a variable
+    $sku = (get-msolaccountsku | ? {$_.accountskuid -like "*CLASSDASH*"}).accountskuid
 
-#Set Usage Location
-Set-MsolUser -UserPrincipalName $upn -UsageLocation US
+    #Set Usage Location
+    Set-MsolUser -UserPrincipalName $upn -UsageLocation US
 
-#Write progress to the screen
-Write-Host -Foregroundcolor green "Adding Class Dashboard License to $upn"
+    #Write progress to the screen
+    Write-Host -Foregroundcolor green "Adding Class Dashboard License to $upn"
 
-#Add the Classroom license
-Set-MsolUserLicense -UserPrincipalName $upn -addlicenses $sku -warningaction:silentlycontinue
+    #Add the Classroom license
+    Set-MsolUserLicense -UserPrincipalName $upn -addlicenses $sku -warningaction:silentlycontinue
 }
 
 write-host -foregroundcolor green "Script is Complete"
