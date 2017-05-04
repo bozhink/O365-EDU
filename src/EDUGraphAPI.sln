@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{31
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUGraphAPI.Services", "Services\EDUGraphAPI.Services\EDUGraphAPI.Services.csproj", "{398B56BA-3848-4A3A-8AD1-3BB816C72E9C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUGraphAPI.Services.Models", "Services\EDUGraphAPI.Services.Models\EDUGraphAPI.Services.Models.csproj", "{E76C5FFD-A7B0-4CB2-A694-3385255B6C99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{398B56BA-3848-4A3A-8AD1-3BB816C72E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{398B56BA-3848-4A3A-8AD1-3BB816C72E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{398B56BA-3848-4A3A-8AD1-3BB816C72E9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E76C5FFD-A7B0-4CB2-A694-3385255B6C99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E76C5FFD-A7B0-4CB2-A694-3385255B6C99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E76C5FFD-A7B0-4CB2-A694-3385255B6C99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E76C5FFD-A7B0-4CB2-A694-3385255B6C99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,5 +69,6 @@ Global
 		{321BF683-8FE3-4FD7-A76A-A8B67F6118AE} = {7F23F151-272A-4465-9B7F-9E1CB86A51BA}
 		{DAEC092A-A92F-46B3-93CD-EBD888A9EB65} = {7F23F151-272A-4465-9B7F-9E1CB86A51BA}
 		{398B56BA-3848-4A3A-8AD1-3BB816C72E9C} = {31F019E9-5419-413C-B559-A43DA6743C0D}
+		{E76C5FFD-A7B0-4CB2-A694-3385255B6C99} = {31F019E9-5419-413C-B559-A43DA6743C0D}
 	EndGlobalSection
 EndGlobal
