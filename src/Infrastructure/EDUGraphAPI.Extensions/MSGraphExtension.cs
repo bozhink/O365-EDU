@@ -3,14 +3,14 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using Microsoft.Graph;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace EDUGraphAPI
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.Graph;
+
     public static class MSGraphExtension
     {
         public static async Task<Conversation[]> GetAllAsync(this IGroupConversationsCollectionRequest request)
@@ -44,7 +44,11 @@ namespace EDUGraphAPI
             while (true)
             {
                 list.AddRange(page.CurrentPage);
-                if (page.NextPageRequest == null) break;
+                if (page.NextPageRequest == null)
+                {
+                    break;
+                }
+
                 page = await page.NextPageRequest.GetAsync();
             }
 
