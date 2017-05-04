@@ -13,9 +13,9 @@ namespace EDUGraphAPI
 
     public static class IdentityExtension
     {
-        private static readonly string TenantId = "http://schemas.microsoft.com/identity/claims/tenantid";
+        private const string TenantId = "http://schemas.microsoft.com/identity/claims/tenantid";
 
-        private static readonly string ObjectIdentifier = "http://schemas.microsoft.com/identity/claims/objectidentifier";
+        private const string ObjectIdentifier = "http://schemas.microsoft.com/identity/claims/objectidentifier";
 
         public static async Task<ClaimsIdentity> GenerateUserIdentityAsync(this ApplicationUser user, UserManager<ApplicationUser> manager)
         {
