@@ -3,13 +3,13 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using Microsoft.Graph;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-
 namespace EDUGraphAPI.Infrastructure
 {
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Threading.Tasks;
+    using Microsoft.Graph;
+
     public class BearerAuthenticationProvider : IAuthenticationProvider
     {
         private Task<string> getAccessToken;
