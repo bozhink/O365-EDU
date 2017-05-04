@@ -3,10 +3,10 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using System.Collections.Generic;
-
 namespace EDUGraphAPI
 {
+    using System.Collections.Generic;
+
     public static class StringExtensions
     {
         private static readonly HashSet<char> DefaultNonWordCharacters = new HashSet<char> { ',', '.', ':', ';' };
@@ -27,7 +27,6 @@ namespace EDUGraphAPI
             {
                 return value;
             }
-
 
             if (nonWordCharacters == null)
             {
