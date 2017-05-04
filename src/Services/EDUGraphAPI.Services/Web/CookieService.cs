@@ -3,11 +3,11 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using System;
-using System.Web;
-
-namespace EDUGraphAPI.Web.Services
+namespace EDUGraphAPI.Services.Web
 {
+    using System;
+    using System.Web;
+
     public class CookieService
     {
         private static readonly string UsernameCookie = EDUGraphAPI.Constants.Common.UsernameCookie;

@@ -5,6 +5,7 @@
 
 using EDUGraphAPI.Data;
 using EDUGraphAPI.Data.Models;
+using EDUGraphAPI.Services.Web;
 using EDUGraphAPI.Utils;
 using EDUGraphAPI.Web.Infrastructure;
 using EDUGraphAPI.Web.Models;

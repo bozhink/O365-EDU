@@ -4,6 +4,7 @@
  */
 
 using EDUGraphAPI.Data;
+using EDUGraphAPI.Services.Web;
 using EDUGraphAPI.Utils;
 using EDUGraphAPI.Web.Services;
 using EDUGraphAPI.Web.Services.GraphClients;

@@ -281,7 +281,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\CookieService.cs" />
     <Compile Include="Services\GraphClients\AADGraphClient.cs" />
     <Compile Include="Services\GraphClients\IGraphClient.cs" />
     <Compile Include="Services\GraphClients\MSGraphClient.cs" />
