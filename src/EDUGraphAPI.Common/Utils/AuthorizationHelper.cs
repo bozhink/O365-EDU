@@ -12,13 +12,6 @@ namespace EDUGraphAPI.Utils
     /// </summary>
     public static class AuthorizationHelper
     {
-        public static class Prompt
-        {
-            public static readonly string Consent = "consent";
-            public static readonly string Login = "login";
-            public static readonly string AdminConsent = "admin_consent";
-        }
-
         public static string GetUrl(string redirectUrl, string state, string resource, string prompt = null)
         {
             var url = string.Format(

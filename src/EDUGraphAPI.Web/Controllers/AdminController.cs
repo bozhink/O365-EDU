@@ -60,7 +60,7 @@ namespace EDUGraphAPI.Web.Controllers
             //create an OAuth2 request, using the web app as the client.
             //this will trigger a consent flow that will provision the app in the target tenant
             var url = Request.Url.GetLeftPart(UriPartial.Authority) + "/Admin/ProcessCode";
-            var authorizationUrl = AuthorizationHelper.GetUrl(url, stateMarker, EDUGraphAPI.Constants.Resources.AADGraph, AuthorizationHelper.Prompt.AdminConsent);
+            var authorizationUrl = AuthorizationHelper.GetUrl(url, stateMarker, EDUGraphAPI.Constants.Resources.AADGraph, EDUGraphAPI.Constants.Prompt.AdminConsent);
 
             // send the admin to consent
             return new RedirectResult(authorizationUrl);

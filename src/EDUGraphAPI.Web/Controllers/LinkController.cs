@@ -75,7 +75,7 @@ namespace EDUGraphAPI.Web.Controllers
             TempData[StateKey] = state;
 
             var redirectUrl = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ProcessCode");
-            var authorizationUrl = AuthorizationHelper.GetUrl(redirectUrl, state, EDUGraphAPI.Constants.Resources.MSGraph, AuthorizationHelper.Prompt.Login);
+            var authorizationUrl = AuthorizationHelper.GetUrl(redirectUrl, state, EDUGraphAPI.Constants.Resources.MSGraph, EDUGraphAPI.Constants.Prompt.Login);
             return new RedirectResult(authorizationUrl);
         }
 
