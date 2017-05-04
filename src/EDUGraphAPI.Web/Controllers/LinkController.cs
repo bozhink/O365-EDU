@@ -27,8 +27,6 @@ namespace EDUGraphAPI.Web.Controllers
     public class LinkController : Controller
     {
         private static readonly string StateKey = typeof(LinkController).Name + "State";
-        private static readonly string UsernameCookie = EDUGraphAPI.Constants.Common.UsernameCookie;
-        private static readonly string EmailCookie = EDUGraphAPI.Constants.Common.EmailCookie;
 
         private ApplicationService applicationService;
         private ApplicationSignInManager signInManager;

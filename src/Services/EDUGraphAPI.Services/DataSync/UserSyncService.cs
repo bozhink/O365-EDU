@@ -126,7 +126,7 @@ namespace EDUGraphAPI.Services.DataSync
                 .FirstOrDefaultAsync();
             if (user == null)
             {
-                await WriteLogAsync("Skipping updating user {0} who does not exist in the local database.", differentialUser.Entity.ObjectId);
+                await this.WriteLogAsync("Skipping updating user {0} who does not exist in the local database.", differentialUser.Entity.ObjectId);
                 return;
             }
 
@@ -139,26 +139,26 @@ namespace EDUGraphAPI.Services.DataSync
                 }
                 else
                 {
-                    await WriteLogAsync("Skipped updating user {0}, because the properties that changed are not included in the local database.", differentialUser.Entity.ObjectId);
+                    await this.WriteLogAsync("Skipped updating user {0}, because the properties that changed are not included in the local database.", differentialUser.Entity.ObjectId);
                 }
             }
             else
             {
                 dbContext.Users.Remove(user);
-                await WriteLogAsync($"Deleted user {user.Email}.");
+                await this.WriteLogAsync($"Deleted user {user.Email}.");
                 return;
             }
         }
 
         private async Task WriteLogAsync(string message)
         {
-            await log.WriteAsync($"[{DateTime.UtcNow}][SyncData] ");
-            await log.WriteLineAsync(message);
+            await this.log.WriteAsync($"[{DateTime.UtcNow}][SyncData] ");
+            await this.log.WriteLineAsync(message);
         }
 
         private async Task WriteLogAsync(string message, params object[] args)
         {
-            await WriteLogAsync(string.Format(message, args));
+            await this.WriteLogAsync(string.Format(message, args));
         }
     }
 }

@@ -4,7 +4,7 @@
  */
 
 using EDUGraphAPI.Infrastructure;
-using EDUGraphAPI.Models;
+using EDUGraphAPI.Services.Cache;
 using Microsoft.Azure.ActiveDirectory.GraphClient;
 using Microsoft.Education;
 using Microsoft.Graph;

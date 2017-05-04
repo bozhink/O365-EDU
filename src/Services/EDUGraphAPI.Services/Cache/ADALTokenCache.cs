@@ -3,15 +3,15 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Data;
-using EDUGraphAPI.Data.Models;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using System;
-using System.Linq;
-using System.Web.Security;
-
-namespace EDUGraphAPI.Models
+namespace EDUGraphAPI.Services.Cache
 {
+    using System;
+    using System.Linq;
+    using System.Web.Security;
+    using EDUGraphAPI.Data;
+    using EDUGraphAPI.Data.Models;
+    using Microsoft.IdentityModel.Clients.ActiveDirectory;
+
     public class ADALTokenCache : TokenCache
     {
         private static readonly string MachinKeyProtectPurpose = "ADALCache";
@@ -21,8 +21,8 @@ namespace EDUGraphAPI.Models
         public ADALTokenCache(string signedInUserId)
         {
             this.userId = signedInUserId;
-            this.AfterAccess = AfterAccessNotification;
-            this.BeforeAccess = BeforeAccessNotification;
+            this.AfterAccess = this.AfterAccessNotification;
+            this.BeforeAccess = this.BeforeAccessNotification;
 
             this.GetCahceAndDeserialize();
         }
@@ -30,7 +30,7 @@ namespace EDUGraphAPI.Models
         public override void Clear()
         {
             base.Clear();
-            this.ClearUserTokenCache(userId);
+            this.ClearUserTokenCache(this.userId);
         }
 
         private void BeforeAccessNotification(TokenCacheNotificationArgs args)
@@ -49,7 +49,7 @@ namespace EDUGraphAPI.Models
 
         private void GetCahceAndDeserialize()
         {
-            var cacheBits = this.GetUserTokenCache(userId);
+            var cacheBits = this.GetUserTokenCache(this.userId);
             if (cacheBits != null)
             {
                 try
@@ -66,7 +66,7 @@ namespace EDUGraphAPI.Models
         private void SerializeAndUpdateCache()
         {
             var cacheBits = MachineKey.Protect(this.Serialize(), MachinKeyProtectPurpose);
-            this.UpdateUserTokenCache(userId, cacheBits);
+            this.UpdateUserTokenCache(this.userId, cacheBits);
         }
 
         private byte[] GetUserTokenCache(string userId)
