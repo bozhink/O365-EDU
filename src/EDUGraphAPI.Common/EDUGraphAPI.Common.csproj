@@ -104,7 +104,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BingMapServices\BingMapService.cs" />
     <Compile Include="Extensions\AuthenticationResultExtensions.cs" />
     <Compile Include="Extensions\AADGraphExtensions.cs" />
     <Compile Include="Extensions\IdentityExtension.cs" />

@@ -3,7 +3,7 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Web.Services;
+using EDUGraphAPI.Services.Web;
 using System.Web.Mvc;
 
 namespace EDUGraphAPI.Web.Controllers

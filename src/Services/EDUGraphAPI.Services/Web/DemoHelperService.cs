@@ -3,14 +3,14 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Web.Models;
-using Newtonsoft.Json;
-using System.IO;
-using System.Linq;
-using System.Web;
-
-namespace EDUGraphAPI.Web.Services
+namespace EDUGraphAPI.Services.Web
 {
+    using System.IO;
+    using System.Linq;
+    using System.Web;
+    using EDUGraphAPI.Services.Models.Web;
+    using Newtonsoft.Json;
+
     public class DemoHelperService
     {
         private static readonly string dataFilePath = "~/App_Data/demo-pages.json";

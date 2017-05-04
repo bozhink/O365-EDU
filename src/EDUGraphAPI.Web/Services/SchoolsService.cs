@@ -4,7 +4,7 @@
  */
 
 using EDUGraphAPI.Data;
-using EDUGraphAPI.Services.BingMapServices;
+using EDUGraphAPI.Services.BingMaps;
 using EDUGraphAPI.Web.Models;
 using EDUGraphAPI.Web.ViewModels;
 using Microsoft.Education;

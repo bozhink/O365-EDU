@@ -3,7 +3,7 @@
  *   * See LICENSE in the project root for license information.
  */
 
-namespace EDUGraphAPI.Services.BingMapServices
+namespace EDUGraphAPI.Services.BingMaps
 {
     using System.Collections.Generic;
     using System.Net.Http;
