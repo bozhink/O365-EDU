@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1D2EF39F-71C1-41F2-9F14-DB7ABBAA04CE}</ProjectGuid>
+    <ProjectGuid>{38AFABB2-EA5D-422D-BD90-E8921CCEC247}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EDUGraphAPI.Extensions</RootNamespace>
-    <AssemblyName>EDUGraphAPI.Extensions</AssemblyName>
+    <RootNamespace>EDUGraphAPI.GraphClients</RootNamespace>
+    <AssemblyName>EDUGraphAPI.GraphClients</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,9 +33,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
