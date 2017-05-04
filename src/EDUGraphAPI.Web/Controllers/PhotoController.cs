@@ -3,6 +3,7 @@
  *   * See LICENSE in the project root for license information.
  */
 
+using EDUGraphAPI.Enumerations;
 using EDUGraphAPI.Utils;
 using EDUGraphAPI.Web.Infrastructure;
 using Microsoft.Graph;

@@ -3,35 +3,20 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Infrastructure;
-using EDUGraphAPI.Services.Cache;
-using Microsoft.Azure.ActiveDirectory.GraphClient;
-using Microsoft.Education;
-using Microsoft.Graph;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using System;
-using System.Security.Claims;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using System.Web;
-
 namespace EDUGraphAPI.Utils
 {
-    public enum Permissions
-    {
-        /// <summary>
-        /// The client accesses the web API as the signed-in user.
-        /// </summary>
-        Delegated,
-
-        /// <summary>
-        /// The client accesses the web API directly as itself (no user context).
-        /// </summary>
-        /// <remarks>
-        /// This type of permission requires administrator consent.
-        /// </remarks>
-        Application
-    }
+    using EDUGraphAPI.Enumerations;
+    using EDUGraphAPI.Infrastructure;
+    using EDUGraphAPI.Services.Cache;
+    using Microsoft.Azure.ActiveDirectory.GraphClient;
+    using Microsoft.Education;
+    using Microsoft.Graph;
+    using Microsoft.IdentityModel.Clients.ActiveDirectory;
+    using System;
+    using System.Security.Claims;
+    using System.Security.Cryptography.X509Certificates;
+    using System.Threading.Tasks;
+    using System.Web;
 
     /// <summary>
     /// A static helper class used to get access token, authentication result, authentication context and instances of service client.

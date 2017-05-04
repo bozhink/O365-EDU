@@ -3,10 +3,10 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using System;
-
 namespace EDUGraphAPI.Utils
 {
+    using System;
+
     /// <summary>
     /// A static class used to build authorize URL
     /// </summary>

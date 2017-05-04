@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUGraphAPI.Constants", "In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUGraphAPI.Infrastructure", "Infrastructure\EDUGraphAPI.Infrastructure\EDUGraphAPI.Infrastructure.csproj", "{D57AD5D9-760D-4228-B6DD-3D9A5578A3D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUGraphAPI.Enumerations", "Infrastructure\EDUGraphAPI.Enumerations\EDUGraphAPI.Enumerations.csproj", "{8413B531-76FB-45C0-8573-1D0122660681}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{D57AD5D9-760D-4228-B6DD-3D9A5578A3D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D57AD5D9-760D-4228-B6DD-3D9A5578A3D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D57AD5D9-760D-4228-B6DD-3D9A5578A3D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8413B531-76FB-45C0-8573-1D0122660681}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8413B531-76FB-45C0-8573-1D0122660681}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8413B531-76FB-45C0-8573-1D0122660681}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8413B531-76FB-45C0-8573-1D0122660681}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,5 +99,6 @@ Global
 		{1D2EF39F-71C1-41F2-9F14-DB7ABBAA04CE} = {1C2E8D3E-1559-4581-A50A-095D25DE029C}
 		{A8479F5F-927B-4523-B7B7-A188B44E4092} = {1C2E8D3E-1559-4581-A50A-095D25DE029C}
 		{D57AD5D9-760D-4228-B6DD-3D9A5578A3D4} = {1C2E8D3E-1559-4581-A50A-095D25DE029C}
+		{8413B531-76FB-45C0-8573-1D0122660681} = {1C2E8D3E-1559-4581-A50A-095D25DE029C}
 	EndGlobalSection
 EndGlobal
