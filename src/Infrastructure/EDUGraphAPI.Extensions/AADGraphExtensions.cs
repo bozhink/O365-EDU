@@ -3,15 +3,15 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using Microsoft.Azure.ActiveDirectory.GraphClient;
-using Microsoft.Azure.ActiveDirectory.GraphClient.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace EDUGraphAPI
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.Azure.ActiveDirectory.GraphClient;
+    using Microsoft.Azure.ActiveDirectory.GraphClient.Extensions;
+
     public static class AADGraphExtensions
     {
         private const int MaximalNumberOfProcessedPages = 100;
@@ -76,6 +76,7 @@ namespace EDUGraphAPI
                     break;
                 }
             }
+
             return false;
         }
 
