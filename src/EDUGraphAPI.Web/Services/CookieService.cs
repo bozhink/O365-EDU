@@ -10,8 +10,8 @@ namespace EDUGraphAPI.Web.Services
 {
     public class CookieService
     {
-        private static readonly string UsernameCookie = Constants.UsernameCookie;
-        private static readonly string EmailCookie = Constants.EmailCookie;
+        private static readonly string UsernameCookie = EDUGraphAPI.Constants.Common.UsernameCookie;
+        private static readonly string EmailCookie = EDUGraphAPI.Constants.Common.EmailCookie;
 
         public string GetCookiesOfUsername()
         {

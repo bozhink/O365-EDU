@@ -3,7 +3,7 @@
  *   * See LICENSE in the project root for license information.
  */
 
-namespace EDUGraphAPI.DataSync
+namespace EDUGraphAPI.Services.DataSync
 {
     using System;
     using System.Data.Entity;
@@ -12,9 +12,10 @@ namespace EDUGraphAPI.DataSync
     using System.Threading.Tasks;
     using EDUGraphAPI.Data;
     using EDUGraphAPI.Data.Models;
+    using EDUGraphAPI.Infrastructure;
     using EDUGraphAPI.Services.DifferentialQuery;
+    using EDUGraphAPI.Services.Models.DataSync;
     using EDUGraphAPI.Services.Models.DifferentialQuery;
-    using EDUGraphAPI.Web.Infrastructure;
 
     public delegate Task<string> GetTenantAccessTokenAsyncDelegate(string tenantId);
 
@@ -23,8 +24,8 @@ namespace EDUGraphAPI.DataSync
     /// </summary>
     public class UserSyncService
     {
-        private static readonly string UsersQuery = "users";
-        private static readonly string APIVersion = "1.5";
+        private const string UsersQuery = "users";
+        private const string APIVersion = "1.5";
 
         private TextWriter log;
         private ApplicationDbContext dbContext;
@@ -106,7 +107,7 @@ namespace EDUGraphAPI.DataSync
 
             if (record == null)
             {
-                var url = string.Format("{0}/{1}/{2}?deltaLink=", Constants.Resources.AADGraph, tenantId, query);
+                var url = string.Format("{0}/{1}/{2}?deltaLink=", EDUGraphAPI.Constants.Resources.AADGraph, tenantId, query);
                 record = new DataSyncRecord
                 {
                     Query = query,

@@ -23,8 +23,8 @@ namespace EDUGraphAPI.Utils
         {
             var url = string.Format(
                 "{0}oauth2/authorize?response_type=code&client_id={1}&resource={2}&redirect_uri={3}&state={4}",
-                Constants.Authority,
-                Uri.EscapeDataString(Constants.AADClientId),
+                EDUGraphAPI.Constants.Common.Authority,
+                Uri.EscapeDataString(EDUGraphAPI.Constants.Common.AADClientId),
                 Uri.EscapeDataString(resource),
                 Uri.EscapeDataString(redirectUrl),
                 Uri.EscapeDataString(state)

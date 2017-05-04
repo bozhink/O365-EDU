@@ -1,20 +1,21 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 
-namespace EDUGraphAPI.Web.Infrastructure
+namespace EDUGraphAPI.Infrastructure
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+
     /// <summary>
     /// This SimpleMapper is inefficient, and should not be used in production environment.
     /// </summary>
     public static class SimpleMapper
     {
         /// <summary>
-        /// Execute a mapping from the source object to the existing target object. 
+        /// Execute a mapping from the source object to the existing target object.
         /// </summary>
         public static void Map<TSource, TTarget>(TSource source, TTarget target, IEnumerable<string> properties)
         {

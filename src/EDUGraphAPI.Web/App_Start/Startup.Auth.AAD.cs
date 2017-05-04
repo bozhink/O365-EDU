@@ -33,8 +33,8 @@ namespace EDUGraphAPI.Web
                 new OpenIdConnectAuthenticationOptions
                 {
                     Caption = "Microsoft Work or school account",
-                    ClientId = Constants.AADClientId,
-                    Authority = Constants.Authority,
+                    ClientId = EDUGraphAPI.Constants.Common.AADClientId,
+                    Authority = EDUGraphAPI.Constants.Common.Authority,
                     TokenValidationParameters = new System.IdentityModel.Tokens.TokenValidationParameters
                     {
                         // instead of using the default validation (validating against a single issuer value, as we do in line of business apps),
@@ -63,9 +63,9 @@ namespace EDUGraphAPI.Web
 
                             // Get token with authorization code
                             var redirectUri = new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path));
-                            var credential = new ClientCredential(Constants.AADClientId, Constants.AADClientSecret);
+                            var credential = new ClientCredential(EDUGraphAPI.Constants.Common.AADClientId, EDUGraphAPI.Constants.Common.AADClientSecret);
                             var authContext = AuthenticationHelper.GetAuthenticationContext(identity, Permissions.Delegated);
-                            var authResult = await authContext.AcquireTokenByAuthorizationCodeAsync(context.Code, redirectUri, credential, Constants.Resources.AADGraph);
+                            var authResult = await authContext.AcquireTokenByAuthorizationCodeAsync(context.Code, redirectUri, credential, EDUGraphAPI.Constants.Resources.AADGraph);
 
                             // Get user's roles and add them to claims
                             var activeDirectoryClient = authResult.CreateActiveDirectoryClient();

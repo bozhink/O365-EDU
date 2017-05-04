@@ -3,11 +3,12 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
 namespace EDUGraphAPI.Web.Models
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using EDUGraphAPI.Constants;
+
     public class EducationRegisterViewModel : RegisterViewModel
     {
         [Display(Name = "First name")]

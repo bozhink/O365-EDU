@@ -1,9 +1,10 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
+
 using EDUGraphAPI.Data;
-using EDUGraphAPI.DataSync;
+using EDUGraphAPI.Services.DataSync;
 using EDUGraphAPI.Utils;
 using Microsoft.Azure.WebJobs;
 using System.Configuration;
@@ -27,7 +28,10 @@ namespace EDUGraphAPI.SyncData
         private static Task<string> GetTenantAccessTokenAsync(string tenantId)
         {
             return AuthenticationHelper.GetAppOnlyAccessTokenForDaemonAppAsync(
-                Constants.Resources.AADGraph, CertPath, CertPassword, tenantId);
+                EDUGraphAPI.Constants.Resources.AADGraph,
+                CertPath,
+                CertPassword,
+                tenantId);
         }
     }
 }

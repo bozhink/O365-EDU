@@ -79,7 +79,7 @@ namespace EDUGraphAPI.Web.Services
                 EducationGrade = grade,
                 UserDisplayName = currentUser.DisplayName,
                 MySchoolId = currentUser.SchoolId,
-                BingMapKey = Constants.BingMapKey
+                BingMapKey = EDUGraphAPI.Constants.Common.BingMapKey
             };
         }
 
@@ -174,7 +174,7 @@ namespace EDUGraphAPI.Web.Services
                 School = school,
                 Section = section,
                 Conversations = await group.Conversations.Request().GetAllAsync(),
-                SeeMoreConversationsUrl = string.Format(Constants.O365GroupConversationsUrl, section.Email),
+                SeeMoreConversationsUrl = string.Format(EDUGraphAPI.Constants.Common.O365GroupConversationsUrl, section.Email),
                 DriveItems = await group.Drive.Root.Children.Request().GetAllAsync(),
                 SeeMoreFilesUrl = driveRootFolder.WebUrl
             };

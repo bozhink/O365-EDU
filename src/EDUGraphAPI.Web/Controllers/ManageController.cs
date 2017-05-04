@@ -315,7 +315,7 @@ namespace EDUGraphAPI.Web.Controllers
         {
             var model = new AboutMeViewModel()
             {
-                FavoriteColors = Constants.FavoriteColors
+                FavoriteColors = EDUGraphAPI.Constants.Common.FavoriteColors
             };
 
             var userContext = await applicationService.GetUserContextAsync();

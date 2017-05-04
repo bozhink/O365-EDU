@@ -30,23 +30,53 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DataSync\UserSyncService.cs" />
     <Compile Include="DifferentialQuery\DeltaResultParser.cs" />
     <Compile Include="DifferentialQuery\DifferentialQueryService.cs" />
     <Compile Include="DifferentialQuery\DynamicProxyGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\EDUGraphAPI.Data.Models\EDUGraphAPI.Data.Models.csproj">
+      <Project>{daec092a-a92f-46b3-93cd-ebd888a9eb65}</Project>
+      <Name>EDUGraphAPI.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\EDUGraphAPI.Data\EDUGraphAPI.Data.csproj">
+      <Project>{321bf683-8fe3-4fd7-a76a-a8b67f6118ae}</Project>
+      <Name>EDUGraphAPI.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\EDUGraphAPI.Constants\EDUGraphAPI.Constants.csproj">
+      <Project>{a8479f5f-927b-4523-b7b7-a188b44e4092}</Project>
+      <Name>EDUGraphAPI.Constants</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\EDUGraphAPI.Extensions\EDUGraphAPI.Extensions.csproj">
       <Project>{1d2ef39f-71c1-41f2-9f14-db7abbaa04ce}</Project>
       <Name>EDUGraphAPI.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\EDUGraphAPI.Infrastructure\EDUGraphAPI.Infrastructure.csproj">
+      <Project>{d57ad5d9-760d-4228-b6dd-3d9a5578a3d4}</Project>
+      <Name>EDUGraphAPI.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\EDUGraphAPI.Services.Models\EDUGraphAPI.Services.Models.csproj">
       <Project>{e76c5ffd-a7b0-4cb2-a694-3385255b6c99}</Project>
@@ -54,6 +84,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,7 +3,7 @@
  *   * See LICENSE in the project root for license information.
  */
 
-namespace EDUGraphAPI.DataSync
+namespace EDUGraphAPI.Services.Models.DataSync
 {
     /// <summary>
     /// An instance of the class represents a user in Azure AD.

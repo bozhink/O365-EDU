@@ -494,6 +494,10 @@
       <Project>{6f7dc16a-38ab-46cf-9f95-9e88e504856a}</Project>
       <Name>EDUGraphAPI.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\EDUGraphAPI.Constants\EDUGraphAPI.Constants.csproj">
+      <Project>{a8479f5f-927b-4523-b7b7-a188b44e4092}</Project>
+      <Name>EDUGraphAPI.Constants</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure\EDUGraphAPI.Extensions\EDUGraphAPI.Extensions.csproj">
       <Project>{1d2ef39f-71c1-41f2-9f14-db7abbaa04ce}</Project>
       <Name>EDUGraphAPI.Extensions</Name>

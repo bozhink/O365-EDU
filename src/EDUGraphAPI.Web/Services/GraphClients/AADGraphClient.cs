@@ -53,17 +53,17 @@ namespace EDUGraphAPI.Web.Services.GraphClients
 
             if (await directoryAdminRole.Members.AnyAsync(i => i.ObjectId == user.ObjectId))
             {
-                roles.Add(Constants.Roles.Admin);
+                roles.Add(EDUGraphAPI.Constants.Roles.Admin);
             }
 
-            if (user.AssignedLicenses.Any(i => i.SkuId == Constants.O365ProductLicenses.Faculty || i.SkuId == Constants.O365ProductLicenses.FacultyPro))
+            if (user.AssignedLicenses.Any(i => i.SkuId == EDUGraphAPI.Constants.O365ProductLicenses.Faculty || i.SkuId == EDUGraphAPI.Constants.O365ProductLicenses.FacultyPro))
             {
-                roles.Add(Constants.Roles.Faculty);
+                roles.Add(EDUGraphAPI.Constants.Roles.Faculty);
             }
 
-            if (user.AssignedLicenses.Any(i => i.SkuId == Constants.O365ProductLicenses.Student || i.SkuId == Constants.O365ProductLicenses.StudentPro))
+            if (user.AssignedLicenses.Any(i => i.SkuId == EDUGraphAPI.Constants.O365ProductLicenses.Student || i.SkuId == EDUGraphAPI.Constants.O365ProductLicenses.StudentPro))
             {
-                roles.Add(Constants.Roles.Student);
+                roles.Add(EDUGraphAPI.Constants.Roles.Student);
             }
 
             return roles.ToArray();
@@ -75,7 +75,7 @@ namespace EDUGraphAPI.Web.Services.GraphClients
                .Expand(i => i.Members)
                .ExecuteAllAsync();
             return roles
-                .Where(i => i.DisplayName == Constants.AADCompanyAdminRoleName)
+                .Where(i => i.DisplayName == EDUGraphAPI.Constants.Common.AADCompanyAdminRoleName)
                 .FirstOrDefault();
         }
     }

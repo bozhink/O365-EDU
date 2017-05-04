@@ -138,7 +138,7 @@ namespace EDUGraphAPI.Web.Controllers
         {
             EducationRegisterViewModel model = new EducationRegisterViewModel()
             {
-                FavoriteColors = Constants.FavoriteColors
+                FavoriteColors = EDUGraphAPI.Constants.Common.FavoriteColors
             };
             return View(model);
         }
@@ -166,7 +166,7 @@ namespace EDUGraphAPI.Web.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-                model.FavoriteColors = Constants.FavoriteColors;
+                model.FavoriteColors = EDUGraphAPI.Constants.Common.FavoriteColors;
                 AddErrors(result);
             }
 
@@ -459,11 +459,11 @@ namespace EDUGraphAPI.Web.Controllers
 
         private void SetCookiesForO365User(string username, string email)
         {
-            Response.Cookies.Add(new HttpCookie(Constants.UsernameCookie, username)
+            Response.Cookies.Add(new HttpCookie(EDUGraphAPI.Constants.Common.UsernameCookie, username)
             {
                 Expires = DateTime.UtcNow.AddDays(30)
             });
-            Response.Cookies.Add(new HttpCookie(Constants.EmailCookie, email)
+            Response.Cookies.Add(new HttpCookie(EDUGraphAPI.Constants.Common.EmailCookie, email)
             {
                 Expires = DateTime.UtcNow.AddDays(30)
             });

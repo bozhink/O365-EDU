@@ -26,8 +26,8 @@ namespace EDUGraphAPI.Web.Controllers
     public class LinkController : Controller
     {
         private static readonly string StateKey = typeof(LinkController).Name + "State";
-        private static readonly string UsernameCookie = Constants.UsernameCookie;
-        private static readonly string EmailCookie = Constants.EmailCookie;
+        private static readonly string UsernameCookie = EDUGraphAPI.Constants.Common.UsernameCookie;
+        private static readonly string EmailCookie = EDUGraphAPI.Constants.Common.EmailCookie;
 
         private ApplicationService applicationService;
         private ApplicationSignInManager signInManager;
@@ -76,7 +76,7 @@ namespace EDUGraphAPI.Web.Controllers
             TempData[StateKey] = state;
 
             var redirectUrl = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ProcessCode");
-            var authorizationUrl = AuthorizationHelper.GetUrl(redirectUrl, state, Constants.Resources.MSGraph, AuthorizationHelper.Prompt.Login);
+            var authorizationUrl = AuthorizationHelper.GetUrl(redirectUrl, state, EDUGraphAPI.Constants.Resources.MSGraph, AuthorizationHelper.Prompt.Login);
             return new RedirectResult(authorizationUrl);
         }
 
@@ -203,7 +203,7 @@ namespace EDUGraphAPI.Web.Controllers
                 FirstName = aadUser.GivenName,
                 LastName = aadUser.Surname,
                 Email = aadUser.Mail ?? aadUser.UserPrincipalName,
-                FavoriteColors = Constants.FavoriteColors
+                FavoriteColors = EDUGraphAPI.Constants.Common.FavoriteColors
             };
 
             return View(viewModel);
@@ -222,7 +222,7 @@ namespace EDUGraphAPI.Web.Controllers
             var tenant = await graphClient.GetTenantAsync(tenantId);
 
             model.Email = user.Mail ?? user.UserPrincipalName;
-            model.FavoriteColors = Constants.FavoriteColors;
+            model.FavoriteColors = EDUGraphAPI.Constants.Common.FavoriteColors;
             //if (!ModelState.IsValid) return View(model);
 
             // Create a new local user
@@ -273,11 +273,11 @@ namespace EDUGraphAPI.Web.Controllers
 
         private void SetCookiesForO365User(string username, string email)
         {
-            Response.Cookies.Add(new HttpCookie(Constants.UsernameCookie, username)
+            Response.Cookies.Add(new HttpCookie(EDUGraphAPI.Constants.Common.UsernameCookie, username)
             {
                 Expires = DateTime.UtcNow.AddDays(30)
             });
-            Response.Cookies.Add(new HttpCookie(Constants.EmailCookie, email)
+            Response.Cookies.Add(new HttpCookie(EDUGraphAPI.Constants.Common.EmailCookie, email)
             {
                 Expires = DateTime.UtcNow.AddDays(30)
             });

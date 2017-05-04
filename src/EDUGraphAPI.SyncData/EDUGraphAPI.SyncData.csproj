@@ -153,6 +153,14 @@
       <Project>{6f7dc16a-38ab-46cf-9f95-9e88e504856a}</Project>
       <Name>EDUGraphAPI.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\EDUGraphAPI.Constants\EDUGraphAPI.Constants.csproj">
+      <Project>{a8479f5f-927b-4523-b7b7-a188b44e4092}</Project>
+      <Name>EDUGraphAPI.Constants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\EDUGraphAPI.Services\EDUGraphAPI.Services.csproj">
+      <Project>{398b56ba-3848-4a3a-8ad1-3bb816c72e9c}</Project>
+      <Name>EDUGraphAPI.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Web.WebJobs.Publish.1.0.12\tools\webjobs.targets" Condition="Exists('..\packages\Microsoft.Web.WebJobs.Publish.1.0.12\tools\webjobs.targets')" />

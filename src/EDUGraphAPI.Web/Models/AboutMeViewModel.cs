@@ -3,10 +3,11 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using System.Collections.Generic;
-
 namespace EDUGraphAPI.Web.Models
 {
+    using System.Collections.Generic;
+    using EDUGraphAPI.Constants;
+
     public class AboutMeViewModel
     {
         public AboutMeViewModel()
