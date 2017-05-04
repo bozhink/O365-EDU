@@ -51,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArrayResult.cs" />
-    <Compile Include="EduConstants.cs" />
     <Compile Include="EducationServiceClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\School.cs" />
@@ -62,6 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\Microsoft.Education.Constants\Microsoft.Education.Constants.csproj">
+      <Project>{9C57690D-128F-4473-AE1D-E2C5B1FB5B74}</Project>
+      <Name>Microsoft.Education.Constants</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
