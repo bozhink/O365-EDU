@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Education.Constan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Education.Data.Models", "Data\Microsoft.Education.Data.Models\Microsoft.Education.Data.Models.csproj", "{D801873C-5CEC-455E-BDA8-4470AE7871A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Education.Services", "Services\Microsoft.Education.Services\Microsoft.Education.Services.csproj", "{F42CBFB5-912F-4366-9707-084A51D01D56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{D801873C-5CEC-455E-BDA8-4470AE7871A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D801873C-5CEC-455E-BDA8-4470AE7871A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D801873C-5CEC-455E-BDA8-4470AE7871A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F42CBFB5-912F-4366-9707-084A51D01D56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F42CBFB5-912F-4366-9707-084A51D01D56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F42CBFB5-912F-4366-9707-084A51D01D56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F42CBFB5-912F-4366-9707-084A51D01D56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,5 +114,6 @@ Global
 		{D52FDC49-827F-4FCF-9244-9F26F5278AB8} = {1C2E8D3E-1559-4581-A50A-095D25DE029C}
 		{9C57690D-128F-4473-AE1D-E2C5B1FB5B74} = {1C2E8D3E-1559-4581-A50A-095D25DE029C}
 		{D801873C-5CEC-455E-BDA8-4470AE7871A4} = {7F23F151-272A-4465-9B7F-9E1CB86A51BA}
+		{F42CBFB5-912F-4366-9707-084A51D01D56} = {31F019E9-5419-413C-B559-A43DA6743C0D}
 	EndGlobalSection
 EndGlobal

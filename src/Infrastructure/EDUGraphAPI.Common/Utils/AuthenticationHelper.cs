@@ -5,17 +5,17 @@
 
 namespace EDUGraphAPI.Utils
 {
-    using EDUGraphAPI.Common.Infrastructure;
-    using EDUGraphAPI.Enumerations;
-    using Microsoft.Azure.ActiveDirectory.GraphClient;
-    using Microsoft.Education;
-    using Microsoft.Graph;
-    using Microsoft.IdentityModel.Clients.ActiveDirectory;
     using System;
     using System.Security.Claims;
     using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
     using System.Web;
+    using EDUGraphAPI.Common.Infrastructure;
+    using EDUGraphAPI.Enumerations;
+    using Microsoft.Azure.ActiveDirectory.GraphClient;
+    using Microsoft.Education.Services;
+    using Microsoft.Graph;
+    using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
     /// <summary>
     /// A static helper class used to get access token, authentication result, authentication context and instances of service client.

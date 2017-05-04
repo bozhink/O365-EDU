@@ -109,6 +109,10 @@
       <Project>{4cbcd397-9137-4b1f-87c3-8e44ded7b9ff}</Project>
       <Name>Microsoft.Education</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Services\Microsoft.Education.Services\Microsoft.Education.Services.csproj">
+      <Project>{F42CBFB5-912F-4366-9707-084A51D01D56}</Project>
+      <Name>Microsoft.Education.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EDUGraphAPI.Constants\EDUGraphAPI.Constants.csproj">
       <Project>{a8479f5f-927b-4523-b7b7-a188b44e4092}</Project>
       <Name>EDUGraphAPI.Constants</Name>

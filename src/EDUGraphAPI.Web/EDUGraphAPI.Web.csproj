@@ -515,6 +515,10 @@
       <Project>{398B56BA-3848-4A3A-8AD1-3BB816C72E9C}</Project>
       <Name>EDUGraphAPI.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Services\Microsoft.Education.Services\Microsoft.Education.Services.csproj">
+      <Project>{F42CBFB5-912F-4366-9707-084A51D01D56}</Project>
+      <Name>Microsoft.Education.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
