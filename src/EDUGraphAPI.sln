@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUGraphAPI.Services", "Ser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUGraphAPI.Services.Models", "Services\EDUGraphAPI.Services.Models\EDUGraphAPI.Services.Models.csproj", "{E76C5FFD-A7B0-4CB2-A694-3385255B6C99}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{1C2E8D3E-1559-4581-A50A-095D25DE029C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUGraphAPI.Extensions", "Infrastructure\EDUGraphAPI.Extensions\EDUGraphAPI.Extensions.csproj", "{1D2EF39F-71C1-41F2-9F14-DB7ABBAA04CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,10 @@ Global
 		{E76C5FFD-A7B0-4CB2-A694-3385255B6C99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E76C5FFD-A7B0-4CB2-A694-3385255B6C99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E76C5FFD-A7B0-4CB2-A694-3385255B6C99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D2EF39F-71C1-41F2-9F14-DB7ABBAA04CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D2EF39F-71C1-41F2-9F14-DB7ABBAA04CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D2EF39F-71C1-41F2-9F14-DB7ABBAA04CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D2EF39F-71C1-41F2-9F14-DB7ABBAA04CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,5 +78,6 @@ Global
 		{DAEC092A-A92F-46B3-93CD-EBD888A9EB65} = {7F23F151-272A-4465-9B7F-9E1CB86A51BA}
 		{398B56BA-3848-4A3A-8AD1-3BB816C72E9C} = {31F019E9-5419-413C-B559-A43DA6743C0D}
 		{E76C5FFD-A7B0-4CB2-A694-3385255B6C99} = {31F019E9-5419-413C-B559-A43DA6743C0D}
+		{1D2EF39F-71C1-41F2-9F14-DB7ABBAA04CE} = {1C2E8D3E-1559-4581-A50A-095D25DE029C}
 	EndGlobalSection
 EndGlobal

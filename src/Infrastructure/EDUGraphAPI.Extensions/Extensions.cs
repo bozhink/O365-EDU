@@ -3,13 +3,13 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-
 namespace EDUGraphAPI
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
+
     public static class Extensions
     {
         public static bool IsNullOrEmpty<T>(this IEnumerable<T> items)
@@ -48,31 +48,31 @@ namespace EDUGraphAPI
             return value;
         }
 
-        //public static async Task<TElement[]> ExecuteAllAsnyc<TElement>(this IReadOnlyQueryableSet<TElement> queryableSet)
-        //{
-        //    var pagedCollection = await queryableSet.ExecuteAsync();
-        //    return await ExecuteAllAsnyc(pagedCollection);
-        //}
+        ////public static async Task<TElement[]> ExecuteAllAsnyc<TElement>(this IReadOnlyQueryableSet<TElement> queryableSet)
+        ////{
+        ////    var pagedCollection = await queryableSet.ExecuteAsync();
+        ////    return await ExecuteAllAsnyc(pagedCollection);
+        ////}
 
-        //public static async Task<IDirectoryObject[]> ExecuteAllAsnyc(this IDirectoryObjectCollection collection)
-        //{
-        //    var pagedCollection = await collection.ExecuteAsync();
-        //    return await ExecuteAllAsnyc(pagedCollection);
-        //}
+        ////public static async Task<IDirectoryObject[]> ExecuteAllAsnyc(this IDirectoryObjectCollection collection)
+        ////{
+        ////    var pagedCollection = await collection.ExecuteAsync();
+        ////    return await ExecuteAllAsnyc(pagedCollection);
+        ////}
 
-        //public static async Task<TElement[]> ExecuteAllAsnyc<TElement>(this IPagedCollection<TElement> pagedCollection)
-        //{
-        //    var collection = pagedCollection;
-        //    var list = new List<TElement>();
+        ////public static async Task<TElement[]> ExecuteAllAsnyc<TElement>(this IPagedCollection<TElement> pagedCollection)
+        ////{
+        ////    var collection = pagedCollection;
+        ////    var list = new List<TElement>();
 
-        //    while (true)
-        //    {
-        //        list.AddRange(collection.CurrentPage);
-        //        if (!collection.MorePagesAvailable) break;
-        //        collection = await collection.GetNextPageAsync();
-        //    }
-        //    return list.ToArray();
-        //}
+        ////    while (true)
+        ////    {
+        ////        list.AddRange(collection.CurrentPage);
+        ////        if (!collection.MorePagesAvailable) break;
+        ////        collection = await collection.GetNextPageAsync();
+        ////    }
+        ////    return list.ToArray();
+        ////}
 
         public static IEnumerable<T> WhereIf<T>(this IEnumerable<T> source, Func<T, bool> predicate, bool condition)
         {

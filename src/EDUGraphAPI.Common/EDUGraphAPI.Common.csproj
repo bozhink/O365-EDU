@@ -106,14 +106,7 @@
   <ItemGroup>
     <Compile Include="BingMapServices\BingMapService.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="DifferentialQuery\Delta.cs" />
-    <Compile Include="DifferentialQuery\DifferentialQueryService.cs" />
-    <Compile Include="DifferentialQuery\DeltaResultParser.cs" />
-    <Compile Include="DifferentialQuery\DeltaResult.cs" />
-    <Compile Include="DifferentialQuery\DynamicProxyGenerator.cs" />
-    <Compile Include="DifferentialQuery\IDeltaEntity.cs" />
     <Compile Include="Extensions\AuthenticationResultExtensions.cs" />
-    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Extensions\AADGraphExtensions.cs" />
     <Compile Include="Extensions\IdentityExtension.cs" />
     <Compile Include="Extensions\MSGraphExtension.cs" />
@@ -141,9 +134,21 @@
       <Project>{321bf683-8fe3-4fd7-a76a-a8b67f6118ae}</Project>
       <Name>EDUGraphAPI.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\EDUGraphAPI.Extensions\EDUGraphAPI.Extensions.csproj">
+      <Project>{1d2ef39f-71c1-41f2-9f14-db7abbaa04ce}</Project>
+      <Name>EDUGraphAPI.Extensions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Microsoft.Education\Microsoft.Education.csproj">
       <Project>{4cbcd397-9137-4b1f-87c3-8e44ded7b9ff}</Project>
       <Name>Microsoft.Education</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\EDUGraphAPI.Services.Models\EDUGraphAPI.Services.Models.csproj">
+      <Project>{e76c5ffd-a7b0-4cb2-a694-3385255b6c99}</Project>
+      <Name>EDUGraphAPI.Services.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\EDUGraphAPI.Services\EDUGraphAPI.Services.csproj">
+      <Project>{398b56ba-3848-4a3a-8ad1-3bb816c72e9c}</Project>
+      <Name>EDUGraphAPI.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

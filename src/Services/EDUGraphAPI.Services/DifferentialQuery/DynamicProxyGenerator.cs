@@ -3,13 +3,14 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Reflection.Emit;
-
-namespace EDUGraphAPI.DifferentialQuery
+namespace EDUGraphAPI.Services.DifferentialQuery
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Reflection.Emit;
+    using EDUGraphAPI.Services.Models.DifferentialQuery;
+
     internal static class DynamicProxyGenerator
     {
         private const string DynamicAssemblyName = "DynamicAssembly";
@@ -47,20 +48,24 @@ namespace EDUGraphAPI.DifferentialQuery
 
             foreach (var propertyInfo in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
-                if (!propertyInfo.GetGetMethod().IsVirtual || !propertyInfo.GetSetMethod().IsVirtual) continue;
+                if (!propertyInfo.GetGetMethod().IsVirtual || !propertyInfo.GetSetMethod().IsVirtual)
+                {
+                    continue;
+                }
+
                 OverrideProperty(typeBuilder, modifiedPropertyNamesField, propertyInfo.Name, propertyInfo.PropertyType);
             }
 
             return typeBuilder.CreateType();
         }
 
-        private static void DefineConstructor(TypeBuilder typeBuilder, Type modifiedPropertyNamesType, FieldBuilder fbModifiedPropertyNames)
+        private static void DefineConstructor(TypeBuilder typeBuilder, Type modifiedPropertyNamesType, FieldBuilder fieldBuilderModifiedPropertyNames)
         {
             var constructorBuilder = typeBuilder.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, null);
             var ilgCtor = constructorBuilder.GetILGenerator();
             ilgCtor.Emit(OpCodes.Ldarg_0);
             ilgCtor.Emit(OpCodes.Newobj, modifiedPropertyNamesType.GetConstructor(new Type[0]));
-            ilgCtor.Emit(OpCodes.Stfld, fbModifiedPropertyNames);
+            ilgCtor.Emit(OpCodes.Stfld, fieldBuilderModifiedPropertyNames);
             ilgCtor.Emit(OpCodes.Ret);
         }
 
@@ -68,10 +73,10 @@ namespace EDUGraphAPI.DifferentialQuery
         {
             var propertyBuilder = typeBuilder.DefineProperty(propertyName, PropertyAttributes.None, fieldBuider.FieldType, Type.EmptyTypes);
             var methodGet = typeBuilder.DefineMethod("get_" + propertyName, GetSetMethodAttributes, fieldBuider.FieldType, Type.EmptyTypes);
-            var ilGetMethod = methodGet.GetILGenerator();
-            ilGetMethod.Emit(OpCodes.Ldarg_0);
-            ilGetMethod.Emit(OpCodes.Ldfld, fieldBuider);
-            ilGetMethod.Emit(OpCodes.Ret);
+            var ilgetMethod = methodGet.GetILGenerator();
+            ilgetMethod.Emit(OpCodes.Ldarg_0);
+            ilgetMethod.Emit(OpCodes.Ldfld, fieldBuider);
+            ilgetMethod.Emit(OpCodes.Ret);
             propertyBuilder.SetGetMethod(methodGet);
             return propertyBuilder;
         }
@@ -82,18 +87,18 @@ namespace EDUGraphAPI.DifferentialQuery
             var propertyBuilder = typeBuilder.DefineProperty(propertyName, PropertyAttributes.SpecialName, propertyType, null);
 
             var methodGet = typeBuilder.DefineMethod("get_" + propertyName, GetSetMethodAttributes, propertyType, Type.EmptyTypes);
-            var ilGetMethod = methodGet.GetILGenerator();
-            ilGetMethod.Emit(OpCodes.Ldarg_0);
-            ilGetMethod.Emit(OpCodes.Ldfld, fieldBuilder);
-            ilGetMethod.Emit(OpCodes.Ret);
+            var ilgetMethod = methodGet.GetILGenerator();
+            ilgetMethod.Emit(OpCodes.Ldarg_0);
+            ilgetMethod.Emit(OpCodes.Ldfld, fieldBuilder);
+            ilgetMethod.Emit(OpCodes.Ret);
             propertyBuilder.SetGetMethod(methodGet);
 
             var methodSet = typeBuilder.DefineMethod("set_" + propertyName, GetSetMethodAttributes, null, new Type[] { propertyType });
-            var ilSetMethod = methodSet.GetILGenerator();
-            ilSetMethod.Emit(OpCodes.Ldarg_0);
-            ilSetMethod.Emit(OpCodes.Ldarg_1);
-            ilSetMethod.Emit(OpCodes.Stfld, fieldBuilder);
-            ilSetMethod.Emit(OpCodes.Ret);
+            var ilsetMethod = methodSet.GetILGenerator();
+            ilsetMethod.Emit(OpCodes.Ldarg_0);
+            ilsetMethod.Emit(OpCodes.Ldarg_1);
+            ilsetMethod.Emit(OpCodes.Stfld, fieldBuilder);
+            ilsetMethod.Emit(OpCodes.Ret);
             propertyBuilder.SetSetMethod(methodSet);
 
             return propertyBuilder;
@@ -105,23 +110,23 @@ namespace EDUGraphAPI.DifferentialQuery
             var propertyBuilder = typeBuilder.DefineProperty(propertyName, PropertyAttributes.SpecialName, propertyType, null);
 
             var methodGet = typeBuilder.DefineMethod("get_" + propertyName, GetSetMethodAttributes, propertyType, Type.EmptyTypes);
-            var ilGetMethod = methodGet.GetILGenerator();
-            ilGetMethod.Emit(OpCodes.Ldarg_0);
-            ilGetMethod.Emit(OpCodes.Ldfld, fieldBuilder);
-            ilGetMethod.Emit(OpCodes.Ret);
+            var ilgetMethod = methodGet.GetILGenerator();
+            ilgetMethod.Emit(OpCodes.Ldarg_0);
+            ilgetMethod.Emit(OpCodes.Ldfld, fieldBuilder);
+            ilgetMethod.Emit(OpCodes.Ret);
             propertyBuilder.SetGetMethod(methodGet);
 
             var methodSet = typeBuilder.DefineMethod("set_" + propertyName, GetSetMethodAttributes, null, new Type[] { propertyType });
-            var ilSetMethod = methodSet.GetILGenerator();
-            ilSetMethod.Emit(OpCodes.Ldarg_0);
-            ilSetMethod.Emit(OpCodes.Ldarg_1);
-            ilSetMethod.Emit(OpCodes.Stfld, fieldBuilder);
-            ilSetMethod.Emit(OpCodes.Ldarg_0);
-            ilSetMethod.Emit(OpCodes.Ldfld, modifiedPropertyNamesField);
-            ilSetMethod.Emit(OpCodes.Ldstr, propertyName);
-            ilSetMethod.Emit(OpCodes.Callvirt, modifiedPropertyNamesField.FieldType.GetMethod("Add", new Type[] { typeof(string) }));
-            ilSetMethod.Emit(OpCodes.Pop);
-            ilSetMethod.Emit(OpCodes.Ret);
+            var ilsetMethod = methodSet.GetILGenerator();
+            ilsetMethod.Emit(OpCodes.Ldarg_0);
+            ilsetMethod.Emit(OpCodes.Ldarg_1);
+            ilsetMethod.Emit(OpCodes.Stfld, fieldBuilder);
+            ilsetMethod.Emit(OpCodes.Ldarg_0);
+            ilsetMethod.Emit(OpCodes.Ldfld, modifiedPropertyNamesField);
+            ilsetMethod.Emit(OpCodes.Ldstr, propertyName);
+            ilsetMethod.Emit(OpCodes.Callvirt, modifiedPropertyNamesField.FieldType.GetMethod("Add", new Type[] { typeof(string) }));
+            ilsetMethod.Emit(OpCodes.Pop);
+            ilsetMethod.Emit(OpCodes.Ret);
             propertyBuilder.SetSetMethod(methodSet);
         }
     }

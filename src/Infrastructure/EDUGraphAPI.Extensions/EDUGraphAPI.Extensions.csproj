@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{398B56BA-3848-4A3A-8AD1-3BB816C72E9C}</ProjectGuid>
+    <ProjectGuid>{1D2EF39F-71C1-41F2-9F14-DB7ABBAA04CE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EDUGraphAPI.Services</RootNamespace>
-    <AssemblyName>EDUGraphAPI.Services</AssemblyName>
+    <RootNamespace>EDUGraphAPI.Extensions</RootNamespace>
+    <AssemblyName>EDUGraphAPI.Extensions</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,31 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DifferentialQuery\DeltaResultParser.cs" />
-    <Compile Include="DifferentialQuery\DifferentialQueryService.cs" />
-    <Compile Include="DifferentialQuery\DynamicProxyGenerator.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\EDUGraphAPI.Extensions\EDUGraphAPI.Extensions.csproj">
-      <Project>{1d2ef39f-71c1-41f2-9f14-db7abbaa04ce}</Project>
-      <Name>EDUGraphAPI.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EDUGraphAPI.Services.Models\EDUGraphAPI.Services.Models.csproj">
-      <Project>{e76c5ffd-a7b0-4cb2-a694-3385255b6c99}</Project>
-      <Name>EDUGraphAPI.Services.Models</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

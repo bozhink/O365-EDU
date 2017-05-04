@@ -3,11 +3,11 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using Newtonsoft.Json;
-using System.Collections.Generic;
-
-namespace EDUGraphAPI.DifferentialQuery
+namespace EDUGraphAPI.Services.Models.DifferentialQuery
 {
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+
     public interface IDeltaEntity
     {
         [JsonProperty("aad.isDeleted")]

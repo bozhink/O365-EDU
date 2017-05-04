@@ -3,10 +3,11 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using Newtonsoft.Json;
-
-namespace EDUGraphAPI.DifferentialQuery
+namespace EDUGraphAPI.Services.DifferentialQuery
 {
+    using EDUGraphAPI.Services.Models.DifferentialQuery;
+    using Newtonsoft.Json;
+
     public static class DeltaResultParser
     {
         // The implement of the method below is complex. Please focus on the result it returns.

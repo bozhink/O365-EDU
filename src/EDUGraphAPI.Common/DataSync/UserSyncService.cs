@@ -3,18 +3,19 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Data;
-using EDUGraphAPI.Data.Models;
-using EDUGraphAPI.DifferentialQuery;
-using EDUGraphAPI.Web.Infrastructure;
-using System;
-using System.Data.Entity;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace EDUGraphAPI.DataSync
 {
+    using System;
+    using System.Data.Entity;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using EDUGraphAPI.Data;
+    using EDUGraphAPI.Data.Models;
+    using EDUGraphAPI.Services.DifferentialQuery;
+    using EDUGraphAPI.Services.Models.DifferentialQuery;
+    using EDUGraphAPI.Web.Infrastructure;
+
     public delegate Task<string> GetTenantAccessTokenAsyncDelegate(string tenantId);
 
     /// <summary>

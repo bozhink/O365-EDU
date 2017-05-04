@@ -3,13 +3,14 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-namespace EDUGraphAPI.DifferentialQuery
+namespace EDUGraphAPI.Services.DifferentialQuery
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
+    using EDUGraphAPI.Services.Models.DifferentialQuery;
+
     /// <summary>
     /// An instance of the class handles building request, sending it to the service endpoint, and processing the responses.
     /// </summary>
@@ -31,14 +32,17 @@ namespace EDUGraphAPI.DifferentialQuery
 
             while (true)
             {
-                var json = await HttpGetAsync(nextLink + "&api-version=" + apiVersion);
+                var json = await this.HttpGetAsync(nextLink + "&api-version=" + apiVersion);
                 var result = DeltaResultParser.Parse<TEntity>(json);
                 items.AddRange(result.Items);
 
                 deltaLink = result.DeltaLink;
                 nextLink = result.NextLink;
 
-                if (nextLink.IsNullOrEmpty()) break;
+                if (nextLink.IsNullOrEmpty())
+                {
+                    break;
+                }
             }
 
             return new DeltaResult<Delta<TEntity>>
@@ -52,7 +56,7 @@ namespace EDUGraphAPI.DifferentialQuery
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("Authorization", await accessTokenGetter());
+                client.DefaultRequestHeaders.Add("Authorization", await this.accessTokenGetter());
                 client.DefaultRequestHeaders.Add("ocp-aad-dq-include-only-changed-properties", "true");
 
                 var response = await client.GetAsync(url);
