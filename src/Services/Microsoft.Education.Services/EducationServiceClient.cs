@@ -5,7 +5,7 @@
 
 namespace Microsoft.Education.Services
 {
-    using Microsoft.Education.Data.Models;
+    using Microsoft.Education.Services.Models;
     using Newtonsoft.Json;
     using System;
     using System.Collections.Concurrent;

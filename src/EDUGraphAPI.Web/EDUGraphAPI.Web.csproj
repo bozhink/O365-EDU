@@ -487,9 +487,9 @@
       <Project>{321bf683-8fe3-4fd7-a76a-a8b67f6118ae}</Project>
       <Name>EDUGraphAPI.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data\Microsoft.Education.Data.Models\Microsoft.Education.Data.Models.csproj">
+    <ProjectReference Include="..\Services\Microsoft.Education.Services.Models\Microsoft.Education.Services.Models.csproj">
       <Project>{d801873c-5cec-455e-bda8-4470ae7871a4}</Project>
-      <Name>Microsoft.Education.Data.Models</Name>
+      <Name>Microsoft.Education.Services.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure\EDUGraphAPI.Common\EDUGraphAPI.Common.csproj">
       <Project>{d52fdc49-827f-4fcf-9244-9f26f5278ab8}</Project>

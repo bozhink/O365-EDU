@@ -7,7 +7,7 @@ using EDUGraphAPI.Data;
 using EDUGraphAPI.Services.BingMaps;
 using EDUGraphAPI.Web.Models;
 using EDUGraphAPI.Web.ViewModels;
-using Microsoft.Education.Data.Models;
+using Microsoft.Education.Services.Models;
 using Microsoft.Education.Services;
 using Microsoft.Graph;
 using System.Linq;

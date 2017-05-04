@@ -44,9 +44,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\Microsoft.Education.Data.Models\Microsoft.Education.Data.Models.csproj">
+    <ProjectReference Include="..\Microsoft.Education.Services.Models\Microsoft.Education.Services.Models.csproj">
       <Project>{d801873c-5cec-455e-bda8-4470ae7871a4}</Project>
-      <Name>Microsoft.Education.Data.Models</Name>
+      <Name>Microsoft.Education.Services.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

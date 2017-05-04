@@ -3,12 +3,10 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using Microsoft.Education;
-using Microsoft.Education.Data;
-using Microsoft.Education.Data.Models;
-
 namespace EDUGraphAPI.Web.Models
 {
+    using Microsoft.Education.Services.Models;
+
     public class SchoolUsersViewModel
     {
         public SchoolUsersViewModel(School School, ArrayResult<SectionUser> users, ArrayResult<SectionUser> students, ArrayResult<SectionUser> teachers)
@@ -20,8 +18,11 @@ namespace EDUGraphAPI.Web.Models
         }
 
         public School School { get; set; }
+
         public ArrayResult<SectionUser> Users { get; set; }
+
         public ArrayResult<SectionUser> Students { get; set; }
+
         public ArrayResult<SectionUser> Teachers { get; set; }
     }
 }

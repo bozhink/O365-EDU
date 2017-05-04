@@ -3,7 +3,7 @@
  *   * See LICENSE in the project root for license information.
  */
 
-namespace Microsoft.Education.Data.Models
+namespace Microsoft.Education.Services.Models
 {
     using Newtonsoft.Json;
 

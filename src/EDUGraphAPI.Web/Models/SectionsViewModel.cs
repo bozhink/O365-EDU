@@ -3,15 +3,13 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Web.Models;
-using Microsoft.Education;
-using Microsoft.Education.Data;
-using Microsoft.Education.Data.Models;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace EDUGraphAPI.Web.ViewModels
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using EDUGraphAPI.Web.Models;
+    using Microsoft.Education.Services.Models;
+
     public class SectionsViewModel
     {
         public SectionsViewModel(string userEmail, School School, ArrayResult<Section> sections, IEnumerable<Section> mySections)
@@ -32,8 +30,11 @@ namespace EDUGraphAPI.Web.ViewModels
         }
 
         public string UserEmail { get; set; }
+
         public School School { get; set; }
+
         public ArrayResult<Section> Sections { get; set; }
+
         public List<Section> MySections { get; set; }
 
         public UserContext UserContext { get; set; }

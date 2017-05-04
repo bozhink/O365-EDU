@@ -3,21 +3,20 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Data;
-using EDUGraphAPI.Utils;
-using EDUGraphAPI.Web.Infrastructure;
-using EDUGraphAPI.Web.Models;
-using EDUGraphAPI.Web.Services;
-using EDUGraphAPI.Web.ViewModels;
-using Microsoft.Education.Data;
-using Microsoft.Education.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-
 namespace EDUGraphAPI.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
+    using EDUGraphAPI.Data;
+    using EDUGraphAPI.Utils;
+    using EDUGraphAPI.Web.Infrastructure;
+    using EDUGraphAPI.Web.Models;
+    using EDUGraphAPI.Web.Services;
+    using EDUGraphAPI.Web.ViewModels;
+    using Microsoft.Education.Services.Models;
+
     [HandleAdalException, EduAuthorize]
     public class SchoolsController : Controller
     {
