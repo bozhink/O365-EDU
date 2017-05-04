@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUGraphAPI.Infrastructure"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUGraphAPI.GraphClients", "Services\EDUGraphAPI.GraphClients\EDUGraphAPI.GraphClients.csproj", "{38AFABB2-EA5D-422D-BD90-E8921CCEC247}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUGraphAPI.GraphClients.Models", "Services\EDUGraphAPI.GraphClients.Models\EDUGraphAPI.GraphClients.Models.csproj", "{CF2ADC1B-9FDF-4361-8A33-E49D695CE651}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{38AFABB2-EA5D-422D-BD90-E8921CCEC247}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38AFABB2-EA5D-422D-BD90-E8921CCEC247}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38AFABB2-EA5D-422D-BD90-E8921CCEC247}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF2ADC1B-9FDF-4361-8A33-E49D695CE651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF2ADC1B-9FDF-4361-8A33-E49D695CE651}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF2ADC1B-9FDF-4361-8A33-E49D695CE651}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF2ADC1B-9FDF-4361-8A33-E49D695CE651}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,5 +106,6 @@ Global
 		{A8479F5F-927B-4523-B7B7-A188B44E4092} = {1C2E8D3E-1559-4581-A50A-095D25DE029C}
 		{D57AD5D9-760D-4228-B6DD-3D9A5578A3D4} = {1C2E8D3E-1559-4581-A50A-095D25DE029C}
 		{38AFABB2-EA5D-422D-BD90-E8921CCEC247} = {31F019E9-5419-413C-B559-A43DA6743C0D}
+		{CF2ADC1B-9FDF-4361-8A33-E49D695CE651} = {31F019E9-5419-413C-B559-A43DA6743C0D}
 	EndGlobalSection
 EndGlobal
