@@ -105,10 +105,6 @@
       <Project>{321bf683-8fe3-4fd7-a76a-a8b67f6118ae}</Project>
       <Name>EDUGraphAPI.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Microsoft.Education\Microsoft.Education.csproj">
-      <Project>{4cbcd397-9137-4b1f-87c3-8e44ded7b9ff}</Project>
-      <Name>Microsoft.Education</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Services\Microsoft.Education.Services\Microsoft.Education.Services.csproj">
       <Project>{F42CBFB5-912F-4366-9707-084A51D01D56}</Project>
       <Name>Microsoft.Education.Services</Name>

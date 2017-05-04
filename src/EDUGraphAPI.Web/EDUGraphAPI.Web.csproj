@@ -503,10 +503,6 @@
       <Project>{8413B531-76FB-45C0-8573-1D0122660681}</Project>
       <Name>EDUGraphAPI.Enumerations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Microsoft.Education\Microsoft.Education.csproj">
-      <Project>{4cbcd397-9137-4b1f-87c3-8e44ded7b9ff}</Project>
-      <Name>Microsoft.Education</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Services\EDUGraphAPI.Services.Models\EDUGraphAPI.Services.Models.csproj">
       <Project>{E76C5FFD-A7B0-4CB2-A694-3385255B6C99}</Project>
       <Name>EDUGraphAPI.Services.Models</Name>
