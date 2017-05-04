@@ -3,7 +3,7 @@
  *   * See LICENSE in the project root for license information.
  */
 
-namespace EDUGraphAPI.Services.Cache
+namespace EDUGraphAPI.Common.Infrastructure
 {
     using System;
     using System.Linq;

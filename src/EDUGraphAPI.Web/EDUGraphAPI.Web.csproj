@@ -487,8 +487,8 @@
       <Project>{321bf683-8fe3-4fd7-a76a-a8b67f6118ae}</Project>
       <Name>EDUGraphAPI.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EDUGraphAPI.Common\EDUGraphAPI.Common.csproj">
-      <Project>{6f7dc16a-38ab-46cf-9f95-9e88e504856a}</Project>
+    <ProjectReference Include="..\Infrastructure\EDUGraphAPI.Common\EDUGraphAPI.Common.csproj">
+      <Project>{d52fdc49-827f-4fcf-9244-9f26f5278ab8}</Project>
       <Name>EDUGraphAPI.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure\EDUGraphAPI.Constants\EDUGraphAPI.Constants.csproj">
@@ -498,10 +498,6 @@
     <ProjectReference Include="..\Infrastructure\EDUGraphAPI.Enumerations\EDUGraphAPI.Enumerations.csproj">
       <Project>{8413B531-76FB-45C0-8573-1D0122660681}</Project>
       <Name>EDUGraphAPI.Enumerations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\EDUGraphAPI.Extensions\EDUGraphAPI.Extensions.csproj">
-      <Project>{1d2ef39f-71c1-41f2-9f14-db7abbaa04ce}</Project>
-      <Name>EDUGraphAPI.Extensions</Name>
     </ProjectReference>
     <ProjectReference Include="..\Microsoft.Education\Microsoft.Education.csproj">
       <Project>{4cbcd397-9137-4b1f-87c3-8e44ded7b9ff}</Project>

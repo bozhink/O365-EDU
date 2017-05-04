@@ -5,9 +5,8 @@
 
 namespace EDUGraphAPI.Utils
 {
+    using EDUGraphAPI.Common.Infrastructure;
     using EDUGraphAPI.Enumerations;
-    using EDUGraphAPI.Infrastructure;
-    using EDUGraphAPI.Services.Cache;
     using Microsoft.Azure.ActiveDirectory.GraphClient;
     using Microsoft.Education;
     using Microsoft.Graph;

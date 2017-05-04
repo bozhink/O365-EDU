@@ -43,7 +43,6 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BearerAuthenticationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleMapper.cs" />
   </ItemGroup>

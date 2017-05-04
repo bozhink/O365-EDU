@@ -149,8 +149,8 @@
       <Project>{321bf683-8fe3-4fd7-a76a-a8b67f6118ae}</Project>
       <Name>EDUGraphAPI.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EDUGraphAPI.Common\EDUGraphAPI.Common.csproj">
-      <Project>{6f7dc16a-38ab-46cf-9f95-9e88e504856a}</Project>
+    <ProjectReference Include="..\Infrastructure\EDUGraphAPI.Common\EDUGraphAPI.Common.csproj">
+      <Project>{d52fdc49-827f-4fcf-9244-9f26f5278ab8}</Project>
       <Name>EDUGraphAPI.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure\EDUGraphAPI.Constants\EDUGraphAPI.Constants.csproj">

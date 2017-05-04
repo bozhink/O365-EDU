@@ -3,7 +3,7 @@
  *   * See LICENSE in the project root for license information.
  */
 
-namespace EDUGraphAPI.Infrastructure
+namespace EDUGraphAPI.Common.Infrastructure
 {
     using System.Net.Http;
     using System.Net.Http.Headers;
