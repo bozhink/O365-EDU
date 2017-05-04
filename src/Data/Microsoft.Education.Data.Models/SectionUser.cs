@@ -3,10 +3,10 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using Newtonsoft.Json;
-
-namespace Microsoft.Education.Data
+namespace Microsoft.Education.Data.Models
 {
+    using Newtonsoft.Json;
+
     public class SectionUser
     {
         [JsonProperty("mail")]

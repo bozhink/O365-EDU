@@ -10,6 +10,7 @@ using EDUGraphAPI.Web.Models;
 using EDUGraphAPI.Web.Services;
 using EDUGraphAPI.Web.ViewModels;
 using Microsoft.Education.Data;
+using Microsoft.Education.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

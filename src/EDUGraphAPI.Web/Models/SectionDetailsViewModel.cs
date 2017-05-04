@@ -3,7 +3,7 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using Microsoft.Education.Data;
+using Microsoft.Education.Data.Models;
 using Microsoft.Graph;
 
 namespace EDUGraphAPI.Web.ViewModels

@@ -5,6 +5,7 @@
 
 using Microsoft.Education;
 using Microsoft.Education.Data;
+using Microsoft.Education.Data.Models;
 
 namespace EDUGraphAPI.Web.Models
 {

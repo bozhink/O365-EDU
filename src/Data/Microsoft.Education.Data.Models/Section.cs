@@ -3,14 +3,14 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using Microsoft.Education.Constants;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-
-namespace Microsoft.Education.Data
+namespace Microsoft.Education.Data.Models
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using Microsoft.Education.Constants;
+    using Newtonsoft.Json;
+
     public class Section
     {
         public Section()
@@ -87,12 +87,12 @@ namespace Microsoft.Education.Data
         [JsonProperty("extension_fe2174665583431c953114ff7268b7b3_Education_Status")]
         public string EducationStatus { get; set; }
 
-        public string CombinedCourseNumber => CourseName.Substring(0, 3).ToUpper() + Regex.Match(CourseNumber, @"\d+").Value;
+        public string CombinedCourseNumber => this.CourseName.Substring(0, 3).ToUpper() + Regex.Match(this.CourseNumber, @"\d+").Value;
 
         public List<SectionUser> Members { get; set; }
 
-        public IEnumerable<SectionUser> Students => Members.Where(c => c.ObjectType == EduConstants.StudentObjectType);
+        public IEnumerable<SectionUser> Students => this.Members.Where(c => c.ObjectType == EduConstants.StudentObjectType);
 
-        public IEnumerable<SectionUser> Teachers => Members.Where(c => c.ObjectType == EduConstants.TeacherObjectType);
+        public IEnumerable<SectionUser> Teachers => this.Members.Where(c => c.ObjectType == EduConstants.TeacherObjectType);
     }
 }

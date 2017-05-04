@@ -6,6 +6,7 @@
 using EDUGraphAPI.Web.Models;
 using Microsoft.Education;
 using Microsoft.Education.Data;
+using Microsoft.Education.Data.Models;
 using System.Collections.Generic;
 using System.Linq;
 

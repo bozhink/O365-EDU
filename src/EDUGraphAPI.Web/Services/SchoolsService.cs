@@ -9,6 +9,7 @@ using EDUGraphAPI.Web.Models;
 using EDUGraphAPI.Web.ViewModels;
 using Microsoft.Education;
 using Microsoft.Education.Data;
+using Microsoft.Education.Data.Models;
 using Microsoft.Graph;
 using System.Linq;
 using System.Threading.Tasks;
