@@ -4,6 +4,7 @@
  */
 
 using EDUGraphAPI.Data;
+using EDUGraphAPI.Data.Models;
 using EDUGraphAPI.DifferentialQuery;
 using EDUGraphAPI.Web.Infrastructure;
 using System;

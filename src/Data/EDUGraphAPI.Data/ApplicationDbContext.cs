@@ -3,11 +3,12 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using Microsoft.AspNet.Identity.EntityFramework;
-using System.Data.Entity;
-
 namespace EDUGraphAPI.Data
 {
+    using System.Data.Entity;
+    using EDUGraphAPI.Data.Models;
+    using Microsoft.AspNet.Identity.EntityFramework;
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()

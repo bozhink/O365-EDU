@@ -4,6 +4,7 @@
  */
 
 using EDUGraphAPI.Data;
+using EDUGraphAPI.Data.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;

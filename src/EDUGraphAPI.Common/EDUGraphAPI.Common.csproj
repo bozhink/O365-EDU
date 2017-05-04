@@ -15,6 +15,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -105,13 +106,6 @@
   <ItemGroup>
     <Compile Include="BingMapServices\BingMapService.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Data\ApplicationDbContext.cs" />
-    <Compile Include="Data\ApplicationUser.cs" />
-    <Compile Include="Data\ClassroomSeatingArrangements.cs" />
-    <Compile Include="Data\DatabseInitializer.cs" />
-    <Compile Include="Data\DataSyncRecord.cs" />
-    <Compile Include="Data\Organization.cs" />
-    <Compile Include="Data\UserTokenCache.cs" />
     <Compile Include="DifferentialQuery\Delta.cs" />
     <Compile Include="DifferentialQuery\DifferentialQueryService.cs" />
     <Compile Include="DifferentialQuery\DeltaResultParser.cs" />
@@ -125,7 +119,6 @@
     <Compile Include="Extensions\MSGraphExtension.cs" />
     <Compile Include="Infrastructure\BearerAuthenticationProvider.cs" />
     <Compile Include="Infrastructure\SimpleMapper.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdalTokenCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataSync\User.cs" />
@@ -140,6 +133,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Data\EDUGraphAPI.Data.Models\EDUGraphAPI.Data.Models.csproj">
+      <Project>{daec092a-a92f-46b3-93cd-ebd888a9eb65}</Project>
+      <Name>EDUGraphAPI.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\EDUGraphAPI.Data\EDUGraphAPI.Data.csproj">
+      <Project>{321bf683-8fe3-4fd7-a76a-a8b67f6118ae}</Project>
+      <Name>EDUGraphAPI.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Microsoft.Education\Microsoft.Education.csproj">
       <Project>{4cbcd397-9137-4b1f-87c3-8e44ded7b9ff}</Project>
       <Name>Microsoft.Education</Name>

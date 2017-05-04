@@ -1,8 +1,8 @@
-﻿using EDUGraphAPI.Migrations;
-using System.Data.Entity;
-
-namespace EDUGraphAPI.Data
+﻿namespace EDUGraphAPI.Data
 {
+    using System.Data.Entity;
+    using EDUGraphAPI.Data.Migrations;
+
     public static class DatabseInitializer
     {
         public static void Initialize()

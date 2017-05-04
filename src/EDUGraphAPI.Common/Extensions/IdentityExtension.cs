@@ -3,17 +3,53 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using Microsoft.AspNet.Identity;
-using System.Security.Claims;
-using System.Security.Principal;
-
 namespace EDUGraphAPI
 {
+    using System.Security.Claims;
+    using System.Security.Principal;
+    using System.Threading.Tasks;
+    using EDUGraphAPI.Data.Models;
+    using Microsoft.AspNet.Identity;
+
     public static class IdentityExtension
     {
         private static readonly string TenantId = "http://schemas.microsoft.com/identity/claims/tenantid";
 
         private static readonly string ObjectIdentifier = "http://schemas.microsoft.com/identity/claims/objectidentifier";
+
+        public static async Task<ClaimsIdentity> GenerateUserIdentityAsync(this ApplicationUser user, UserManager<ApplicationUser> manager)
+        {
+            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            var userIdentity = await manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+
+            if (user.Organization != null)
+            {
+                userIdentity.AddTenantIdClaim(user.Organization.TenantId);
+            }
+
+            if (user.O365UserId != null)
+            {
+                userIdentity.AddObjectIdentifierClaim(user.O365UserId);
+            }
+
+            if (user.FirstName.IsNotNullAndEmpty())
+            {
+                userIdentity.AddClaim(ClaimTypes.GivenName, user.FirstName);
+            }
+
+            if (user.LastName.IsNotNullAndEmpty())
+            {
+                userIdentity.AddClaim(ClaimTypes.Surname, user.LastName);
+            }
+
+            var roles = await manager.GetRolesAsync(user.Id);
+            foreach (var role in roles)
+            {
+                userIdentity.AddClaim(ClaimTypes.Role, role);
+            }
+
+            return userIdentity;
+        }
 
         public static string GetTenantId(this ClaimsIdentity identity)
         {

@@ -145,6 +145,10 @@
     <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Data\EDUGraphAPI.Data\EDUGraphAPI.Data.csproj">
+      <Project>{321bf683-8fe3-4fd7-a76a-a8b67f6118ae}</Project>
+      <Name>EDUGraphAPI.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EDUGraphAPI.Common\EDUGraphAPI.Common.csproj">
       <Project>{6f7dc16a-38ab-46cf-9f95-9e88e504856a}</Project>
       <Name>EDUGraphAPI.Common</Name>

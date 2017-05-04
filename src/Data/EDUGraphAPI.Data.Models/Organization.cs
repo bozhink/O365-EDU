@@ -3,10 +3,10 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using System;
-
-namespace EDUGraphAPI.Data
+namespace EDUGraphAPI.Data.Models
 {
+    using System;
+
     /// <summary>
     /// An instance of the class represents a tenant in Azure AD
     /// </summary>

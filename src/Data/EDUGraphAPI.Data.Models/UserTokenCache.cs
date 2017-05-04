@@ -3,11 +3,11 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace EDUGraphAPI.Data
+namespace EDUGraphAPI.Data.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public class UserTokenCache
     {
         [Key]

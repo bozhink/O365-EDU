@@ -3,7 +3,7 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Data;
+using EDUGraphAPI.Data.Models;
 using Microsoft.AspNet.Identity;
 using System.Web;
 

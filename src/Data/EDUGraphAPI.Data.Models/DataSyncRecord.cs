@@ -3,10 +3,10 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using System;
-
-namespace EDUGraphAPI.Data
+namespace EDUGraphAPI.Data.Models
 {
+    using System;
+
     public class DataSyncRecord
     {
         public int Id { get; set; }

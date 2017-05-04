@@ -4,6 +4,7 @@
  */
 
 using EDUGraphAPI.Data;
+using EDUGraphAPI.Data.Models;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
 using System.Linq;
