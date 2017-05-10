@@ -3,12 +3,12 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Data.Models;
-using Microsoft.AspNet.Identity;
-using System.Web;
-
 namespace EDUGraphAPI.Web.Models
 {
+    using System.Web;
+    using EDUGraphAPI.Data.Models;
+    using Microsoft.AspNet.Identity;
+
     /// <summary>
     /// Context for the logged-in user
     /// </summary>
@@ -35,42 +35,42 @@ namespace EDUGraphAPI.Web.Models
         /// <summary>
         /// Display name of the logged-in user
         /// </summary>
-        public string UserDisplayName => HttpContext.User.Identity.GetUserName();
+        public string UserDisplayName => this.HttpContext.User.Identity.GetUserName();
 
         /// <summary>
         /// Is the logged-in account a local account
         /// </summary>
-        public bool IsLocalAccount => User != null && User.Id == HttpContext.User.Identity.GetUserId();
+        public bool IsLocalAccount => this.User != null && this.User.Id == this.HttpContext.User.Identity.GetUserId();
 
         /// <summary>
         /// Is the logged-in account an Office 365 account
         /// </summary>
-        public bool IsO365Account => !IsLocalAccount;
+        public bool IsO365Account => !this.IsLocalAccount;
 
         /// <summary>
         /// Are the local account and Office 365 account linked
         /// </summary>
-        public bool AreAccountsLinked => User != null && User.O365UserId.IsNotNullAndEmpty();
+        public bool AreAccountsLinked => this.User != null && this.User.O365UserId.IsNotNullAndEmpty();
 
         /// <summary>
         /// Is the logged-in user a faculty (teacher)
         /// </summary>
-        public bool IsFaculty => HttpContext.User.IsInRole(Constants.Roles.Faculty);
+        public bool IsFaculty => this.HttpContext.User.IsInRole(EDUGraphAPI.Constants.Roles.Faculty);
 
         /// <summary>
         /// Is the logged-in user a student
         /// </summary>
-        public bool IsStudent => HttpContext.User.IsInRole(Constants.Roles.Student);
+        public bool IsStudent => this.HttpContext.User.IsInRole(EDUGraphAPI.Constants.Roles.Student);
 
         /// <summary>
         /// Is the logged-in user an administrator
         /// </summary>
-        public bool IsAdmin => HttpContext.User.IsInRole(Constants.Roles.Admin);
+        public bool IsAdmin => this.HttpContext.User.IsInRole(EDUGraphAPI.Constants.Roles.Admin);
 
         /// <summary>
         /// Is the use's tenant consented by a admin
         /// </summary>
-        public bool IsTenantConsented => User != null && User.Organization != null && User.Organization.IsAdminConsented;
+        public bool IsTenantConsented => this.User != null && this.User.Organization != null && this.User.Organization.IsAdminConsented;
 
         /// <summary>
         /// Get the email of the Office 365 account
@@ -78,8 +78,6 @@ namespace EDUGraphAPI.Web.Models
         /// <remarks>
         /// For unlinked local account, the value is null
         /// </remarks>
-        public string UserO365Email => AreAccountsLinked
-            ? User.O365Email
-            : (IsO365Account ? HttpContext.User.Identity.Name : null);
+        public string UserO365Email => this.AreAccountsLinked ? this.User.O365Email : (this.IsO365Account ? this.HttpContext.User.Identity.Name : null);
     }
 }

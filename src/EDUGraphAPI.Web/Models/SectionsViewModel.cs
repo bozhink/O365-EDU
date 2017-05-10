@@ -12,18 +12,18 @@ namespace EDUGraphAPI.Web.ViewModels
 
     public class SectionsViewModel
     {
-        public SectionsViewModel(string userEmail, School School, ArrayResult<Section> sections, IEnumerable<Section> mySections)
+        public SectionsViewModel(string userEmail, School school, ArrayResult<Section> sections, IEnumerable<Section> mySections)
         {
             this.UserEmail = userEmail;
-            this.School = School;
+            this.School = school;
             this.Sections = sections;
             this.MySections = mySections.ToList();
         }
 
-        public SectionsViewModel(UserContext userContext, School School, ArrayResult<Section> sections, IEnumerable<Section> mySections)
+        public SectionsViewModel(UserContext userContext, School school, ArrayResult<Section> sections, IEnumerable<Section> mySections)
         {
             this.UserEmail = userContext.UserO365Email;
-            this.School = School;
+            this.School = school;
             this.Sections = sections;
             this.MySections = mySections.ToList();
             this.UserContext = userContext;
@@ -41,7 +41,7 @@ namespace EDUGraphAPI.Web.ViewModels
 
         public bool IsMy(Section section)
         {
-            return MySections != null && MySections.Any(c => c.Email == section.Email);
+            return this.MySections != null && this.MySections.Any(c => c.Email == section.Email);
         }
     }
 }

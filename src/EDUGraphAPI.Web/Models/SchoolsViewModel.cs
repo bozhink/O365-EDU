@@ -3,21 +3,23 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using Microsoft.Education.Services.Models;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace EDUGraphAPI.Web.ViewModels
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Microsoft.Education.Services.Models;
+
     public class SchoolsViewModel
     {
         public SchoolsViewModel(IEnumerable<School> schools)
         {
-            Schools = schools.ToList();
+            this.Schools = schools.ToList();
         }
 
         public SchoolsViewModel()
-            : this(Enumerable.Empty<School>()) { }
+            : this(Enumerable.Empty<School>())
+        {
+        }
 
         public List<School> Schools { get; set; }
 

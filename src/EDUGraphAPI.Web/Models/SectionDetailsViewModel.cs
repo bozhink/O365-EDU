@@ -3,11 +3,11 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using Microsoft.Education.Services.Models;
-using Microsoft.Graph;
-
 namespace EDUGraphAPI.Web.ViewModels
 {
+    using Microsoft.Education.Services.Models;
+    using Microsoft.Graph;
+
     public class SectionDetailsViewModel
     {
         public School School { get; set; }
@@ -21,8 +21,11 @@ namespace EDUGraphAPI.Web.ViewModels
         public DriveItem[] DriveItems { get; set; }
 
         public string SeeMoreFilesUrl { get; set; }
+
         public bool IsStudent { get; set; }
+
         public string O365UserId { get; set; }
+
         public string MyFavoriteColor { get; set; }
     }
 }

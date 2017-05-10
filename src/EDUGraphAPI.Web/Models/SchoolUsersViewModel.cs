@@ -9,9 +9,9 @@ namespace EDUGraphAPI.Web.Models
 
     public class SchoolUsersViewModel
     {
-        public SchoolUsersViewModel(School School, ArrayResult<SectionUser> users, ArrayResult<SectionUser> students, ArrayResult<SectionUser> teachers)
+        public SchoolUsersViewModel(School school, ArrayResult<SectionUser> users, ArrayResult<SectionUser> students, ArrayResult<SectionUser> teachers)
         {
-            this.School = School;
+            this.School = school;
             this.Users = users;
             this.Students = students;
             this.Teachers = teachers;

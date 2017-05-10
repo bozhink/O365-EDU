@@ -3,14 +3,14 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Web.Models;
-using Microsoft.Azure.ActiveDirectory.GraphClient;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace EDUGraphAPI.Web.Services.GraphClients
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using EDUGraphAPI.Web.Models;
+    using Microsoft.Azure.ActiveDirectory.GraphClient;
+
     public class AADGraphClient : IGraphClient
     {
         private ActiveDirectoryClient activeDirectoryClient;

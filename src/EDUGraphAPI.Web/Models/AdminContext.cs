@@ -3,19 +3,19 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Data.Models;
-
 namespace EDUGraphAPI.Web.Models
 {
+    using EDUGraphAPI.Data.Models;
+
     public class AdminContext
     {
-        public Organization Organization { get; private set; }
-
         public AdminContext(Organization organization)
         {
             this.Organization = organization;
         }
 
-        public bool IsAdminConsented => Organization != null && Organization.IsAdminConsented;
+        public Organization Organization { get; private set; }
+
+        public bool IsAdminConsented => this.Organization != null && this.Organization.IsAdminConsented;
     }
 }
