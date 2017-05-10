@@ -3,14 +3,14 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Web.Models;
-using Microsoft.Graph;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace EDUGraphAPI.Web.Services.GraphClients
+namespace EDUGraphAPI.Services.GraphClients
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using EDUGraphAPI.Services.Models.GraphClients;
+    using Microsoft.Graph;
+
     public class MSGraphClient : IGraphClient
     {
         private GraphServiceClient graphServiceClient;
@@ -25,6 +25,7 @@ namespace EDUGraphAPI.Web.Services.GraphClients
             var me = await graphServiceClient.Me.Request()
                 .Select("id,givenName,surname,userPrincipalName,assignedLicenses")
                 .GetAsync();
+
             return new UserInfo
             {
                 Id = me.Id,
@@ -51,11 +52,20 @@ namespace EDUGraphAPI.Web.Services.GraphClients
             var roles = new List<string>();
             var directoryAdminRole = await GetDirectoryAdminRoleAsync();
             if (await directoryAdminRole.Members.AnyAsync(i => i.Id == user.Id))
+            {
                 roles.Add(EDUGraphAPI.Constants.Roles.Admin);
+            }
+
             if (user.AssignedLicenses.Any(i => i.SkuId == EDUGraphAPI.Constants.O365ProductLicenses.Faculty || i.SkuId == EDUGraphAPI.Constants.O365ProductLicenses.FacultyPro))
+            {
                 roles.Add(EDUGraphAPI.Constants.Roles.Faculty);
+            }
+
             if (user.AssignedLicenses.Any(i => i.SkuId == EDUGraphAPI.Constants.O365ProductLicenses.Student || i.SkuId == EDUGraphAPI.Constants.O365ProductLicenses.StudentPro))
+            {
                 roles.Add(EDUGraphAPI.Constants.Roles.Student);
+            }
+
             return roles.ToArray();
         }
 
@@ -64,9 +74,8 @@ namespace EDUGraphAPI.Web.Services.GraphClients
             var roles = await graphServiceClient.DirectoryRoles.Request()
                 .Expand(i => i.Members)
                 .GetAllAsync();
-            return roles
-                .Where(i => i.DisplayName == EDUGraphAPI.Constants.Common.AADCompanyAdminRoleName)
-                .FirstOrDefault();
+
+            return roles.FirstOrDefault(i => i.DisplayName == EDUGraphAPI.Constants.Common.AADCompanyAdminRoleName);
         }
     }
 }

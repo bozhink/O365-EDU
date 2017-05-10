@@ -3,26 +3,25 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Data;
-using EDUGraphAPI.Data.Models;
-using EDUGraphAPI.Services.Web;
-using EDUGraphAPI.Utils;
-using EDUGraphAPI.Web.Infrastructure;
-using EDUGraphAPI.Web.Models;
-using EDUGraphAPI.Web.Properties;
-using EDUGraphAPI.Web.Services;
-using EDUGraphAPI.Web.Services.GraphClients;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.OpenIdConnect;
-using System;
-using System.Data.Entity;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-
 namespace EDUGraphAPI.Web.Controllers
 {
+    using System;
+    using System.Data.Entity;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Mvc;
+    using EDUGraphAPI.Data.Models;
+    using EDUGraphAPI.Services.GraphClients;
+    using EDUGraphAPI.Services.Web;
+    using EDUGraphAPI.Utils;
+    using EDUGraphAPI.Web.Infrastructure;
+    using EDUGraphAPI.Web.Models;
+    using EDUGraphAPI.Web.Properties;
+    using EDUGraphAPI.Web.Services;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.Owin.Security;
+    using Microsoft.Owin.Security.OpenIdConnect;
+
     [EduAuthorize, HandleAdalException]
     public class LinkController : Controller
     {

@@ -3,21 +3,21 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Enumerations;
-using EDUGraphAPI.Utils;
-using EDUGraphAPI.Web.Infrastructure;
-using EDUGraphAPI.Web.Services;
-using EDUGraphAPI.Web.Services.GraphClients;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using AAD = Microsoft.Azure.ActiveDirectory.GraphClient;
-
 namespace EDUGraphAPI.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
+    using EDUGraphAPI.Enumerations;
+    using EDUGraphAPI.Services.GraphClients;
+    using EDUGraphAPI.Utils;
+    using EDUGraphAPI.Web.Infrastructure;
+    using EDUGraphAPI.Web.Services;
+    using AAD = Microsoft.Azure.ActiveDirectory.GraphClient;
+
     [EduAuthorize(Roles = "Admin"), HandleAdalException]
     public class AdminController : Controller
     {

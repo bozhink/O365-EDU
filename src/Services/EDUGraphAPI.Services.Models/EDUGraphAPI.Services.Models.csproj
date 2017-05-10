@@ -40,6 +40,8 @@
     <Compile Include="DifferentialQuery\Delta.cs" />
     <Compile Include="DifferentialQuery\DeltaResult.cs" />
     <Compile Include="DifferentialQuery\IDeltaEntity.cs" />
+    <Compile Include="GraphClients\TenantInfo.cs" />
+    <Compile Include="GraphClients\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\DemoPage.cs" />
     <Compile Include="Web\Link.cs" />
@@ -47,8 +49,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GraphClients\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

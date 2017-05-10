@@ -3,7 +3,7 @@
  *   * See LICENSE in the project root for license information.
  */
 
-namespace EDUGraphAPI.Web.Models
+namespace EDUGraphAPI.Services.Models.GraphClients
 {
     public class TenantInfo
     {

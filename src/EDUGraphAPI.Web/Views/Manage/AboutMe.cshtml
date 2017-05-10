@@ -25,15 +25,15 @@
     <div class="margin-top-12 margin-btm-12">
         @{ 
             string displayRole = "";
-            if (User.IsInRole(Constants.Roles.Admin))
+            if (User.IsInRole(EDUGraphAPI.Constants.Roles.Admin))
             {
                 displayRole = "Admin";
             }
-            else if (User.IsInRole(Constants.Roles.Faculty))
+            else if (User.IsInRole(EDUGraphAPI.Constants.Roles.Faculty))
             {
                 displayRole = "Teacher";
             }
-            else if (User.IsInRole(Constants.Roles.Student))
+            else if (User.IsInRole(EDUGraphAPI.Constants.Roles.Student))
             {
                 displayRole = "Student";
             }
@@ -63,10 +63,10 @@
         </div>
     </div>
 </div>
-@helper ColorsDropdown(string myFavoriteColor, List<ColorEntity> favoriteColors)
+@helper ColorsDropdown(string myFavoriteColor, List<EDUGraphAPI.Constants.ColorEntity> favoriteColors)
 {
     <select name="favoritecolor">
-        @foreach (ColorEntity color in favoriteColors)
+        @foreach (EDUGraphAPI.Constants.ColorEntity color in favoriteColors)
         {
             string selected = myFavoriteColor == color.Value ? "selected" : "";
             <option value="@color.Value" @selected>@color.DisplayName</option>

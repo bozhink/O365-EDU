@@ -3,24 +3,23 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Data;
-using EDUGraphAPI.Enumerations;
-using EDUGraphAPI.Services.Web;
-using EDUGraphAPI.Utils;
-using EDUGraphAPI.Web.Services;
-using EDUGraphAPI.Web.Services.GraphClients;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.OpenIdConnect;
-using Owin;
-using System;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-
 namespace EDUGraphAPI.Web
 {
+    using System;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+    using System.Web;
+    using EDUGraphAPI.Data;
+    using EDUGraphAPI.Enumerations;
+    using EDUGraphAPI.Services.GraphClients;
+    using EDUGraphAPI.Services.Web;
+    using EDUGraphAPI.Utils;
+    using Microsoft.IdentityModel.Clients.ActiveDirectory;
+    using Microsoft.Owin.Security;
+    using Microsoft.Owin.Security.Cookies;
+    using Microsoft.Owin.Security.OpenIdConnect;
+    using Owin;
+
     public partial class Startup
     {
         private ApplicationDbContext db = new ApplicationDbContext();

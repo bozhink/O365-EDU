@@ -7,13 +7,15 @@
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         string displayRole = "";
-        if (User.IsInRole(Constants.Roles.Admin))
+        if (User.IsInRole(EDUGraphAPI.Constants.Roles.Admin))
         {
             displayRole = "Admin.";
-        }else if (User.IsInRole(Constants.Roles.Faculty))
+        }
+        else if (User.IsInRole(EDUGraphAPI.Constants.Roles.Faculty))
         {
             displayRole = "Teacher.";
-        } else if (User.IsInRole(Constants.Roles.Student))
+        }
+        else if (User.IsInRole(EDUGraphAPI.Constants.Roles.Student))
         {
             displayRole = "Student.";
         }

@@ -258,8 +258,6 @@
     <Compile Include="Models\AboutMeViewModel.cs" />
     <Compile Include="Models\SeatingViewModel.cs" />
     <Compile Include="Models\SchoolUsersViewModel.cs" />
-    <Compile Include="Models\UserInfo.cs" />
-    <Compile Include="Models\TenantInfo.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -281,9 +279,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\GraphClients\AADGraphClient.cs" />
-    <Compile Include="Services\GraphClients\IGraphClient.cs" />
-    <Compile Include="Services\GraphClients\MSGraphClient.cs" />
     <Compile Include="Services\SchoolsService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Services\ApplicationService.cs" />
@@ -455,7 +450,6 @@
     <Content Include="Views\Link\LoginO365Required.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Shared\NoAccess.cshtml" />
-    <Content Include="Services\GraphClients\GraphClients.cd" />
     <Content Include="Views\Manage\AboutMe.cshtml" />
     <Content Include="Views\Schools\Users.cshtml" />
     <Content Include="Views\DemoHelper\Control.cshtml" />

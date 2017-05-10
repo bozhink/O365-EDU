@@ -3,11 +3,11 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Web.Models;
-using System.Threading.Tasks;
-
-namespace EDUGraphAPI.Web.Services.GraphClients
+namespace EDUGraphAPI.Services.GraphClients
 {
+    using System.Threading.Tasks;
+    using EDUGraphAPI.Services.Models.GraphClients;
+
     public interface IGraphClient
     {
         Task<UserInfo> GetCurrentUserAsync();

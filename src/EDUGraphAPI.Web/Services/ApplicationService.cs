@@ -4,6 +4,7 @@
  */
 using EDUGraphAPI.Data;
 using EDUGraphAPI.Data.Models;
+using EDUGraphAPI.Services.Models.GraphClients;
 using EDUGraphAPI.Web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -216,7 +217,7 @@ namespace EDUGraphAPI.Web.Services
             await dbContext.SaveChangesAsync();
 
             var rolesToRemove = (await userManager.GetRolesAsync(user.Id))
-                .Union(new[] { Constants.Roles.Admin, Constants.Roles.Faculty, Constants.Roles.Student })
+                .Union(new[] { EDUGraphAPI.Constants.Roles.Admin, EDUGraphAPI.Constants.Roles.Faculty, EDUGraphAPI.Constants.Roles.Student })
                 .ToArray();
             await userManager.RemoveFromRolesAsync(user.Id, rolesToRemove);
         }

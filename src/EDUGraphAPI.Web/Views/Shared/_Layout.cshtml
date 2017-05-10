@@ -45,7 +45,7 @@
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
-                        if (User.IsInRole(Constants.Roles.Admin))
+                        if (User.IsInRole(EDUGraphAPI.Constants.Roles.Admin))
                         {
                             <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
                         }

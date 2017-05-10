@@ -27,10 +27,10 @@
             </div>
     }
 </section>
-@helper ColorsDropdown(List<ColorEntity> favoriteColors)
+@helper ColorsDropdown(List<EDUGraphAPI.Constants.ColorEntity> favoriteColors)
 {
     <select name="FavoriteColor" id="FavoriteColor" class="form-control">
-        @foreach (ColorEntity entity in favoriteColors)
+        @foreach (EDUGraphAPI.Constants.ColorEntity entity in favoriteColors)
         {
             <option value="@entity.Value">@entity.DisplayName</option>
         }

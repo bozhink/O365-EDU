@@ -3,12 +3,12 @@
  *   * See LICENSE in the project root for license information.
  */
 
-namespace EDUGraphAPI.Web.Services.GraphClients
+namespace EDUGraphAPI.Services.GraphClients
 {
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using EDUGraphAPI.Web.Models;
+    using EDUGraphAPI.Services.Models.GraphClients;
     using Microsoft.Azure.ActiveDirectory.GraphClient;
 
     public class AADGraphClient : IGraphClient
@@ -39,6 +39,7 @@ namespace EDUGraphAPI.Web.Services.GraphClients
             var tenant = await activeDirectoryClient.TenantDetails
                 .Where(i => i.ObjectId == tenantId)
                 .ExecuteSingleAsync();
+
             return new TenantInfo
             {
                 Id = tenant.ObjectId,
@@ -74,9 +75,7 @@ namespace EDUGraphAPI.Web.Services.GraphClients
             var roles = await activeDirectoryClient.DirectoryRoles
                .Expand(i => i.Members)
                .ExecuteAllAsync();
-            return roles
-                .Where(i => i.DisplayName == EDUGraphAPI.Constants.Common.AADCompanyAdminRoleName)
-                .FirstOrDefault();
+            return roles.FirstOrDefault(i => i.DisplayName == EDUGraphAPI.Constants.Common.AADCompanyAdminRoleName);
         }
     }
 }
