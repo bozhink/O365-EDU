@@ -3,10 +3,10 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using System.Web.Optimization;
-
 namespace EDUGraphAPI.Web
 {
+    using System.Web.Optimization;
+
     public class BundleConfig
     {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
@@ -40,8 +40,7 @@ namespace EDUGraphAPI.Web
             bundles.Add(new ScriptBundle("~/bundles/classdetail").Include(
                         "~/Scripts/jquery.tablesorter.min.js",
                         "~/Scripts/moment.min.js",
-                        "~/Scripts/classdetail.js"
-            ));
+                        "~/Scripts/classdetail.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/users").Include(
                         "~/Scripts/users.js"));

@@ -41,6 +41,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\CookieService.cs" />
     <Compile Include="Web\DemoHelperService.cs" />
+    <Compile Include="Web\EmailService.cs" />
+    <Compile Include="Web\SmsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">

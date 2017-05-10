@@ -3,25 +3,26 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using Autofac;
-using Autofac.Integration.Mvc;
-using EDUGraphAPI.Data;
-using EDUGraphAPI.Services.Web;
-using EDUGraphAPI.Web.Controllers;
-using EDUGraphAPI.Web.Services;
-using Microsoft.AspNet.Identity.Owin;
-using Owin;
-using System.Web;
-using System.Web.Mvc;
-
 namespace EDUGraphAPI.Web
 {
+    using System.Web;
+    using System.Web.Mvc;
+    using Autofac;
+    using Autofac.Integration.Mvc;
+    using EDUGraphAPI.Data;
+    using EDUGraphAPI.Services.Web;
+    using EDUGraphAPI.Web.Controllers;
+    using EDUGraphAPI.Web.Services;
+    using Microsoft.AspNet.Identity.Owin;
+    using Owin;
+
     public partial class Startup
     {
         public void ConfigureIoC(IAppBuilder app)
         {
             var builder = new ContainerBuilder();
-            Register(builder);
+            this.Register(builder);
+
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 

@@ -3,11 +3,11 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using System.Web.Mvc;
-using System.Web.Routing;
-
 namespace EDUGraphAPI.Web
 {
+    using System.Web.Mvc;
+    using System.Web.Routing;
+
     public class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)
@@ -17,50 +17,42 @@ namespace EDUGraphAPI.Web
             routes.MapRoute(
                 name: "Classes",
                 url: "Schools/{schoolId}/Classes",
-                defaults: new { controller = "Schools", action = "Classes" }
-            );
+                defaults: new { controller = "Schools", action = "Classes" });
 
             routes.MapRoute(
                 name: "ClassesNext",
                 url: "Schools/{schoolId}/Classes/Next",
-                defaults: new { controller = "Schools", action = "ClassesNext" }
-            );
+                defaults: new { controller = "Schools", action = "ClassesNext" });
 
             routes.MapRoute(
                 name: "Users",
                 url: "Schools/{schoolId}/Users",
-                defaults: new { controller = "Schools", action = "Users" }
-            );
+                defaults: new { controller = "Schools", action = "Users" });
 
             routes.MapRoute(
                 name: "UsersNext",
                 url: "Schools/{schoolId}/Users/Next",
-                defaults: new { controller = "Schools", action = "UsersNext" }
-            );
+                defaults: new { controller = "Schools", action = "UsersNext" });
 
             routes.MapRoute(
                 name: "StudentsNext",
                 url: "Schools/{schoolId}/Students/Next",
-                defaults: new { controller = "Schools", action = "StudentsNext" }
-            );
+                defaults: new { controller = "Schools", action = "StudentsNext" });
 
             routes.MapRoute(
                 name: "TeachersNext",
                 url: "Schools/{schoolId}/Teachers/Next",
-                defaults: new { controller = "Schools", action = "TeachersNext" }
-            );
+                defaults: new { controller = "Schools", action = "TeachersNext" });
 
             routes.MapRoute(
                 name: "ClassDetails",
                 url: "Schools/{schoolId}/Classes/{sectionId}",
-                defaults: new { controller = "Schools", action = "ClassDetails" }
-            );
+                defaults: new { controller = "Schools", action = "ClassDetails" });
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
         }
     }
 }

@@ -21,12 +21,12 @@ namespace EDUGraphAPI.Web.Services
     /// </summary>
     public class SchoolsService
     {
-        private EducationServiceClient educationServiceClient;
+        private EducationServiceClient client;
         private ApplicationDbContext dbContext;
 
-        public SchoolsService(EducationServiceClient educationServiceClient, ApplicationDbContext dbContext)
+        public SchoolsService(EducationServiceClient client, ApplicationDbContext dbContext)
         {
-            this.educationServiceClient = educationServiceClient;
+            this.client = client;
             this.dbContext = dbContext;
         }
 
@@ -36,12 +36,13 @@ namespace EDUGraphAPI.Web.Services
         public async Task<SchoolsViewModel> GetSchoolsViewModelAsync(UserContext userContext)
         {
             var currentUser = userContext.IsStudent
-                ? await educationServiceClient.GetStudentAsync() as SectionUser
-                : await educationServiceClient.GetTeacherAsync() as SectionUser;
+                ? await this.client.GetStudentAsync() as SectionUser
+                : await this.client.GetTeacherAsync() as SectionUser;
 
-            var schools = (await educationServiceClient.GetSchoolsAsync())
+            var schools = (await this.client.GetSchoolsAsync())
                 .OrderBy(i => i.Name)
                 .ToArray();
+
             BingMapService mapServices = new BingMapService();
             for (var i = 0; i < schools.Count(); i++)
             {
@@ -89,10 +90,10 @@ namespace EDUGraphAPI.Web.Services
         /// </summary>
         public async Task<SectionsViewModel> GetSectionsViewModelAsync(UserContext userContext, string objectId, int top)
         {
-            var school = await educationServiceClient.GetSchoolAsync(objectId);
-            var mySections = await educationServiceClient.GetMySectionsAsync(school.SchoolId);
+            var school = await this.client.GetSchoolAsync(objectId);
+            var mySections = await this.client.GetMySectionsAsync(school.SchoolId);
             mySections = mySections.OrderBy(c => c.CombinedCourseNumber).ToArray();
-            var allSections = await educationServiceClient.GetAllSectionsAsync(school.SchoolId, top, null);
+            var allSections = await this.client.GetAllSectionsAsync(school.SchoolId, top, null);
 
             return new SectionsViewModel(userContext, school, allSections, mySections);
         }
@@ -102,9 +103,9 @@ namespace EDUGraphAPI.Web.Services
         /// </summary>
         public async Task<SectionsViewModel> GetSectionsViewModelAsync(UserContext userContext, string objectId, int top, string nextLink)
         {
-            var school = await educationServiceClient.GetSchoolAsync(objectId);
-            var mySections = await educationServiceClient.GetMySectionsAsync(school.SchoolId);
-            var allSections = await educationServiceClient.GetAllSectionsAsync(school.SchoolId, top, nextLink);
+            var school = await this.client.GetSchoolAsync(objectId);
+            var mySections = await this.client.GetMySectionsAsync(school.SchoolId);
+            var allSections = await this.client.GetAllSectionsAsync(school.SchoolId, top, nextLink);
 
             return new SectionsViewModel(userContext.UserO365Email, school, allSections, mySections);
         }
@@ -114,10 +115,10 @@ namespace EDUGraphAPI.Web.Services
         /// </summary>
         public async Task<SchoolUsersViewModel> GetSchoolUsersAsync(string objectId, int top)
         {
-            var school = await educationServiceClient.GetSchoolAsync(objectId);
-            var users = await educationServiceClient.GetMembersAsync(objectId, top, null);
-            var students = await educationServiceClient.GetStudentsAsync(school.SchoolId, top, null);
-            var teachers = await educationServiceClient.GetTeachersAsync(school.SchoolId, top, null);
+            var school = await this.client.GetSchoolAsync(objectId);
+            var users = await this.client.GetMembersAsync(objectId, top, null);
+            var students = await this.client.GetStudentsAsync(school.SchoolId, top, null);
+            var teachers = await this.client.GetTeachersAsync(school.SchoolId, top, null);
 
             return new SchoolUsersViewModel(school, users, students, teachers);
         }
@@ -127,8 +128,8 @@ namespace EDUGraphAPI.Web.Services
         /// </summary>
         public async Task<SchoolUsersViewModel> GetSchoolUsersAsync(string objectId, int top, string nextLink)
         {
-            var school = await educationServiceClient.GetSchoolAsync(objectId);
-            var users = await educationServiceClient.GetMembersAsync(objectId, top, nextLink);
+            var school = await this.client.GetSchoolAsync(objectId);
+            var users = await this.client.GetMembersAsync(objectId, top, nextLink);
 
             return new SchoolUsersViewModel(school, users, null, null);
         }
@@ -138,8 +139,8 @@ namespace EDUGraphAPI.Web.Services
         /// </summary>
         public async Task<SchoolUsersViewModel> GetSchoolStudentsAsync(string objectId, int top, string nextLink)
         {
-            var school = await educationServiceClient.GetSchoolAsync(objectId);
-            var students = await educationServiceClient.GetStudentsAsync(school.SchoolId, top, nextLink);
+            var school = await this.client.GetSchoolAsync(objectId);
+            var students = await this.client.GetStudentsAsync(school.SchoolId, top, nextLink);
 
             return new SchoolUsersViewModel(school, null, students, null);
         }
@@ -149,8 +150,8 @@ namespace EDUGraphAPI.Web.Services
         /// </summary>
         public async Task<SchoolUsersViewModel> GetSchoolTeachersAsync(string objectId, int top, string nextLink)
         {
-            var school = await educationServiceClient.GetSchoolAsync(objectId);
-            var teachers = await educationServiceClient.GetTeachersAsync(school.SchoolId, top, nextLink);
+            var school = await this.client.GetSchoolAsync(objectId);
+            var teachers = await this.client.GetTeachersAsync(school.SchoolId, top, nextLink);
 
             return new SchoolUsersViewModel(school, null, null, teachers);
         }
@@ -160,8 +161,8 @@ namespace EDUGraphAPI.Web.Services
         /// </summary>
         public async Task<SectionDetailsViewModel> GetSectionDetailsViewModelAsync(string schoolId, string classId, IGroupRequestBuilder group)
         {
-            var school = await educationServiceClient.GetSchoolAsync(schoolId);
-            var section = await educationServiceClient.GetSectionAsync(classId);
+            var school = await this.client.GetSchoolAsync(schoolId);
+            var section = await this.client.GetSectionAsync(classId);
             var driveRootFolder = await group.Drive.Root.Request().GetAsync();
 
             foreach (var user in section.Students)
@@ -186,7 +187,7 @@ namespace EDUGraphAPI.Web.Services
         /// </summary>
         public async Task<string[]> GetMyClassesAsync()
         {
-            var myClasses = await educationServiceClient.GetMySectionsAsync();
+            var myClasses = await this.client.GetMySectionsAsync();
             return myClasses
                 .Select(i => i.SectionName)
                 .ToArray();

@@ -47,13 +47,15 @@ namespace EDUGraphAPI.Web.Services
         /// </summary>
         public ApplicationUser GetCurrentUser()
         {
-            var userId = GetUserId();
-            if (userId.IsNullOrEmpty()) return null;
+            var userId = this.GetUserId();
+            if (userId.IsNullOrEmpty())
+            {
+                return null;
+            }
 
             return dbContext.Users
                 .Include(i => i.Organization)
-                .Where(i => i.Id == userId || i.O365UserId == userId)
-                .FirstOrDefault();
+                .FirstOrDefault(i => i.Id == userId || i.O365UserId == userId);
         }
 
         /// <summary>
@@ -61,13 +63,15 @@ namespace EDUGraphAPI.Web.Services
         /// </summary>
         public async Task<ApplicationUser> GetCurrentUserAsync()
         {
-            var userId = GetUserId();
-            if (userId.IsNullOrEmpty()) return null;
+            var userId = this.GetUserId();
+            if (userId.IsNullOrEmpty())
+            {
+                return null;
+            }
 
             return await dbContext.Users
                 .Include(i => i.Organization)
-                .Where(i => i.Id == userId || i.O365UserId == userId)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(i => i.Id == userId || i.O365UserId == userId);
         }
 
         /// <summary>
@@ -77,8 +81,7 @@ namespace EDUGraphAPI.Web.Services
         {
             return await dbContext.Users
                 .Include(i => i.Organization)
-                .Where(i => i.Id == id)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(i => i.Id == id);
         }
 
         /// <summary>
@@ -86,9 +89,9 @@ namespace EDUGraphAPI.Web.Services
         /// </summary>
         public async Task<ApplicationUser> GetUserByEmailAsync(string email)
         {
-            return await dbContext.Users               
-                .Where(i => i.Email == email)
-                .FirstOrDefaultAsync();
+            return await dbContext.Users
+                .Include(i => i.Organization)
+                .FirstOrDefaultAsync(i => i.Email == email);
         }
 
         /// <summary>
@@ -158,14 +161,14 @@ namespace EDUGraphAPI.Web.Services
         public async Task CreateOrUpdateOrganizationAsync(TenantInfo tenant, bool adminConsented)
         {
             var organization = await dbContext.Organizations
-                .Where(i => i.TenantId == tenant.Id)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(i => i.TenantId == tenant.Id);
 
             if (organization == null)
             {
                 organization = new Organization();
                 dbContext.Organizations.Add(organization);
             }
+
             InitOrganization(organization, tenant);
 
             organization.IsAdminConsented = adminConsented;
@@ -178,9 +181,12 @@ namespace EDUGraphAPI.Web.Services
         public async Task UpdateOrganizationAsync(string tenantId, bool adminConsented)
         {
             var organization = await dbContext.Organizations
-                  .Where(i => i.TenantId == tenantId)
-                  .FirstOrDefaultAsync();
-            if (organization == null) return;
+                  .FirstOrDefaultAsync(i => i.TenantId == tenantId);
+
+            if (organization == null)
+            {
+                return;
+            }
 
             organization.IsAdminConsented = adminConsented;
             dbContext.SaveChanges();
@@ -209,6 +215,7 @@ namespace EDUGraphAPI.Web.Services
             var caches = await dbContext.UserTokenCacheList
                 .Where(i => i.WebUserUniqueId == user.O365UserId)
                 .ToArrayAsync();
+
             dbContext.UserTokenCacheList.RemoveRange(caches);
 
             // remove o365 user info
@@ -219,6 +226,7 @@ namespace EDUGraphAPI.Web.Services
             var rolesToRemove = (await userManager.GetRolesAsync(user.Id))
                 .Union(new[] { EDUGraphAPI.Constants.Roles.Admin, EDUGraphAPI.Constants.Roles.Faculty, EDUGraphAPI.Constants.Roles.Student })
                 .ToArray();
+
             await userManager.RemoveFromRolesAsync(user.Id, rolesToRemove);
         }
 
@@ -230,7 +238,11 @@ namespace EDUGraphAPI.Web.Services
             var users = await dbContext.Users
                  .Where(i => i.Organization.TenantId == tenantId)
                  .ToArrayAsync();
-            if (users.IsNullOrEmpty()) return;
+
+            if (users.IsNullOrEmpty())
+            {
+                return;
+            }
 
             foreach (var user in users)
             {
@@ -238,6 +250,7 @@ namespace EDUGraphAPI.Web.Services
                 user.O365UserId = null;
                 user.O365Email = null;
             }
+
             dbContext.SaveChanges();
         }
 
@@ -249,19 +262,20 @@ namespace EDUGraphAPI.Web.Services
             foreach (var item in seatingArrangements)
             {
                 var seat = dbContext.ClassroomSeatingArrangements
-                    .Where(c => c.O365UserId == item.O365UserId && c.ClassId == item.ClassId)
-                    .FirstOrDefault();
+                    .FirstOrDefault(c => c.O365UserId == item.O365UserId && c.ClassId == item.ClassId);
 
                 //update
                 if (seat != null && item.Position != 0)
                 {
                     seat.Position = item.Position;
                 }
+
                 //delete
                 if (seat != null && item.Position == 0)
                 {
                     dbContext.ClassroomSeatingArrangements.Remove(seat);
                 }
+
                 //insert
                 if (seat == null && item.Position != 0)
                 {
@@ -271,6 +285,7 @@ namespace EDUGraphAPI.Web.Services
                         Position = item.Position,
                         ClassId = item.ClassId
                     };
+
                     dbContext.ClassroomSeatingArrangements.Add(seating);
                 }
             }
@@ -282,7 +297,11 @@ namespace EDUGraphAPI.Web.Services
             var userId = httpContext.User.Identity.GetUserId();
 
             var aadUserId = httpContext.User.GetObjectIdentifier();
-            if (aadUserId.IsNotNullAndEmpty()) userId = aadUserId;
+            if (aadUserId.IsNotNullAndEmpty())
+            {
+                userId = aadUserId;
+            }
+
             return userId;
         }
 
@@ -293,8 +312,16 @@ namespace EDUGraphAPI.Web.Services
 
             foreach (var role in newRoles.Except(oldRoles))
             {
-                if (await dbContext.Roles.AnyAsync(i => i.Name == role)) continue;
-                dbContext.Roles.Add(new IdentityRole { Id = Guid.NewGuid().ToString(), Name = role });
+                if (await dbContext.Roles.AnyAsync(i => i.Name == role))
+                {
+                    continue;
+                }
+
+                dbContext.Roles.Add(new IdentityRole
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = role
+                });
             }
             await dbContext.SaveChangesAsync();
 
@@ -313,14 +340,14 @@ namespace EDUGraphAPI.Web.Services
             if (localUser.Organization == null || localUser.Organization.TenantId != tenant.Id)
             {
                 var organization = await dbContext.Organizations
-                    .Where(i => i.TenantId == tenant.Id)
-                    .FirstOrDefaultAsync();
+                    .FirstOrDefaultAsync(i => i.TenantId == tenant.Id);
 
                 if (organization == null)
                 {
                     organization = new Organization();
                     InitOrganization(organization, tenant);
                 }
+
                 localUser.Organization = organization;
             }
         }
@@ -335,11 +362,13 @@ namespace EDUGraphAPI.Web.Services
         private async Task<Organization> GetCurrentTenantAsync()
         {
             var tenantId = httpContext.User.GetTenantId();
-            if (tenantId == null) return null;
+            if (tenantId == null)
+            {
+                return null;
+            }
 
             return await dbContext.Organizations
-                .Where(i => i.TenantId == tenantId)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(i => i.TenantId == tenantId);
         }
 
     }

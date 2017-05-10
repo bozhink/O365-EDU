@@ -3,10 +3,10 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using System.Web.Mvc;
-
 namespace EDUGraphAPI.Web
 {
+    using System.Web.Mvc;
+
     public class FilterConfig
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)

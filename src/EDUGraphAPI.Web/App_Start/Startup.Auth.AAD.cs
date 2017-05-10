@@ -55,7 +55,10 @@ namespace EDUGraphAPI.Web
                             CookieService cookieService = new CookieService();
                             string hint = cookieService.GetCookiesOfEmail();
                             if (!string.IsNullOrEmpty(hint))
+                            {
                                 context.ProtocolMessage.LoginHint = hint;
+                            }
+
                             return Task.FromResult(0);
                         },
                         AuthorizationCodeReceived = async (context) =>
@@ -73,7 +76,9 @@ namespace EDUGraphAPI.Web
                             var graphClient = new AADGraphClient(activeDirectoryClient);
                             var user = await graphClient.GetCurrentUserAsync();
                             foreach (var role in user.Roles)
+                            {
                                 identity.AddClaim(ClaimTypes.Role, role);
+                            }
                         },
                         AuthenticationFailed = (context) =>
                         {
