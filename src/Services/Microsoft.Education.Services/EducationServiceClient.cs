@@ -18,7 +18,7 @@ namespace Microsoft.Education.Services
     /// <summary>
     /// An instance of the EducationServiceClient class handles building requests, sending them to Office 365 Education API, and processing the responses.
     /// </summary>
-    public class EducationServiceClient
+    public class EducationServiceClient : IEducationServiceClient
     {
         private string serviceRoot;
         private Func<Task<string>> accessTokenGetter;

@@ -5,6 +5,7 @@
 
 namespace EDUGraphAPI.Web.Services
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web;
@@ -21,11 +22,21 @@ namespace EDUGraphAPI.Web.Services
     /// </summary>
     public class SchoolsService : ISchoolsService
     {
-        private EducationServiceClient client;
-        private ApplicationDbContext dbContext;
+        private readonly IEducationServiceClient client;
+        private readonly ApplicationDbContext dbContext;
 
-        public SchoolsService(EducationServiceClient client, ApplicationDbContext dbContext)
+        public SchoolsService(IEducationServiceClient client, ApplicationDbContext dbContext)
         {
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
+
+            if (dbContext == null)
+            {
+                throw new ArgumentNullException(nameof(dbContext));
+            }
+
             this.client = client;
             this.dbContext = dbContext;
         }

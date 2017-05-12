@@ -14,6 +14,7 @@ namespace EDUGraphAPI.Web
     using EDUGraphAPI.Web.Controllers;
     using EDUGraphAPI.Web.Services;
     using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Education.Services;
     using Owin;
 
     public partial class Startup
@@ -39,6 +40,8 @@ namespace EDUGraphAPI.Web
             builder.RegisterType<SchoolsService>().As<ISchoolsService>().InstancePerRequest();
             builder.RegisterType<DemoHelperService>().AsSelf().InstancePerRequest();
             builder.RegisterType<CookieService>().AsSelf().InstancePerRequest();
+
+            builder.RegisterType<EducationServiceClient>().As<IEducationServiceClient>().InstancePerRequest();
 
             // The following types are registered in Startup.Auth.Identity.cs
             // app.CreatePerOwinContext(ApplicationDbContext.Create);

@@ -45,7 +45,7 @@ namespace EDUGraphAPI.Utils
         /// <summary>
         /// Get an instance of EducationServiceClient
         /// </summary>
-        public static async Task<EducationServiceClient> GetEducationServiceClientAsync(Permissions permissions = Permissions.Delegated)
+        public static async Task<IEducationServiceClient> GetEducationServiceClientAsync(Permissions permissions = Permissions.Delegated)
         {
             var accessToken = await GetAccessTokenAsync(EDUGraphAPI.Constants.Resources.AADGraph, permissions);
             var serviceRoot = new Uri(new Uri(EDUGraphAPI.Constants.Resources.AADGraph), ClaimsPrincipal.Current.GetTenantId());
