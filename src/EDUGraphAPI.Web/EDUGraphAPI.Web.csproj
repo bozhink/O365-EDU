@@ -278,6 +278,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\IApplicationService.cs" />
+    <Compile Include="Services\ISchoolsService.cs" />
     <Compile Include="Services\SchoolsService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Services\ApplicationService.cs" />

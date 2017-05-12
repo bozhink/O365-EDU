@@ -36,8 +36,7 @@ namespace EDUGraphAPI.Web
         {
             builder.RegisterControllers(typeof(HomeController).Assembly);
             builder.RegisterType<ApplicationService>().As<IApplicationService>().InstancePerRequest();
-            //builder.RegisterType<ApplicationService>().AsSelf().InstancePerRequest();
-            builder.RegisterType<SchoolsService>().AsSelf().InstancePerRequest();
+            builder.RegisterType<SchoolsService>().As<ISchoolsService>().InstancePerRequest();
             builder.RegisterType<DemoHelperService>().AsSelf().InstancePerRequest();
             builder.RegisterType<CookieService>().AsSelf().InstancePerRequest();
 

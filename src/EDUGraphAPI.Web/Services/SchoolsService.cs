@@ -3,23 +3,23 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Data;
-using EDUGraphAPI.Services.BingMaps;
-using EDUGraphAPI.Web.Models;
-using EDUGraphAPI.Web.ViewModels;
-using Microsoft.Education.Services.Models;
-using Microsoft.Education.Services;
-using Microsoft.Graph;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-
 namespace EDUGraphAPI.Web.Services
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web;
+    using EDUGraphAPI.Data;
+    using EDUGraphAPI.Services.BingMaps;
+    using EDUGraphAPI.Web.Models;
+    using EDUGraphAPI.Web.ViewModels;
+    using Microsoft.Education.Services;
+    using Microsoft.Education.Services.Models;
+    using Microsoft.Graph;
+
     /// <summary>
     /// A service class used to get education data by controllers
     /// </summary>
-    public class SchoolsService
+    public class SchoolsService : ISchoolsService
     {
         private EducationServiceClient client;
         private ApplicationDbContext dbContext;

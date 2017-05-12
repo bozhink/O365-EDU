@@ -153,7 +153,7 @@ namespace EDUGraphAPI.Web.Controllers
             return Json("");
         }
 
-        private async Task<SchoolsService> GetSchoolsServiceAsync()
+        private async Task<ISchoolsService> GetSchoolsServiceAsync()
         {
             var educationServiceClient = await AuthenticationHelper.GetEducationServiceClientAsync();
             return new SchoolsService(educationServiceClient, dbContext);
