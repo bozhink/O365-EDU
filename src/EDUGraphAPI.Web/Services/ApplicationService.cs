@@ -1,30 +1,31 @@
-﻿/*   
- *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.  
- *   * See LICENSE in the project root for license information.  
+﻿/*
+ *   * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ *   * See LICENSE in the project root for license information.
  */
-using EDUGraphAPI.Data;
-using EDUGraphAPI.Data.Models;
-using EDUGraphAPI.Services.Models.GraphClients;
-using EDUGraphAPI.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace EDUGraphAPI.Web.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Threading.Tasks;
+    using System.Web;
+    using EDUGraphAPI.Data;
+    using EDUGraphAPI.Data.Models;
+    using EDUGraphAPI.Services.Models.GraphClients;
+    using EDUGraphAPI.Web.Models;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+
     /// <summary>
     /// An instance of the class handles getting/updating user/organization
     /// </summary>
-    public class ApplicationService
+    public class ApplicationService : IApplicationService
     {
-        static readonly string UserContextKey = typeof(UserContext).Name + "Context";
-        static readonly string AdminContextKey = typeof(UserContext).Name + "AdminContextKey";
+        private static readonly string UserContextKey = typeof(UserContext).Name + "Context";
+        private static readonly string AdminContextKey = typeof(UserContext).Name + "AdminContextKey";
 
         private HttpContextBase httpContext;
         private ApplicationDbContext dbContext;
@@ -370,6 +371,5 @@ namespace EDUGraphAPI.Web.Services
             return await dbContext.Organizations
                 .FirstOrDefaultAsync(i => i.TenantId == tenantId);
         }
-
     }
 }

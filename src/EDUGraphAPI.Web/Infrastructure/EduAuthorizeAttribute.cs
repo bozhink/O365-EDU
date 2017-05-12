@@ -17,7 +17,13 @@ namespace EDUGraphAPI.Web.Infrastructure
         {
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
-                filterContext.Result = new JsonResult { Data = new { error = "Unauthorized" } };
+                filterContext.Result = new JsonResult
+                {
+                    Data = new
+                    {
+                        error = "Unauthorized"
+                    }
+                };
             }
             else
             {

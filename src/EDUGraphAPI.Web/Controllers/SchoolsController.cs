@@ -20,11 +20,21 @@ namespace EDUGraphAPI.Web.Controllers
     [HandleAdalException, EduAuthorize]
     public class SchoolsController : Controller
     {
-        private ApplicationService applicationService;
+        private IApplicationService applicationService;
         private ApplicationDbContext dbContext;
 
-        public SchoolsController(ApplicationService applicationService, ApplicationDbContext dbContext)
+        public SchoolsController(IApplicationService applicationService, ApplicationDbContext dbContext)
         {
+            if (applicationService == null)
+            {
+                throw new ArgumentNullException(nameof(applicationService));
+            }
+
+            if (dbContext == null)
+            {
+                throw new ArgumentNullException(nameof(dbContext));
+            }
+
             this.applicationService = applicationService;
             this.dbContext = dbContext;
         }

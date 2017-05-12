@@ -3,20 +3,26 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Web.Infrastructure;
-using EDUGraphAPI.Web.Services;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-
 namespace EDUGraphAPI.Web.Controllers
 {
+    using System;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
+    using EDUGraphAPI.Web.Infrastructure;
+    using EDUGraphAPI.Web.Services;
+
     [EduAuthorize]
     public class HomeController : Controller
     {
-        private ApplicationService applicationService;
+        private IApplicationService applicationService;
 
-        public HomeController(ApplicationService applicationService)
+        public HomeController(IApplicationService applicationService)
         {
+            if (applicationService == null)
+            {
+                throw new ArgumentNullException(nameof(applicationService));
+            }
+
             this.applicationService = applicationService;
         }
 
@@ -28,7 +34,10 @@ namespace EDUGraphAPI.Web.Controllers
             if (context.AreAccountsLinked)
             {
                 if (context.IsAdmin && !context.IsTenantConsented)
+                {
                     return RedirectToAction("Index", "Admin");
+                }
+
                 return RedirectToAction("Index", "Schools");
             }
             else

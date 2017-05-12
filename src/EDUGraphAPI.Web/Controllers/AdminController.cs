@@ -24,10 +24,15 @@ namespace EDUGraphAPI.Web.Controllers
         private static readonly string StateKey = typeof(AdminController).Name + "State";
         private static readonly string AdminConsentRedirectUrlKey = typeof(AdminController).Name + "AdminConsentRedirectUrl";
 
-        private ApplicationService applicationService;
+        private IApplicationService applicationService;
 
-        public AdminController(ApplicationService applicationService)
+        public AdminController(IApplicationService applicationService)
         {
+            if (applicationService == null)
+            {
+                throw new ArgumentNullException(nameof(applicationService));
+            }
+
             this.applicationService = applicationService;
         }
 

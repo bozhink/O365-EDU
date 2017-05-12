@@ -3,34 +3,55 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Data;
-using EDUGraphAPI.Utils;
-using EDUGraphAPI.Web.Infrastructure;
-using EDUGraphAPI.Web.Models;
-using EDUGraphAPI.Web.Services;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-
 namespace EDUGraphAPI.Web.Controllers
 {
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Mvc;
+    using EDUGraphAPI.Data;
+    using EDUGraphAPI.Utils;
+    using EDUGraphAPI.Web.Infrastructure;
+    using EDUGraphAPI.Web.Models;
+    using EDUGraphAPI.Web.Services;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.Owin.Security;
+
     [EduAuthorize]
     public class ManageController : Controller
     {
         private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
-        private ApplicationService applicationService;
+        private IApplicationService applicationService;
         private ApplicationDbContext dbContext;
 
         public ManageController(
             ApplicationUserManager userManager,
             ApplicationSignInManager signInManager,
-            ApplicationService applicationService,
+            IApplicationService applicationService,
             ApplicationDbContext dbContext)
         {
+            if (userManager == null)
+            {
+                throw new ArgumentNullException(nameof(userManager));
+            }
+
+            if (signInManager == null)
+            {
+                throw new ArgumentNullException(nameof(signInManager));
+            }
+
+            if (applicationService == null)
+            {
+                throw new ArgumentNullException(nameof(applicationService));
+            }
+
+            if (dbContext == null)
+            {
+                throw new ArgumentNullException(nameof(dbContext));
+            }
+
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.applicationService = applicationService;

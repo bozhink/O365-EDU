@@ -27,17 +27,37 @@ namespace EDUGraphAPI.Web.Controllers
     {
         private static readonly string StateKey = typeof(LinkController).Name + "State";
 
-        private ApplicationService applicationService;
+        private IApplicationService applicationService;
         private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
         private CookieService cookieServie;
 
         public LinkController(
-            ApplicationService applicationService,
+            IApplicationService applicationService,
             ApplicationUserManager userManager,
             ApplicationSignInManager signInManager,
             CookieService cookieServie)
         {
+            if (applicationService == null)
+            {
+                throw new ArgumentNullException(nameof(applicationService));
+            }
+
+            if (userManager == null)
+            {
+                throw new ArgumentNullException(nameof(userManager));
+            }
+
+            if (signInManager == null)
+            {
+                throw new ArgumentNullException(nameof(signInManager));
+            }
+
+            if (cookieServie == null)
+            {
+                throw new ArgumentNullException(nameof(cookieServie));
+            }
+
             this.applicationService = applicationService;
             this.userManager = userManager;
             this.signInManager = signInManager;

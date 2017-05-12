@@ -3,12 +3,12 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Web.Services;
-using System.Web;
-using System.Web.Mvc;
-
 namespace EDUGraphAPI.Web.Infrastructure
 {
+    using System.Web;
+    using System.Web.Mvc;
+    using EDUGraphAPI.Web.Services;
+
     /// <summary>
     /// Only allow linked users or Office 365 users to visit the protected controllers/actions
     /// </summary>
@@ -16,14 +16,17 @@ namespace EDUGraphAPI.Web.Infrastructure
     {
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            var applicationService = DependencyResolver.Current.GetService<ApplicationService>();
+            var applicationService = DependencyResolver.Current.GetService<IApplicationService>();
             var user = applicationService.GetUserContext();
             return user.AreAccountsLinked || user.IsO365Account;
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            filterContext.Result = new ViewResult { ViewName = "NoAccess" };
+            filterContext.Result = new ViewResult
+            {
+                ViewName = "NoAccess"
+            };
         }
     }
 }

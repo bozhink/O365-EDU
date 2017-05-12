@@ -3,21 +3,21 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.OpenIdConnect;
-using System;
-using System.Web;
-using System.Web.Mvc;
-
 namespace EDUGraphAPI.Web.Infrastructure
 {
+    using System;
+    using System.Web;
+    using System.Web.Mvc;
+    using Microsoft.IdentityModel.Clients.ActiveDirectory;
+    using Microsoft.Owin.Security;
+    using Microsoft.Owin.Security.OpenIdConnect;
+
     /// <summary>
     /// Handle AdalException and navigate user to the authorize endpoint or /Link/LoginO365Required
     /// </summary>
     public class HandleAdalExceptionAttribute : ActionFilterAttribute, IExceptionFilter
     {
-        public static readonly string ChallengeImmediatelyTempDataKey = "ChallengeImmediately";
+        public const string ChallengeImmediatelyTempDataKey = "ChallengeImmediately";
 
         public void OnException(ExceptionContext filterContext)
         {
@@ -28,7 +28,14 @@ namespace EDUGraphAPI.Web.Infrastructure
 
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
-                filterContext.Result = new JsonResult { Data = new { error = "AdalException" } };
+                filterContext.Result = new JsonResult
+                {
+                    Data = new
+                    {
+                        error = "AdalException"
+                    }
+                };
+
                 filterContext.ExceptionHandled = true;
                 return;
             }
@@ -37,9 +44,12 @@ namespace EDUGraphAPI.Web.Infrastructure
             var challengeImmediately = filterContext.Controller.TempData[ChallengeImmediatelyTempDataKey];
             if (challengeImmediately as bool? == true)
             {
-                filterContext.HttpContext.GetOwinContext().Authentication.Challenge(
-                   new AuthenticationProperties { RedirectUri = requestUrl },
-                   OpenIdConnectAuthenticationDefaults.AuthenticationType);
+                var properties = new AuthenticationProperties
+                {
+                    RedirectUri = requestUrl
+                };
+
+                filterContext.HttpContext.GetOwinContext().Authentication.Challenge(properties, OpenIdConnectAuthenticationDefaults.AuthenticationType);
             }
             else
             {

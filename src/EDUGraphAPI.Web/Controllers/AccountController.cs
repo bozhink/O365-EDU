@@ -28,10 +28,13 @@ namespace EDUGraphAPI.Web.Controllers
         private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
         private CookieService cookieServie;
-        private ApplicationService applicationService;
+        private IApplicationService applicationService;
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, CookieService cookieService,
-            ApplicationService applicationService)
+        public AccountController(
+            ApplicationUserManager userManager,
+            ApplicationSignInManager signInManager,
+            CookieService cookieService,
+            IApplicationService applicationService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
