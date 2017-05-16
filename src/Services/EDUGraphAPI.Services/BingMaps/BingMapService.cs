@@ -14,7 +14,7 @@ namespace EDUGraphAPI.Services.BingMaps
 
     public class BingMapService : IBingMapService
     {
-        private string BingMapApiURL = "http://dev.virtualearth.net/REST/v1/Locations/US/{0}?output=json&key=" + WebConfigurationManager.AppSettings["BingMapKey"];
+        private static readonly string BingMapApiURL = "http://dev.virtualearth.net/REST/v1/Locations/US/{0}?output=json&key=" + WebConfigurationManager.AppSettings["BingMapKey"];
 
         /// <summary>
         /// Get longitude and latitude based on address.

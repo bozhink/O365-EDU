@@ -32,6 +32,7 @@
   <ItemGroup>
     <Compile Include="BingMaps\BingMapService.cs" />
     <Compile Include="BingMaps\IBingMapService.cs" />
+    <Compile Include="DataSync\IUserSyncService.cs" />
     <Compile Include="DataSync\UserSyncService.cs" />
     <Compile Include="DifferentialQuery\DeltaResultParser.cs" />
     <Compile Include="DifferentialQuery\DifferentialQueryService.cs" />

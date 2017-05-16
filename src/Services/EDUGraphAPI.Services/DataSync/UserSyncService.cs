@@ -22,19 +22,19 @@ namespace EDUGraphAPI.Services.DataSync
     /// <summary>
     /// An instance of the class handles syncing users in local database with differential query.
     /// </summary>
-    public class UserSyncService
+    public class UserSyncService : IUserSyncService
     {
         private const string UsersQuery = "users";
         private const string APIVersion = "1.5";
 
-        private TextWriter log;
-        private ApplicationDbContext dbContext;
-        private GetTenantAccessTokenAsyncDelegate getTenantAccessTokenAsync;
+        private readonly TextWriter log;
+        private readonly ApplicationDbContext db;
+        private readonly GetTenantAccessTokenAsyncDelegate getTenantAccessTokenAsync;
 
-        public UserSyncService(ApplicationDbContext dbContext, GetTenantAccessTokenAsyncDelegate getTenantAccessTokenAsync, TextWriter log)
+        public UserSyncService(ApplicationDbContext db, GetTenantAccessTokenAsyncDelegate getTenantAccessTokenAsync, TextWriter log)
         {
             this.log = log;
-            this.dbContext = dbContext;
+            this.db = db;
             this.getTenantAccessTokenAsync = getTenantAccessTokenAsync;
         }
 
@@ -42,23 +42,23 @@ namespace EDUGraphAPI.Services.DataSync
         {
             try
             {
-                await SyncAsyncCore();
+                await this.SyncAsyncCore();
             }
             catch (Exception ex)
             {
-                await WriteLogAsync("Failed to sync users. Error: " + ex.Message);
+                await this.WriteLogAsync("Failed to sync users. Error: " + ex.Message);
             }
         }
 
         private async Task SyncAsyncCore()
         {
-            var consentedOrganizations = await dbContext.Organizations
+            var consentedOrganizations = await this.db.Organizations
                 .Where(i => i.IsAdminConsented)
                 .ToArrayAsync();
 
             if (!consentedOrganizations.Any())
             {
-                await WriteLogAsync($"No consented organization found. This sync was canceled.");
+                await this.WriteLogAsync($"No consented organization found. This sync was canceled.");
                 return;
             }
 
@@ -66,33 +66,38 @@ namespace EDUGraphAPI.Services.DataSync
             {
                 try
                 {
-                    await SyncOrganizationUsersAsync(org);
-                    dbContext.SaveChanges();
-                    await WriteLogAsync($"All the changes were saved.");
+                    await this.SyncOrganizationUsersAsync(org);
+                    this.db.SaveChanges();
+                    await this.WriteLogAsync($"All the changes were saved.");
                 }
                 catch (Exception ex)
                 {
-                    await WriteLogAsync($"Failed to sync users of {org.Name}. Error: {ex.Message}");
+                    await this.WriteLogAsync($"Failed to sync users of {org.Name}. Error: {ex.Message}");
                 }
             }
         }
 
         private async Task SyncOrganizationUsersAsync(Organization org)
         {
-            await WriteLogAsync($"Starting to sync users for the {org.Name} organization.");
+            await this.WriteLogAsync($"Starting to sync users for the {org.Name} organization.");
 
-            var dataSyncRecord = await GetOrCreateDataSyncRecord(org.TenantId, UsersQuery);
+            var dataSyncRecord = await this.GetOrCreateDataSyncRecord(org.TenantId, UsersQuery);
 
-            await WriteLogAsync($"Send Differential Query.");
+            await this.WriteLogAsync($"Send Differential Query.");
             if (dataSyncRecord.Id == 0)
-                await WriteLogAsync("First time executing differential query; all items will return.");
-            var differentialQueryService = new DifferentialQueryService(() => getTenantAccessTokenAsync(org.TenantId));
+            {
+                await this.WriteLogAsync("First time executing differential query; all items will return.");
+            }
+
+            var differentialQueryService = new DifferentialQueryService(() => this.getTenantAccessTokenAsync.Invoke(org.TenantId));
 
             var result = await differentialQueryService.QueryAsync<User>(dataSyncRecord.DeltaLink, APIVersion);
-            await WriteLogAsync($"Get {result.Items.Length} users.");
+            await this.WriteLogAsync($"Get {result.Items.Length} users.");
 
             foreach (var differentialUser in result.Items)
-                await UpdateUserAsync(differentialUser);
+            {
+                await this.UpdateUserAsync(differentialUser);
+            }
 
             dataSyncRecord.DeltaLink = result.DeltaLink;
             dataSyncRecord.Updated = DateTime.UtcNow;
@@ -100,7 +105,7 @@ namespace EDUGraphAPI.Services.DataSync
 
         private async Task<DataSyncRecord> GetOrCreateDataSyncRecord(string tenantId, string query)
         {
-            var record = await dbContext.DataSyncRecords
+            var record = await this.db.DataSyncRecords
                 .Where(i => i.TenantId == tenantId)
                 .Where(i => i.Query == query)
                 .FirstOrDefaultAsync();
@@ -114,14 +119,16 @@ namespace EDUGraphAPI.Services.DataSync
                     TenantId = tenantId,
                     DeltaLink = url
                 };
-                dbContext.DataSyncRecords.Add(record);
+
+                this.db.DataSyncRecords.Add(record);
             }
+
             return record;
         }
 
         private async Task UpdateUserAsync(Delta<User> differentialUser)
         {
-            var user = await dbContext.Users
+            var user = await this.db.Users
                 .Where(i => i.O365UserId == differentialUser.Entity.ObjectId)
                 .FirstOrDefaultAsync();
             if (user == null)
@@ -135,7 +142,7 @@ namespace EDUGraphAPI.Services.DataSync
                 if (differentialUser.ModifiedPropertyNames.Any())
                 {
                     SimpleMapper.Map(differentialUser.Entity, user, differentialUser.ModifiedPropertyNames);
-                    await WriteLogAsync("Updated user {0}. Changed properties: {1}", user.O365Email, string.Join(", ", differentialUser.ModifiedPropertyNames));
+                    await this.WriteLogAsync("Updated user {0}. Changed properties: {1}", user.O365Email, string.Join(", ", differentialUser.ModifiedPropertyNames));
                 }
                 else
                 {
@@ -144,7 +151,7 @@ namespace EDUGraphAPI.Services.DataSync
             }
             else
             {
-                dbContext.Users.Remove(user);
+                this.db.Users.Remove(user);
                 await this.WriteLogAsync($"Deleted user {user.Email}.");
                 return;
             }
