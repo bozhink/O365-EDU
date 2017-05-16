@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="ColorEntity.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="ContextKeys.cs" />
     <Compile Include="O365ProductLicenses.cs" />
     <Compile Include="Prompt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

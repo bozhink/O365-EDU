@@ -10,13 +10,13 @@ namespace EDUGraphAPI.Web
     using Autofac;
     using Autofac.Integration.Mvc;
     using EDUGraphAPI.Data;
+    using EDUGraphAPI.Services.BingMaps;
+    using EDUGraphAPI.Services.GraphClients;
     using EDUGraphAPI.Services.Web;
     using EDUGraphAPI.Web.Controllers;
     using EDUGraphAPI.Web.Services;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Education.Services;
-    using EDUGraphAPI.Services.BingMaps;
-    using EDUGraphAPI.Services.GraphClients;
     using Owin;
 
     public partial class Startup
@@ -42,7 +42,7 @@ namespace EDUGraphAPI.Web
             builder.RegisterType<ApplicationService>().As<IApplicationService>().InstancePerRequest();
             builder.RegisterType<SchoolsService>().As<ISchoolsService>().InstancePerRequest();
             builder.RegisterType<SchoolsServiceFactory>().As<ISchoolsServiceFactory>().InstancePerRequest();
-            builder.RegisterType<DemoHelperService>().AsSelf().InstancePerRequest();
+            builder.RegisterType<DemoHelperService>().As<IDemoHelperService>().InstancePerRequest();
             builder.RegisterType<CookieService>().As<ICookieService>().InstancePerRequest();
 
             builder.RegisterType<GraphClientFactory>().As<IGraphClientFactory>().SingleInstance();

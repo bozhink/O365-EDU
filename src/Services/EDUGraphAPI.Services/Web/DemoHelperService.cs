@@ -11,13 +11,13 @@ namespace EDUGraphAPI.Services.Web
     using EDUGraphAPI.Services.Models.Web;
     using Newtonsoft.Json;
 
-    public class DemoHelperService
+    public class DemoHelperService : IDemoHelperService
     {
-        private static readonly string dataFilePath = "~/App_Data/demo-pages.json";
+        private const string DataFilePath = "~/App_Data/demo-pages.json";
 
         public DemoPage GetDemoPage(string controller, string action)
         {
-            var path = HttpContext.Current.Server.MapPath(dataFilePath);
+            var path = HttpContext.Current.Server.MapPath(DataFilePath);
             var json = File.ReadAllText(path);
             var pages = JsonConvert.DeserializeObject<DemoPage[]>(json);
 

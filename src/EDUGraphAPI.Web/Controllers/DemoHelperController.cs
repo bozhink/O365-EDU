@@ -3,27 +3,35 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Services.Web;
-using System.Web.Mvc;
-
 namespace EDUGraphAPI.Web.Controllers
 {
+    using System;
+    using System.Web.Mvc;
+    using EDUGraphAPI.Constants;
+    using EDUGraphAPI.Services.Web;
+
     public class DemoHelperController : Controller
     {
-        private DemoHelperService demoHelperService;
+        private readonly IDemoHelperService service;
 
-        public DemoHelperController(DemoHelperService demoHelperService)
+        public DemoHelperController(IDemoHelperService service)
         {
-            this.demoHelperService = demoHelperService;
+            if (service == null)
+            {
+                throw new ArgumentNullException(nameof(service));
+            }
+
+            this.service = service;
         }
 
         public ActionResult Control()
         {
             var parentActionRouteData = this.ControllerContext.ParentActionViewContext.RouteData;
-            var page = demoHelperService.GetDemoPage(
-                parentActionRouteData.GetRequiredString("controller"),
-                parentActionRouteData.GetRequiredString("action"));
-            return PartialView(page);
+            var page = this.service.GetDemoPage(
+                parentActionRouteData.GetRequiredString(ContextKeys.Controller),
+                parentActionRouteData.GetRequiredString(ContextKeys.Action));
+
+            return this.PartialView(page);
         }
     }
 }
