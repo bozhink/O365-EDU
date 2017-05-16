@@ -12,10 +12,9 @@ namespace EDUGraphAPI.Services.BingMaps
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
-    public class BingMapService
+    public class BingMapService : IBingMapService
     {
-        private string BingMapApiURL =
-            "http://dev.virtualearth.net/REST/v1/Locations/US/{0}?output=json&key=" + WebConfigurationManager.AppSettings["BingMapKey"];
+        private string BingMapApiURL = "http://dev.virtualearth.net/REST/v1/Locations/US/{0}?output=json&key=" + WebConfigurationManager.AppSettings["BingMapKey"];
 
         /// <summary>
         /// Get longitude and latitude based on address.
@@ -23,25 +22,27 @@ namespace EDUGraphAPI.Services.BingMaps
         /// </summary>
         /// <param name="address">Address to get longitude and latitude.</param>
         /// <returns></returns>
-        public async Task<List<string>> GetLongitudeAndLatitudeByAddress(string address)
+        public async Task<string[]> GetLongitudeAndLatitudeByAddressAsync(string address)
         {
-            List<string> result = new List<string>(2);
-            var client = new HttpClient();
-            var uri = string.Format(BingMapApiURL, address);
-            try
+            var result = new List<string>(2);
+            using (var client = new HttpClient())
             {
-                var response = await client.GetAsync(uri);
-                response.EnsureSuccessStatusCode();
-                JObject json = (JObject)JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
-                var coordinates = json["resourceSets"][0]["resources"][0]["point"]["coordinates"];
-                result.Add(coordinates[0].ToString());
-                result.Add(coordinates[1].ToString());
-            }
-            catch
-            {
+                var uri = string.Format(BingMapApiURL, address);
+                try
+                {
+                    var response = await client.GetAsync(uri);
+                    response.EnsureSuccessStatusCode();
+                    JObject json = (JObject)JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
+                    var coordinates = json["resourceSets"][0]["resources"][0]["point"]["coordinates"];
+                    result.Add(coordinates[0].ToString());
+                    result.Add(coordinates[1].ToString());
+                }
+                catch
+                {
+                }
             }
 
-            return result;
+            return result.ToArray();
         }
     }
 }

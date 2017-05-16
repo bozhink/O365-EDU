@@ -279,7 +279,9 @@
     </Compile>
     <Compile Include="Services\IApplicationService.cs" />
     <Compile Include="Services\ISchoolsService.cs" />
+    <Compile Include="Services\ISchoolsServiceFactory.cs" />
     <Compile Include="Services\SchoolsService.cs" />
+    <Compile Include="Services\SchoolsServiceFactory.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Services\ApplicationService.cs" />
     <Compile Include="Models\SchoolsViewModel.cs" />

@@ -23,13 +23,19 @@ namespace EDUGraphAPI.Web.Services
     public class SchoolsService : ISchoolsService
     {
         private readonly IEducationServiceClient client;
+        private readonly IBingMapService mapService;
         private readonly ApplicationDbContext dbContext;
 
-        public SchoolsService(IEducationServiceClient client, ApplicationDbContext dbContext)
+        public SchoolsService(IEducationServiceClient client, IBingMapService mapService, ApplicationDbContext dbContext)
         {
             if (client == null)
             {
                 throw new ArgumentNullException(nameof(client));
+            }
+
+            if (mapService == null)
+            {
+                throw new ArgumentNullException(nameof(mapService));
             }
 
             if (dbContext == null)
@@ -38,6 +44,7 @@ namespace EDUGraphAPI.Web.Services
             }
 
             this.client = client;
+            this.mapService = mapService;
             this.dbContext = dbContext;
         }
 
@@ -54,17 +61,16 @@ namespace EDUGraphAPI.Web.Services
                 .OrderBy(i => i.Name)
                 .ToArray();
 
-            BingMapService mapServices = new BingMapService();
             for (var i = 0; i < schools.Count(); i++)
             {
                 var address = string.Format("{0}/{1}/{2}", schools[i].State, HttpUtility.HtmlEncode(schools[i].City), HttpUtility.HtmlEncode(schools[i].Address));
                 if (!string.IsNullOrEmpty(schools[i].Address))
                 {
-                    var longitudeAndLatitude = await mapServices.GetLongitudeAndLatitudeByAddress(address);
-                    if (longitudeAndLatitude.Count() == 2)
+                    var longitudeAndLatitude = await this.mapService.GetLongitudeAndLatitudeByAddressAsync(address);
+                    if (longitudeAndLatitude.Length == 2)
                     {
-                        schools[i].Latitude = longitudeAndLatitude[0].ToString();
-                        schools[i].Longitude = longitudeAndLatitude[1].ToString();
+                        schools[i].Latitude = longitudeAndLatitude[0];
+                        schools[i].Longitude = longitudeAndLatitude[1];
                     }
                 }
                 else

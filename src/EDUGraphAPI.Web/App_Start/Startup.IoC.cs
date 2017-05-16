@@ -15,6 +15,7 @@ namespace EDUGraphAPI.Web
     using EDUGraphAPI.Web.Services;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Education.Services;
+    using EDUGraphAPI.Services.BingMaps;
     using Owin;
 
     public partial class Startup
@@ -36,8 +37,10 @@ namespace EDUGraphAPI.Web
         private void Register(ContainerBuilder builder)
         {
             builder.RegisterControllers(typeof(HomeController).Assembly);
+            builder.RegisterType<BingMapService>().As<IBingMapService>().InstancePerRequest();
             builder.RegisterType<ApplicationService>().As<IApplicationService>().InstancePerRequest();
             builder.RegisterType<SchoolsService>().As<ISchoolsService>().InstancePerRequest();
+            builder.RegisterType<SchoolsServiceFactory>().As<ISchoolsServiceFactory>().InstancePerRequest();
             builder.RegisterType<DemoHelperService>().AsSelf().InstancePerRequest();
             builder.RegisterType<CookieService>().AsSelf().InstancePerRequest();
 

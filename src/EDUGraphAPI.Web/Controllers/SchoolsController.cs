@@ -20,11 +20,17 @@ namespace EDUGraphAPI.Web.Controllers
     [HandleAdalException, EduAuthorize]
     public class SchoolsController : Controller
     {
+        private readonly ISchoolsServiceFactory schoolsServiceFactory;
         private IApplicationService applicationService;
         private ApplicationDbContext dbContext;
 
-        public SchoolsController(IApplicationService applicationService, ApplicationDbContext dbContext)
+        public SchoolsController(ISchoolsServiceFactory schoolsServiceFactory, IApplicationService applicationService, ApplicationDbContext dbContext)
         {
+            if (schoolsServiceFactory ==null)
+            {
+                throw new ArgumentNullException(nameof(schoolsServiceFactory));
+            }
+
             if (applicationService == null)
             {
                 throw new ArgumentNullException(nameof(applicationService));
@@ -35,6 +41,7 @@ namespace EDUGraphAPI.Web.Controllers
                 throw new ArgumentNullException(nameof(dbContext));
             }
 
+            this.schoolsServiceFactory = schoolsServiceFactory;
             this.applicationService = applicationService;
             this.dbContext = dbContext;
         }
@@ -49,7 +56,7 @@ namespace EDUGraphAPI.Web.Controllers
                 return View(new SchoolsViewModel() { AreAccountsLinked = false, IsLocalAccount = userContext.IsLocalAccount });
             }
 
-            var schoolsService = await GetSchoolsServiceAsync();
+            var schoolsService = await this.schoolsServiceFactory.GetSchoolsServiceAsync(this.dbContext);
             var model = await schoolsService.GetSchoolsViewModelAsync(userContext);
             model.AreAccountsLinked = userContext.AreAccountsLinked;
 
@@ -61,7 +68,7 @@ namespace EDUGraphAPI.Web.Controllers
         public async Task<ActionResult> Classes(string schoolId)
         {
             var userContext = await applicationService.GetUserContextAsync();
-            var schoolsService = await GetSchoolsServiceAsync();
+            var schoolsService = await this.schoolsServiceFactory.GetSchoolsServiceAsync(this.dbContext);
             var model = await schoolsService.GetSectionsViewModelAsync(userContext, schoolId, 12);
             return View(model);
         }
@@ -71,7 +78,7 @@ namespace EDUGraphAPI.Web.Controllers
         public async Task<JsonResult> ClassesNext(string schoolId, string nextLink)
         {
             var userContext = await applicationService.GetUserContextAsync();
-            var schoolsService = await GetSchoolsServiceAsync();
+            var schoolsService = await this.schoolsServiceFactory.GetSchoolsServiceAsync(this.dbContext);
             var model = await schoolsService.GetSectionsViewModelAsync(userContext, schoolId, 12, nextLink);
             var sections = new List<Section>(model.Sections.Value);
             sections.AddRange(model.MySections);
@@ -94,7 +101,7 @@ namespace EDUGraphAPI.Web.Controllers
         // GET: /Schools/48D68C86-6EA6-4C25-AA33-223FC9A27959/Users
         public async Task<ActionResult> Users(string schoolId)
         {
-            var schoolsService = await GetSchoolsServiceAsync();
+            var schoolsService = await this.schoolsServiceFactory.GetSchoolsServiceAsync(this.dbContext);
             var model = await schoolsService.GetSchoolUsersAsync(schoolId, 12);
             return View(model);
         }
@@ -103,7 +110,7 @@ namespace EDUGraphAPI.Web.Controllers
         // GET: /Schools/48D68C86-6EA6-4C25-AA33-223FC9A27959/Users/Next
         public async Task<JsonResult> UsersNext(string schoolId, string nextLink)
         {
-            var schoolsService = await GetSchoolsServiceAsync();
+            var schoolsService = await this.schoolsServiceFactory.GetSchoolsServiceAsync(this.dbContext);
             var model = await schoolsService.GetSchoolUsersAsync(schoolId, 12, nextLink);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -112,7 +119,7 @@ namespace EDUGraphAPI.Web.Controllers
         // GET: /Schools/48D68C86-6EA6-4C25-AA33-223FC9A27959/Students/Next
         public async Task<JsonResult> StudentsNext(string schoolId, string nextLink)
         {
-            var schoolsService = await GetSchoolsServiceAsync();
+            var schoolsService = await this.schoolsServiceFactory.GetSchoolsServiceAsync(this.dbContext);
             var model = await schoolsService.GetSchoolStudentsAsync(schoolId, 12, nextLink);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -121,7 +128,7 @@ namespace EDUGraphAPI.Web.Controllers
         // GET: /Schools/48D68C86-6EA6-4C25-AA33-223FC9A27959/Teachers/Next
         public async Task<JsonResult> TeachersNext(string schoolId, string nextLink)
         {
-            var schoolsService = await GetSchoolsServiceAsync();
+            var schoolsService = await this.schoolsServiceFactory.GetSchoolsServiceAsync(this.dbContext);
             var model = await schoolsService.GetSchoolTeachersAsync(schoolId, 12, nextLink);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -135,7 +142,7 @@ namespace EDUGraphAPI.Web.Controllers
             var graphServiceClient = await AuthenticationHelper.GetGraphServiceClientAsync();
             var group = graphServiceClient.Groups[sectionId];
 
-            var schoolsService = await GetSchoolsServiceAsync();
+            var schoolsService = await this.schoolsServiceFactory.GetSchoolsServiceAsync(this.dbContext);
             var model = await schoolsService.GetSectionDetailsViewModelAsync(schoolId, sectionId, group);
             model.IsStudent = userContext.IsStudent;
             model.O365UserId = userContext.User.O365UserId;
@@ -151,12 +158,6 @@ namespace EDUGraphAPI.Web.Controllers
         {
             await applicationService.SaveSeatingArrangements(seatingArrangements);
             return Json("");
-        }
-
-        private async Task<ISchoolsService> GetSchoolsServiceAsync()
-        {
-            var educationServiceClient = await AuthenticationHelper.GetEducationServiceClientAsync();
-            return new SchoolsService(educationServiceClient, dbContext);
         }
     }
 }

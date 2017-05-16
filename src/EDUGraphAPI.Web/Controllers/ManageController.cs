@@ -21,17 +21,24 @@ namespace EDUGraphAPI.Web.Controllers
     [EduAuthorize]
     public class ManageController : Controller
     {
+        private readonly ISchoolsServiceFactory schoolsServiceFactory;
         private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
         private IApplicationService applicationService;
         private ApplicationDbContext dbContext;
 
         public ManageController(
+            ISchoolsServiceFactory schoolsServiceFactory,
             ApplicationUserManager userManager,
             ApplicationSignInManager signInManager,
             IApplicationService applicationService,
             ApplicationDbContext dbContext)
         {
+            if (schoolsServiceFactory == null)
+            {
+                throw new ArgumentNullException(nameof(schoolsServiceFactory));
+            }
+
             if (userManager == null)
             {
                 throw new ArgumentNullException(nameof(userManager));
@@ -52,6 +59,7 @@ namespace EDUGraphAPI.Web.Controllers
                 throw new ArgumentNullException(nameof(dbContext));
             }
 
+            this.schoolsServiceFactory = schoolsServiceFactory;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.applicationService = applicationService;
@@ -359,8 +367,7 @@ namespace EDUGraphAPI.Web.Controllers
 
             if (userContext.IsO365Account || userContext.AreAccountsLinked)
             {
-                var educationServiceClient = await AuthenticationHelper.GetEducationServiceClientAsync();
-                var schoolsService = new SchoolsService(educationServiceClient, dbContext);
+                var schoolsService = await this.schoolsServiceFactory.GetSchoolsServiceAsync(this.dbContext);
                 model.Groups.AddRange(await schoolsService.GetMyClassesAsync());
             }
 
