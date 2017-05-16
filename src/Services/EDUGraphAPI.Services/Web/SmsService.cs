@@ -8,7 +8,7 @@ namespace EDUGraphAPI.Services.Web
     using System.Threading.Tasks;
     using Microsoft.AspNet.Identity;
 
-    public class SmsService : IIdentityMessageService
+    public class SmsService : ISmsService
     {
         public Task SendAsync(IdentityMessage message)
         {
