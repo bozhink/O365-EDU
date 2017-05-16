@@ -46,6 +46,7 @@
     <Compile Include="Web\CookieService.cs" />
     <Compile Include="Web\DemoHelperService.cs" />
     <Compile Include="Web\EmailService.cs" />
+    <Compile Include="Web\ICookieService.cs" />
     <Compile Include="Web\SmsService.cs" />
   </ItemGroup>
   <ItemGroup>

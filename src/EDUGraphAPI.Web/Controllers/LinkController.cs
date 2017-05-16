@@ -30,14 +30,14 @@ namespace EDUGraphAPI.Web.Controllers
         private readonly IApplicationService applicationService;
         private readonly ApplicationSignInManager signInManager;
         private readonly ApplicationUserManager userManager;
-        private readonly CookieService cookieServie;
+        private readonly ICookieService cookieService;
         private readonly IGraphClientFactory graphClientFactory;
 
         public LinkController(
             IApplicationService applicationService,
             ApplicationUserManager userManager,
             ApplicationSignInManager signInManager,
-            CookieService cookieServie,
+            ICookieService cookieService,
             IGraphClientFactory graphClientFactory)
         {
             if (applicationService == null)
@@ -55,9 +55,9 @@ namespace EDUGraphAPI.Web.Controllers
                 throw new ArgumentNullException(nameof(signInManager));
             }
 
-            if (cookieServie == null)
+            if (cookieService == null)
             {
-                throw new ArgumentNullException(nameof(cookieServie));
+                throw new ArgumentNullException(nameof(cookieService));
             }
 
             if (graphClientFactory == null)
@@ -68,7 +68,7 @@ namespace EDUGraphAPI.Web.Controllers
             this.applicationService = applicationService;
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.cookieServie = cookieServie;
+            this.cookieService = cookieService;
             this.graphClientFactory = graphClientFactory;
         }
 

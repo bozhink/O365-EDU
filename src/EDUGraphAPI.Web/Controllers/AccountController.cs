@@ -25,20 +25,20 @@ namespace EDUGraphAPI.Web.Controllers
     [EduAuthorize]
     public class AccountController : Controller
     {
-        private ApplicationSignInManager signInManager;
-        private ApplicationUserManager userManager;
-        private CookieService cookieServie;
-        private IApplicationService applicationService;
+        private readonly ApplicationSignInManager signInManager;
+        private readonly ApplicationUserManager userManager;
+        private readonly ICookieService cookieService;
+        private readonly IApplicationService applicationService;
 
         public AccountController(
             ApplicationUserManager userManager,
             ApplicationSignInManager signInManager,
-            CookieService cookieService,
+            ICookieService cookieService,
             IApplicationService applicationService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.cookieServie = cookieService;
+            this.cookieService = cookieService;
             this.applicationService = applicationService;
         }
 
@@ -48,7 +48,7 @@ namespace EDUGraphAPI.Web.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            cookieServie.ClearCookies();
+            cookieService.ClearCookies();
             return View();
         }
 
@@ -409,8 +409,8 @@ namespace EDUGraphAPI.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            string email = cookieServie.GetCookiesOfEmail();
-            string username = cookieServie.GetCookiesOfUsername();
+            string email = cookieService.GetCookiesOfEmail();
+            string username = cookieService.GetCookiesOfUsername();
             AuthenticationManager.SignOut(
                 DefaultAuthenticationTypes.ApplicationCookie,
                 OpenIdConnectAuthenticationDefaults.AuthenticationType,
@@ -449,8 +449,8 @@ namespace EDUGraphAPI.Web.Controllers
         [AllowAnonymous]
         public ActionResult O365login()
         {
-            string username = cookieServie.GetCookiesOfUsername();
-            string email = cookieServie.GetCookiesOfEmail();
+            string username = cookieService.GetCookiesOfUsername();
+            string email = cookieService.GetCookiesOfEmail();
             if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(email))
             {
                 TempData["username"] = username;

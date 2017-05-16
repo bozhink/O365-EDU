@@ -6,6 +6,7 @@
 namespace EDUGraphAPI.Web
 {
     using EDUGraphAPI.Services.GraphClients;
+    using EDUGraphAPI.Services.Web;
     using Owin;
 
     public partial class Startup
@@ -13,7 +14,7 @@ namespace EDUGraphAPI.Web
         public void Configuration(IAppBuilder app)
         {
             ConfigureIdentityAuth(app);
-            ConfigureAADAuth(app, new GraphClientFactory());
+            ConfigureAADAuth(app, new GraphClientFactory(), new CookieService());
             ConfigureIoC(app);
         }
     }

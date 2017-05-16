@@ -8,7 +8,7 @@ namespace EDUGraphAPI.Services.Web
     using System;
     using System.Web;
 
-    public class CookieService
+    public class CookieService : ICookieService
     {
         private const string UsernameCookie = EDUGraphAPI.Constants.Common.UsernameCookie;
         private const string EmailCookie = EDUGraphAPI.Constants.Common.EmailCookie;

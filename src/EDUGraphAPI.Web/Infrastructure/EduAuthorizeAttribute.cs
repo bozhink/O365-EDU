@@ -27,7 +27,7 @@ namespace EDUGraphAPI.Web.Infrastructure
             }
             else
             {
-                CookieService cookieService = new CookieService();
+                var cookieService = new CookieService();
                 string username = cookieService.GetCookiesOfUsername();
                 string email = cookieService.GetCookiesOfEmail();
                 if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(email))

@@ -21,7 +21,7 @@ namespace EDUGraphAPI.Web
 
     public partial class Startup
     {
-        public void ConfigureAADAuth(IAppBuilder app, IGraphClientFactory graphClientFactory)
+        public void ConfigureAADAuth(IAppBuilder app, IGraphClientFactory graphClientFactory, ICookieService cookieService)
         {
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
 
@@ -49,7 +49,6 @@ namespace EDUGraphAPI.Web
                             string appBaseUrl = context.Request.Scheme + "://" + context.Request.Host + context.Request.PathBase;
                             context.ProtocolMessage.RedirectUri = appBaseUrl + "/";
                             context.ProtocolMessage.PostLogoutRedirectUri = appBaseUrl;
-                            CookieService cookieService = new CookieService();
                             string hint = cookieService.GetCookiesOfEmail();
                             if (!string.IsNullOrEmpty(hint))
                             {

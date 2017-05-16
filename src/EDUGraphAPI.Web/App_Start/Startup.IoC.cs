@@ -43,7 +43,7 @@ namespace EDUGraphAPI.Web
             builder.RegisterType<SchoolsService>().As<ISchoolsService>().InstancePerRequest();
             builder.RegisterType<SchoolsServiceFactory>().As<ISchoolsServiceFactory>().InstancePerRequest();
             builder.RegisterType<DemoHelperService>().AsSelf().InstancePerRequest();
-            builder.RegisterType<CookieService>().AsSelf().InstancePerRequest();
+            builder.RegisterType<CookieService>().As<ICookieService>().InstancePerRequest();
 
             builder.RegisterType<GraphClientFactory>().As<IGraphClientFactory>().SingleInstance();
 
