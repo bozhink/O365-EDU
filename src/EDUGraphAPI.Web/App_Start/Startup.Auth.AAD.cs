@@ -9,7 +9,6 @@ namespace EDUGraphAPI.Web
     using System.Security.Claims;
     using System.Threading.Tasks;
     using System.Web;
-    using EDUGraphAPI.Data;
     using EDUGraphAPI.Enumerations;
     using EDUGraphAPI.Services.GraphClients;
     using EDUGraphAPI.Services.Web;
@@ -22,9 +21,7 @@ namespace EDUGraphAPI.Web
 
     public partial class Startup
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
-        public void ConfigureAADAuth(IAppBuilder app)
+        public void ConfigureAADAuth(IAppBuilder app, IGraphClientFactory graphClientFactory)
         {
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
 
@@ -73,7 +70,7 @@ namespace EDUGraphAPI.Web
 
                             // Get user's roles and add them to claims
                             var activeDirectoryClient = authResult.CreateActiveDirectoryClient();
-                            var graphClient = new AADGraphClient(activeDirectoryClient);
+                            var graphClient = graphClientFactory.CreateAADGraphClient(activeDirectoryClient);
                             var user = await graphClient.GetCurrentUserAsync();
                             foreach (var role in user.Roles)
                             {

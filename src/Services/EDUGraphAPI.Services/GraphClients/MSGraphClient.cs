@@ -5,6 +5,7 @@
 
 namespace EDUGraphAPI.Services.GraphClients
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -13,16 +14,21 @@ namespace EDUGraphAPI.Services.GraphClients
 
     public class MSGraphClient : IGraphClient
     {
-        private GraphServiceClient graphServiceClient;
+        private readonly GraphServiceClient graphServiceClient;
 
         public MSGraphClient(GraphServiceClient graphServiceClient)
         {
+            if (graphServiceClient == null)
+            {
+                throw new ArgumentNullException(nameof(graphServiceClient));
+            }
+
             this.graphServiceClient = graphServiceClient;
         }
 
         public async Task<UserInfo> GetCurrentUserAsync()
         {
-            var me = await graphServiceClient.Me.Request()
+            var me = await this.graphServiceClient.Me.Request()
                 .Select("id,givenName,surname,userPrincipalName,assignedLicenses")
                 .GetAsync();
 
@@ -33,13 +39,13 @@ namespace EDUGraphAPI.Services.GraphClients
                 Surname = me.Surname,
                 Mail = me.Mail,
                 UserPrincipalName = me.UserPrincipalName,
-                Roles = await GetRolesAsync(me)
+                Roles = await this.GetRolesAsync(me)
             };
         }
 
         public async Task<TenantInfo> GetTenantAsync(string tenantId)
         {
-            var tenant = await graphServiceClient.Organization[tenantId].Request().GetAsync();
+            var tenant = await this.graphServiceClient.Organization[tenantId].Request().GetAsync();
             return new TenantInfo
             {
                 Id = tenant.Id,
@@ -50,7 +56,7 @@ namespace EDUGraphAPI.Services.GraphClients
         public async Task<string[]> GetRolesAsync(User user)
         {
             var roles = new List<string>();
-            var directoryAdminRole = await GetDirectoryAdminRoleAsync();
+            var directoryAdminRole = await this.GetDirectoryAdminRoleAsync();
             if (await directoryAdminRole.Members.AnyAsync(i => i.Id == user.Id))
             {
                 roles.Add(EDUGraphAPI.Constants.Roles.Admin);
@@ -71,7 +77,7 @@ namespace EDUGraphAPI.Services.GraphClients
 
         private async Task<DirectoryRole> GetDirectoryAdminRoleAsync()
         {
-            var roles = await graphServiceClient.DirectoryRoles.Request()
+            var roles = await this.graphServiceClient.DirectoryRoles.Request()
                 .Expand(i => i.Members)
                 .GetAllAsync();
 

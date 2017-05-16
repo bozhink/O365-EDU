@@ -27,16 +27,18 @@ namespace EDUGraphAPI.Web.Controllers
     {
         private static readonly string StateKey = typeof(LinkController).Name + "State";
 
-        private IApplicationService applicationService;
-        private ApplicationSignInManager signInManager;
-        private ApplicationUserManager userManager;
-        private CookieService cookieServie;
+        private readonly IApplicationService applicationService;
+        private readonly ApplicationSignInManager signInManager;
+        private readonly ApplicationUserManager userManager;
+        private readonly CookieService cookieServie;
+        private readonly IGraphClientFactory graphClientFactory;
 
         public LinkController(
             IApplicationService applicationService,
             ApplicationUserManager userManager,
             ApplicationSignInManager signInManager,
-            CookieService cookieServie)
+            CookieService cookieServie,
+            IGraphClientFactory graphClientFactory)
         {
             if (applicationService == null)
             {
@@ -58,10 +60,16 @@ namespace EDUGraphAPI.Web.Controllers
                 throw new ArgumentNullException(nameof(cookieServie));
             }
 
+            if (graphClientFactory == null)
+            {
+                throw new ArgumentNullException(nameof(graphClientFactory));
+            }
+
             this.applicationService = applicationService;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.cookieServie = cookieServie;
+            this.graphClientFactory = graphClientFactory;
         }
 
         //
@@ -72,7 +80,7 @@ namespace EDUGraphAPI.Web.Controllers
             if (userContext.IsO365Account && !userContext.AreAccountsLinked)
             {
                 var activeDirectoryClient = await AuthenticationHelper.GetActiveDirectoryClientAsync();
-                var graphClient = new AADGraphClient(activeDirectoryClient);
+                var graphClient = this.graphClientFactory.CreateAADGraphClient(activeDirectoryClient);
                 var user = await graphClient.GetCurrentUserAsync();
                 var email = user.Mail ?? user.UserPrincipalName;
 
@@ -112,7 +120,7 @@ namespace EDUGraphAPI.Web.Controllers
             var tenantId = authResult.TenantId;
             var graphServiceClient = authResult.CreateGraphServiceClient();
 
-            IGraphClient graphClient = new MSGraphClient(graphServiceClient);
+            IGraphClient graphClient = this.graphClientFactory.CreateMSGraphClient(graphServiceClient);
             var user = await graphClient.GetCurrentUserAsync();
             var tenant = await graphClient.GetTenantAsync(tenantId);
 
@@ -142,7 +150,7 @@ namespace EDUGraphAPI.Web.Controllers
         public async Task<ActionResult> LoginLocal(LoginViewModel model)
         {
             var activeDirectoryClient = await AuthenticationHelper.GetActiveDirectoryClientAsync();
-            IGraphClient graphClient = new AADGraphClient(activeDirectoryClient);
+            IGraphClient graphClient = this.graphClientFactory.CreateAADGraphClient(activeDirectoryClient);
             var user = await graphClient.GetCurrentUserAsync();
             var localUser = userManager.FindByEmail(user.Mail);
             if (localUser == null)
@@ -199,7 +207,7 @@ namespace EDUGraphAPI.Web.Controllers
             var tenantId = User.GetTenantId();
             var activeDirectoryClient = await AuthenticationHelper.GetActiveDirectoryClientAsync();
 
-            IGraphClient graphClient = new AADGraphClient(activeDirectoryClient);
+            IGraphClient graphClient = this.graphClientFactory.CreateAADGraphClient(activeDirectoryClient);
             var user = await graphClient.GetCurrentUserAsync();
             var tenant = await graphClient.GetTenantAsync(tenantId);
 
@@ -235,7 +243,7 @@ namespace EDUGraphAPI.Web.Controllers
             var tenantId = User.GetTenantId();
             var activeDirectoryClient = await AuthenticationHelper.GetActiveDirectoryClientAsync();
 
-            IGraphClient graphClient = new AADGraphClient(activeDirectoryClient);
+            IGraphClient graphClient = this.graphClientFactory.CreateAADGraphClient(activeDirectoryClient);
             var user = await graphClient.GetCurrentUserAsync();
             var tenant = await graphClient.GetTenantAsync(tenantId);
 

@@ -38,7 +38,9 @@
     <Compile Include="DifferentialQuery\DifferentialQueryService.cs" />
     <Compile Include="DifferentialQuery\DynamicProxyGenerator.cs" />
     <Compile Include="GraphClients\AADGraphClient.cs" />
+    <Compile Include="GraphClients\GraphClientFactory.cs" />
     <Compile Include="GraphClients\IGraphClient.cs" />
+    <Compile Include="GraphClients\IGraphClientFactory.cs" />
     <Compile Include="GraphClients\MSGraphClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\CookieService.cs" />

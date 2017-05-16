@@ -24,16 +24,24 @@ namespace EDUGraphAPI.Web.Controllers
         private static readonly string StateKey = typeof(AdminController).Name + "State";
         private static readonly string AdminConsentRedirectUrlKey = typeof(AdminController).Name + "AdminConsentRedirectUrl";
 
-        private IApplicationService applicationService;
+        private readonly IApplicationService applicationService;
+        private readonly IGraphClientFactory graphClientFactory;
 
-        public AdminController(IApplicationService applicationService)
+        public AdminController(IApplicationService applicationService, IGraphClientFactory graphClientFactory)
         {
             if (applicationService == null)
             {
                 throw new ArgumentNullException(nameof(applicationService));
             }
 
+            if(graphClientFactory == null)
+            {
+                throw new ArgumentNullException(nameof(graphClientFactory));
+            }
+
+
             this.applicationService = applicationService;
+            this.graphClientFactory = graphClientFactory;
         }
 
         //
@@ -87,7 +95,7 @@ namespace EDUGraphAPI.Web.Controllers
             // Get the tenant
             var authResult = await AuthenticationHelper.GetAuthenticationResultAsync(code);
             var activeDirectoryClient = authResult.CreateActiveDirectoryClient();
-            var graphClient = new AADGraphClient(activeDirectoryClient);
+            var graphClient = this.graphClientFactory.CreateAADGraphClient(activeDirectoryClient);
             var tenant = await graphClient.GetTenantAsync(authResult.TenantId);
 
             // Create (or update) an organization, and make it as AdminConsented
