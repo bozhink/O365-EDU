@@ -5,6 +5,7 @@
 
 using EDUGraphAPI.Data;
 using EDUGraphAPI.Services.DataSync;
+using EDUGraphAPI.Services.DifferentialQuery;
 using EDUGraphAPI.Utils;
 using Microsoft.Azure.WebJobs;
 using System.Configuration;
@@ -21,7 +22,7 @@ namespace EDUGraphAPI.SyncData
         public async static Task SyncUsersAsync([TimerTrigger("0 * * * * *")] TimerInfo timerInfo, TextWriter log)
         {
             var dbContext = new ApplicationDbContext("SyncDataWebJobDefaultConnection");
-            var userSyncService = new UserSyncService(dbContext, GetTenantAccessTokenAsync, log);
+            var userSyncService = new UserSyncService(dbContext, GetTenantAccessTokenAsync, new DifferentialQueryServiceFactory(), log);
             await userSyncService.SyncAsync();
         }
 

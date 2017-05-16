@@ -36,7 +36,10 @@
     <Compile Include="DataSync\UserSyncService.cs" />
     <Compile Include="DifferentialQuery\DeltaResultParser.cs" />
     <Compile Include="DifferentialQuery\DifferentialQueryService.cs" />
+    <Compile Include="DifferentialQuery\DifferentialQueryServiceFactory.cs" />
     <Compile Include="DifferentialQuery\DynamicProxyGenerator.cs" />
+    <Compile Include="DifferentialQuery\IDifferentialQueryService.cs" />
+    <Compile Include="DifferentialQuery\IDifferentialQueryServiceFactory.cs" />
     <Compile Include="GraphClients\AADGraphClient.cs" />
     <Compile Include="GraphClients\GraphClientFactory.cs" />
     <Compile Include="GraphClients\IGraphClient.cs" />

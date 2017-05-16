@@ -8,7 +8,7 @@ namespace EDUGraphAPI.Services.DifferentialQuery
     using EDUGraphAPI.Services.Models.DifferentialQuery;
     using Newtonsoft.Json;
 
-    public static class DeltaResultParser
+    internal static class DeltaResultParser
     {
         // The implement of the method below is complex. Please focus on the result it returns.
         // To use this method, please make sure that the properties used to track changes of the generic type should be virtual.

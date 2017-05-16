@@ -30,12 +30,29 @@ namespace EDUGraphAPI.Services.DataSync
         private readonly TextWriter log;
         private readonly ApplicationDbContext db;
         private readonly GetTenantAccessTokenAsyncDelegate getTenantAccessTokenAsync;
+        private readonly IDifferentialQueryServiceFactory differentialQueryServiceFactory;
 
-        public UserSyncService(ApplicationDbContext db, GetTenantAccessTokenAsyncDelegate getTenantAccessTokenAsync, TextWriter log)
+        public UserSyncService(ApplicationDbContext db, GetTenantAccessTokenAsyncDelegate getTenantAccessTokenAsync, IDifferentialQueryServiceFactory differentialQueryServiceFactory, TextWriter log)
         {
-            this.log = log;
+            if (db == null)
+            {
+                throw new ArgumentNullException(nameof(db));
+            }
+
+            if (getTenantAccessTokenAsync == null)
+            {
+                throw new ArgumentNullException(nameof(getTenantAccessTokenAsync));
+            }
+
+            if (differentialQueryServiceFactory == null)
+            {
+                throw new ArgumentNullException(nameof(differentialQueryServiceFactory));
+            }
+
             this.db = db;
             this.getTenantAccessTokenAsync = getTenantAccessTokenAsync;
+            this.differentialQueryServiceFactory = differentialQueryServiceFactory;
+            this.log = log;
         }
 
         public async Task SyncAsync()
