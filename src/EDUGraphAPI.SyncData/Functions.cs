@@ -3,35 +3,32 @@
  *   * See LICENSE in the project root for license information.
  */
 
-using EDUGraphAPI.Data;
-using EDUGraphAPI.Services.DataSync;
-using EDUGraphAPI.Services.DifferentialQuery;
-using EDUGraphAPI.Utils;
-using Microsoft.Azure.WebJobs;
-using System.Configuration;
-using System.IO;
-using System.Threading.Tasks;
-
 namespace EDUGraphAPI.SyncData
 {
+    using System.IO;
+    using System.Threading.Tasks;
+    using EDUGraphAPI.Constants;
+    using EDUGraphAPI.Data;
+    using EDUGraphAPI.Services.DataSync;
+    using EDUGraphAPI.Services.DifferentialQuery;
+    using EDUGraphAPI.Utils;
+    using Microsoft.Azure.WebJobs;
+
     public class Functions
     {
-        private static readonly string CertPath = ConfigurationManager.AppSettings["CertPath"];
-        private static readonly string CertPassword = ConfigurationManager.AppSettings["CertPassword"];
-
-        public async static Task SyncUsersAsync([TimerTrigger("0 * * * * *")] TimerInfo timerInfo, TextWriter log)
+        public static async Task SyncUsersAsync([TimerTrigger("0 * * * * *")] TimerInfo timerInfo, TextWriter log)
         {
-            var dbContext = new ApplicationDbContext("SyncDataWebJobDefaultConnection");
-            var userSyncService = new UserSyncService(dbContext, GetTenantAccessTokenAsync, new DifferentialQueryServiceFactory(), log);
+            var db = new ApplicationDbContext("SyncDataWebJobDefaultConnection");
+            var userSyncService = new UserSyncService(db, GetTenantAccessTokenAsync, new DifferentialQueryServiceFactory(), log);
             await userSyncService.SyncAsync();
         }
 
         private static Task<string> GetTenantAccessTokenAsync(string tenantId)
         {
             return AuthenticationHelper.GetAppOnlyAccessTokenForDaemonAppAsync(
-                EDUGraphAPI.Constants.Resources.AADGraph,
-                CertPath,
-                CertPassword,
+                Resources.AADGraph,
+                ConfigurationConstants.CertPath,
+                ConfigurationConstants.CertPassword,
                 tenantId);
         }
     }
