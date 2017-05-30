@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{398B56BA-3848-4A3A-8AD1-3BB816C72E9C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EDUGraphAPI.Services</RootNamespace>
+    <AssemblyName>EDUGraphAPI.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="BingMaps\BingMapService.cs" />
+    <Compile Include="BingMaps\IBingMapService.cs" />
+    <Compile Include="DataSync\IUserSyncService.cs" />
+    <Compile Include="DataSync\UserSyncService.cs" />
+    <Compile Include="DifferentialQuery\DeltaResultParser.cs" />
+    <Compile Include="DifferentialQuery\DifferentialQueryService.cs" />
+    <Compile Include="DifferentialQuery\DifferentialQueryServiceFactory.cs" />
+    <Compile Include="DifferentialQuery\DynamicProxyGenerator.cs" />
+    <Compile Include="DifferentialQuery\IDifferentialQueryService.cs" />
+    <Compile Include="DifferentialQuery\IDifferentialQueryServiceFactory.cs" />
+    <Compile Include="GraphClients\AADGraphClient.cs" />
+    <Compile Include="GraphClients\GraphClientFactory.cs" />
+    <Compile Include="GraphClients\IGraphClient.cs" />
+    <Compile Include="GraphClients\IGraphClientFactory.cs" />
+    <Compile Include="GraphClients\MSGraphClient.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\CookieService.cs" />
+    <Compile Include="Web\DemoHelperService.cs" />
+    <Compile Include="Web\EmailService.cs" />
+    <Compile Include="Web\ICookieService.cs" />
+    <Compile Include="Web\IDemoHelperService.cs" />
+    <Compile Include="Web\IEmailService.cs" />
+    <Compile Include="Web\ISmsService.cs" />
+    <Compile Include="Web\SmsService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.ActiveDirectory.GraphClient, Version=2.1.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Azure.ActiveDirectory.GraphClient.2.1.1\lib\portable-net4+sl5+win+wpa+wp8\Microsoft.Azure.ActiveDirectory.GraphClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Data.Edm.5.8.1\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Data.OData.5.8.1\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Data.Services.Client.5.8.1\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Graph, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Graph.1.2.0\lib\portable45-net45+win8+wpa81\Microsoft.Graph.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Graph.Core, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Graph.Core.1.3.0\lib\portable45-net45+win8+wpa81\Microsoft.Graph.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=3.13.7.964, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.13.7\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.Platform, Version=3.13.7.964, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.13.7\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Spatial.5.8.1\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\EDUGraphAPI.Data.Models\EDUGraphAPI.Data.Models.csproj">
+      <Project>{daec092a-a92f-46b3-93cd-ebd888a9eb65}</Project>
+      <Name>EDUGraphAPI.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\EDUGraphAPI.Data\EDUGraphAPI.Data.csproj">
+      <Project>{321bf683-8fe3-4fd7-a76a-a8b67f6118ae}</Project>
+      <Name>EDUGraphAPI.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\EDUGraphAPI.Common\EDUGraphAPI.Common.csproj">
+      <Project>{d52fdc49-827f-4fcf-9244-9f26f5278ab8}</Project>
+      <Name>EDUGraphAPI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\EDUGraphAPI.Constants\EDUGraphAPI.Constants.csproj">
+      <Project>{a8479f5f-927b-4523-b7b7-a188b44e4092}</Project>
+      <Name>EDUGraphAPI.Constants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\EDUGraphAPI.Infrastructure\EDUGraphAPI.Infrastructure.csproj">
+      <Project>{d57ad5d9-760d-4228-b6dd-3d9a5578a3d4}</Project>
+      <Name>EDUGraphAPI.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EDUGraphAPI.Services.Models\EDUGraphAPI.Services.Models.csproj">
+      <Project>{e76c5ffd-a7b0-4cb2-a694-3385255b6c99}</Project>
+      <Name>EDUGraphAPI.Services.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="GraphClients\GraphClients.cd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
