@@ -26,9 +26,24 @@ namespace EDUGraphAPI.Web.Controllers
 
         public SchoolsController(ISchoolsServiceFactory schoolsServiceFactory, IApplicationService applicationService, ApplicationDbContext db)
         {
-            this.schoolsServiceFactory = schoolsServiceFactory ?? throw new ArgumentNullException(nameof(schoolsServiceFactory));
-            this.applicationService = applicationService ?? throw new ArgumentNullException(nameof(applicationService));
-            this.db = db ?? throw new ArgumentNullException(nameof(db));
+            if (schoolsServiceFactory == null)
+            {
+                throw new ArgumentNullException(nameof(schoolsServiceFactory));
+            }
+
+            if (applicationService == null)
+            {
+                throw new ArgumentNullException(nameof(applicationService));
+            }
+
+            if (db == null)
+            {
+                throw new ArgumentNullException(nameof(db));
+            }
+
+            this.schoolsServiceFactory = schoolsServiceFactory;
+            this.applicationService = applicationService;
+            this.db = db;
         }
 
         // GET: /Schools/Index
