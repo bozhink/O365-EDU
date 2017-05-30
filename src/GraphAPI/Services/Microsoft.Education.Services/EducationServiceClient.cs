@@ -5,8 +5,6 @@
 
 namespace Microsoft.Education.Services
 {
-    using Microsoft.Education.Services.Models;
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
@@ -14,6 +12,8 @@ namespace Microsoft.Education.Services
     using System.Net.Http;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
+    using Microsoft.Education.Services.Models;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// An instance of the EducationServiceClient class handles building requests, sending them to Office 365 Education API, and processing the responses.
@@ -38,7 +38,7 @@ namespace Microsoft.Education.Services
         /// <returns></returns>
         public async Task<School[]> GetSchoolsAsync()
         {
-            var schools = await HttpGetArrayAsync<School>("administrativeUnits?api-version=beta");
+            var schools = await this.HttpGetArrayAsync<School>("administrativeUnits?api-version=beta");
             return schools.Where(c => c.EducationObjectType == "School").ToArray();
         }
 
@@ -50,7 +50,7 @@ namespace Microsoft.Education.Services
         /// <returns></returns>
         public Task<School> GetSchoolAsync(string objectId)
         {
-            return HttpGetObjectAsync<School>($"administrativeUnits/{objectId}?api-version=beta");
+            return this.HttpGetObjectAsync<School>($"administrativeUnits/{objectId}?api-version=beta");
         }
 
         #endregion schools
@@ -66,7 +66,7 @@ namespace Microsoft.Education.Services
         public Task<ArrayResult<Section>> GetAllSectionsAsync(string schoolId, int top, string nextLink)
         {
             var relativeUrl = $"groups?api-version=beta&$filter=extension_fe2174665583431c953114ff7268b7b3_Education_ObjectType%20eq%20'Section'%20and%20extension_fe2174665583431c953114ff7268b7b3_Education_SyncSource_SchoolId%20eq%20'{schoolId}'";
-            return HttpGetArrayAsync<Section>(relativeUrl, top, nextLink);
+            return this.HttpGetArrayAsync<Section>(relativeUrl, top, nextLink);
         }
 
         /// <summary>
@@ -76,11 +76,8 @@ namespace Microsoft.Education.Services
         public async Task<Section[]> GetMySectionsAsync(bool loadMembers = false)
         {
             var relativeUrl = $"me/memberOf?api-version=1.5";
-            var memberOf = await HttpGetArrayAsync<Section>(relativeUrl);
-            var sections = memberOf
-                .Where(i => i.ObjectType == "Group")
-                .Where(i => i.EducationObjectType == "Section")
-                .ToArray();
+            var memberOf = await this.HttpGetArrayAsync<Section>(relativeUrl);
+            var sections = memberOf.Where(i => i.ObjectType == "Group" && i.EducationObjectType == "Section").ToArray();
 
             if (loadMembers == false)
             {
@@ -94,7 +91,7 @@ namespace Microsoft.Education.Services
             {
                 var task = Task.Run(async () =>
                 {
-                    var s = await GetSectionAsync(section.ObjectId);
+                    var s = await this.GetSectionAsync(section.ObjectId);
                     sectionBag.Add(s);
                 });
 
@@ -112,10 +109,8 @@ namespace Microsoft.Education.Services
         /// <returns></returns>
         public async Task<Section[]> GetMySectionsAsync(string schoolId)
         {
-            var sections = await GetMySectionsAsync(true);
-            return sections
-                .Where(i => i.SchoolId == schoolId)
-                .ToArray();
+            var sections = await this.GetMySectionsAsync(true);
+            return sections.Where(i => i.SchoolId == schoolId).ToArray();
         }
 
         /// <summary>
@@ -126,7 +121,7 @@ namespace Microsoft.Education.Services
         /// <returns></returns>
         public async Task<Section> GetSectionAsync(string sectionId)
         {
-            return await HttpGetObjectAsync<Section>($"groups/{sectionId}?api-version=beta&$expand=members");
+            return await this.HttpGetObjectAsync<Section>($"groups/{sectionId}?api-version=beta&$expand=members");
         }
 
         #endregion sections
@@ -140,7 +135,7 @@ namespace Microsoft.Education.Services
         /// <returns></returns>
         public Task<Student> GetStudentAsync()
         {
-            return HttpGetObjectAsync<Student>("me?api-version=1.5");
+            return this.HttpGetObjectAsync<Student>("me?api-version=1.5");
         }
 
         /// <summary>
@@ -150,7 +145,7 @@ namespace Microsoft.Education.Services
         /// <returns></returns>
         public Task<Teacher> GetTeacherAsync()
         {
-            return HttpGetObjectAsync<Teacher>("me?api-version=1.5");
+            return this.HttpGetObjectAsync<Teacher>("me?api-version=1.5");
         }
 
         /// <summary>
@@ -161,7 +156,7 @@ namespace Microsoft.Education.Services
         /// <returns></returns>
         public async Task<ArrayResult<SectionUser>> GetMembersAsync(string objectId, int top, string nextLink)
         {
-            return await HttpGetArrayAsync<SectionUser>($"administrativeUnits/{objectId}/members?api-version=beta", top, nextLink);
+            return await this.HttpGetArrayAsync<SectionUser>($"administrativeUnits/{objectId}/members?api-version=beta", top, nextLink);
         }
 
         /// <summary>
@@ -172,7 +167,7 @@ namespace Microsoft.Education.Services
         /// <returns></returns>
         public async Task<ArrayResult<SectionUser>> GetStudentsAsync(string schoolId, int top, string nextLink)
         {
-            return await HttpGetArrayAsync<SectionUser>($"users?api-version=1.5&$filter=extension_fe2174665583431c953114ff7268b7b3_Education_SyncSource_SchoolId%20eq%20'{schoolId}'%20and%20extension_fe2174665583431c953114ff7268b7b3_Education_ObjectType%20eq%20'Student'", top, nextLink);
+            return await this.HttpGetArrayAsync<SectionUser>($"users?api-version=1.5&$filter=extension_fe2174665583431c953114ff7268b7b3_Education_SyncSource_SchoolId%20eq%20'{schoolId}'%20and%20extension_fe2174665583431c953114ff7268b7b3_Education_ObjectType%20eq%20'Student'", top, nextLink);
         }
 
         /// <summary>
@@ -183,7 +178,7 @@ namespace Microsoft.Education.Services
         /// <returns></returns>
         public async Task<ArrayResult<SectionUser>> GetTeachersAsync(string schoolId, int top, string nextLink)
         {
-            return await HttpGetArrayAsync<SectionUser>($"users?api-version=1.5&$filter=extension_fe2174665583431c953114ff7268b7b3_Education_SyncSource_SchoolId%20eq%20'{schoolId}'%20and%20extension_fe2174665583431c953114ff7268b7b3_Education_ObjectType%20eq%20'Teacher'", top, nextLink);
+            return await this.HttpGetArrayAsync<SectionUser>($"users?api-version=1.5&$filter=extension_fe2174665583431c953114ff7268b7b3_Education_SyncSource_SchoolId%20eq%20'{schoolId}'%20and%20extension_fe2174665583431c953114ff7268b7b3_Education_ObjectType%20eq%20'Teacher'", top, nextLink);
         }
 
         #endregion student and teacher
@@ -194,9 +189,9 @@ namespace Microsoft.Education.Services
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("Authorization", await accessTokenGetter());
+                client.DefaultRequestHeaders.Add("Authorization", await this.accessTokenGetter());
 
-                var uri = serviceRoot + "/" + relativeUrl;
+                var uri = this.serviceRoot + "/" + relativeUrl;
                 var response = await client.GetAsync(uri);
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsStringAsync();
@@ -205,13 +200,13 @@ namespace Microsoft.Education.Services
 
         private async Task<T> HttpGetObjectAsync<T>(string relativeUrl)
         {
-            var responseString = await HttpGetAsync(relativeUrl);
+            var responseString = await this.HttpGetAsync(relativeUrl);
             return JsonConvert.DeserializeObject<T>(responseString);
         }
 
         private async Task<T[]> HttpGetArrayAsync<T>(string relativeUrl)
         {
-            var responseString = await HttpGetAsync(relativeUrl);
+            var responseString = await this.HttpGetAsync(relativeUrl);
             var array = JsonConvert.DeserializeObject<ArrayResult<T>>(responseString);
             List<T> result = new List<T>();
             result.AddRange(array.Value);
@@ -221,7 +216,7 @@ namespace Microsoft.Education.Services
                 if (!string.IsNullOrEmpty(token))
                 {
                     var str = relativeUrl.IndexOf('?') >= 0 ? "&" : "?";
-                    responseString = await HttpGetAsync(relativeUrl + str + token);
+                    responseString = await this.HttpGetAsync(relativeUrl + str + token);
                     array = JsonConvert.DeserializeObject<ArrayResult<T>>(responseString);
                     result.AddRange(array.Value);
                 }
@@ -242,7 +237,8 @@ namespace Microsoft.Education.Services
                     relativeUrl += $"&{token}";
                 }
             }
-            var responseString = await HttpGetAsync(relativeUrl);
+
+            var responseString = await this.HttpGetAsync(relativeUrl);
             return JsonConvert.DeserializeObject<ArrayResult<T>>(responseString);
         }
 
